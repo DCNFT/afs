@@ -1,19 +1,29 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 // import { runInAction } from 'mobx';
 // import { observer } from 'mobx-react-lite';
 import throttle from 'lodash/throttle';
 // import { videoCreator } from '../../stores/VideoCreatorStore';
 import { Draggable } from '@/utils/Draggable';
+import VideoCreatorStore from '@/store/VideoCreatorStore';
 
 export const Playhead: React.FC = () => {
+  const {
+    time,
+    setTime,
+    timelineScale,
+    activeCompositionId,
+    preview,
+    isScrubbing,
+  } = VideoCreatorStore();
+
   //   const time = videoCreator.time;
   //   const timelineScale = videoCreator.timelineScale;
 
   // Get the active composition's appearance time
   let compositionTime = 0;
-  if (videoCreator.activeCompositionId) {
-    const composition = videoCreator.preview?.findElement(
-      (element) => element.source.id === videoCreator.activeCompositionId,
+  if (activeCompositionId) {
+    const composition = preview?.findElement(
+      (element) => element.source.id === activeCompositionId,
     );
 
     if (composition) {
@@ -22,10 +32,7 @@ export const Playhead: React.FC = () => {
   }
 
   const scrubToTime = (time: number) => {
-    runInAction(() => (videoCreator.isScrubbing = true));
-    videoCreator
-      .setTime(time)
-      .then(() => runInAction(() => (videoCreator.isScrubbing = false)));
+    setTime(time);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,8 +58,8 @@ export const Playhead: React.FC = () => {
           className="absolute z-10 top-0 h-full transform -translate-x-1/2"
           style={{ left: `${(time - compositionTime) * timelineScale}px` }}
         >
-          <div className="w-14 h-24 bg-red-600 rounded-md"></div>
-          <div className="ml-6 w-2 h-full bg-red-600"></div>
+          <div className="w-14 h-24 bg-red-600 rounded-md">head</div>
+          <div className="ml-6 w-2 h-full bg-red-600">hi</div>
         </div>
       )}
     </Draggable>

@@ -1,64 +1,108 @@
 import { create } from 'zustand';
+// import { v4 as uuid } from 'uuid';
+import {
+  CompositionState,
+  ElementState,
+  Preview,
+  PreviewState,
+} from '@creatomate/preview';
+// Define the state interface
+interface VideoCreatorState {
+  preview?: Preview;
+  state?: PreviewState;
+  tracks?: Map<number, ElementState[]>;
+  activeCompositionId: string | undefined;
+  activeElementIds: string[];
+  isLoading: boolean;
+  isPlaying: boolean;
+  time: number;
+  timelineScale: number;
+  isScrubbing: boolean;
+}
 
-const useVideoCreatorStore = create((set) => ({
-  preview: undefined,
-  state: undefined,
-  tracks: undefined,
-  activeCompositionId: undefined,
-  activeElementIds: [],
-  isLoading: true,
-  isPlaying: false,
-  time: 0,
-  timelineScale: 100,
-  isScrubbing: false,
+// Define the actions interface
+interface VideoCreatorActions {
+  initializeVideoPlayer: (htmlElement: HTMLDivElement) => void;
+  setTime: (time: number) => Promise<void>;
+  setActiveElements: (...elementIds: string[]) => Promise<void>;
+  getActiveElement: () => ElementState | undefined;
+  getActiveComposition: () => CompositionState | PreviewState | undefined;
+  getActiveCompositionElements: () => ElementState[] | null;
+  getActiveCompositionSource: () => Record<string, any>;
+  setActiveCompositionSource: (source: Record<string, any>) => Promise<void>;
+  createElement: (elementSource: Record<string, any>) => Promise<void>;
+  deleteElement: (elementId: string) => Promise<void>;
+  rearrangeTracks: (track: number, direction: 'up' | 'down') => Promise<void>;
+  finishVideo: () => Promise<any>;
+}
 
-  initializeVideoPlayer: (htmlElement) => {
-    // Your initialization code here
-  },
+// Create the Zustand store
+const VideoCreatorStore = create<VideoCreatorState & VideoCreatorActions>(
+  (set) => ({
+    preview: undefined,
+    state: undefined,
+    tracks: undefined,
+    activeCompositionId: undefined,
+    activeElementIds: [],
+    isLoading: true,
+    isPlaying: false,
+    time: 0,
+    timelineScale: 100,
+    isScrubbing: false,
 
-  setTime: async (time) => {
-    // Your setTime logic here
-  },
+    // Add your action implementations here
+    initializeVideoPlayer: (htmlElement: HTMLDivElement) => {
+      // Your initialization code here
+    },
 
-  setActiveElements: async (...elementIds) => {
-    // Your setActiveElements logic here
-  },
+    setTime: async (time: number) => {
+      set({ time });
+    },
 
-  getActiveElement: () => {
-    // Your getActiveElement logic here
-  },
+    setActiveElements: async (...elementIds: string[]) => {
+      // Your setActiveElements logic here
+    },
 
-  getActiveComposition: () => {
-    // Your getActiveComposition logic here
-  },
+    getActiveElement: () => {
+      // Your getActiveElement logic here
+      return undefined;
+    },
 
-  getActiveCompositionElements: () => {
-    // Your getActiveCompositionElements logic here
-  },
+    getActiveComposition: () => {
+      // Your getActiveComposition logic here
+      return undefined;
+    },
 
-  getActiveCompositionSource: () => {
-    // Your getActiveCompositionSource logic here
-  },
+    getActiveCompositionElements: () => {
+      // Your getActiveCompositionElements logic here
+      return null;
+    },
 
-  setActiveCompositionSource: async (source) => {
-    // Your setActiveCompositionSource logic here
-  },
+    getActiveCompositionSource: () => {
+      // Your getActiveCompositionSource logic here
+      return { 'test ': 'test' };
+    },
 
-  createElement: async (elementSource) => {
-    // Your createElement logic here
-  },
+    setActiveCompositionSource: async (source: Record<string, any>) => {
+      // Your setActiveCompositionSource logic here
+    },
 
-  deleteElement: async (elementId) => {
-    // Your deleteElement logic here
-  },
+    createElement: async (elementSource: Record<string, any>) => {
+      // Your createElement logic here
+    },
 
-  rearrangeTracks: async (track, direction) => {
-    // Your rearrangeTracks logic here
-  },
+    deleteElement: async (elementId: string) => {
+      // Your deleteElement logic here
+    },
 
-  finishVideo: async () => {
-    // Your finishVideo logic here
-  },
-}));
+    rearrangeTracks: async (track: number, direction: 'up' | 'down') => {
+      // Your rearrangeTracks logic here
+    },
 
-export default useVideoCreatorStore;
+    finishVideo: async () => {
+      // Your finishVideo logic here
+    },
+  }),
+);
+
+export default VideoCreatorStore;

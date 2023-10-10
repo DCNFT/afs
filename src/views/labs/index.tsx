@@ -1,3 +1,5 @@
+import { Playhead } from './components/PlayHead';
+
 const Labs = () => {
   return (
     <div className="p-4 h-96 bg-gray-800 rounded-lg">
