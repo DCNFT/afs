@@ -1,17 +1,27 @@
 import React from 'react';
-import styled from 'styled-components';
-import { observer } from 'mobx-react-lite';
 import { ElementState } from '@creatomate/preview';
-import { videoCreator } from '../../stores/VideoCreatorStore';
+import VideoCreatorStore from '@/store/VideoCreatorStore';
 
-export const CompositionNavigation: React.FC = observer(() => {
-  const { preview } = videoCreator;
+const Main = 'absolute bottom-25 left-1/2 transform -translate-x-1/2 flex';
+
+const Item = 'cursor-pointer';
+
+const Separator = 'm-0 mx-10 opacity-60';
+export const CompositionNavigation: React.FC = () => {
+  const {
+    timelineScale,
+    activeElementIds,
+    setActiveElements,
+    preview,
+    activeCompositionId,
+  } = VideoCreatorStore();
+
   if (!preview) {
     return null;
   }
 
   // Don't show the composition navigation when the main composition is active
-  if (videoCreator.activeCompositionId == null) {
+  if (activeCompositionId == null) {
     return null;
   }
 
@@ -19,7 +29,7 @@ export const CompositionNavigation: React.FC = observer(() => {
 
   // Start from the current active composition and scan up to the root composition, collecting all compositions in between
   let currentComposition = preview.findElement(
-    (element) => element.source.id === videoCreator.activeCompositionId,
+    (element) => element.source.id === activeCompositionId,
   );
   while (currentComposition) {
     compositionTrail.unshift(currentComposition);
@@ -34,7 +44,8 @@ export const CompositionNavigation: React.FC = observer(() => {
   }
 
   const breadcrumbs = [
-    <Item
+    <div
+      className={Main}
       key="main-item"
       onClick={() => {
         // This sets the active composition to the root
@@ -42,16 +53,19 @@ export const CompositionNavigation: React.FC = observer(() => {
       }}
     >
       Main Composition
-    </Item>,
+    </div>,
   ];
 
   // Create breadcrumbs so a user can navigate to a higher level composition
   for (const composition of compositionTrail) {
     breadcrumbs.push(
-      <Separator key={`${composition.source.id}-separator`}>/</Separator>,
+      <div className={Separator} key={`${composition.source.id}-separator`}>
+        /
+      </div>,
     );
     breadcrumbs.push(
-      <Item
+      <div
+        className={Item}
         key={`${composition.source.id}-item`}
         onClick={() => {
           // Make the clicked composition active
@@ -59,26 +73,9 @@ export const CompositionNavigation: React.FC = observer(() => {
         }}
       >
         {composition.source.name ?? 'Composition'}
-      </Item>,
+      </div>,
     );
   }
 
-  return <Main>{breadcrumbs}</Main>;
-});
-
-const Main = styled.div`
-  position: absolute;
-  bottom: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-`;
-
-const Item = styled.div`
-  cursor: pointer;
-`;
-
-const Separator = styled.div`
-  margin: 0 10px;
-  opacity: 60%;
-`;
+  return <div className={Main}>{breadcrumbs}</div>;
+};

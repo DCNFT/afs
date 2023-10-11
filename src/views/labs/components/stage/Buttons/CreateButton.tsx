@@ -1,18 +1,26 @@
+import VideoCreatorStore from '@/store/VideoCreatorStore';
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { videoCreator } from '../../stores/VideoCreatorStore';
+
+const Main =
+  'w-130 mx-10 h-44 flex justify-center items-center bg-2a85ff rounded-5 cursor-pointer';
 
 export const CreateButton: React.FC = () => {
+  const { finishVideo } = VideoCreatorStore();
   const [isRendering, setIsRendering] = useState(false);
   const [render, setRender] = useState<any>();
 
   if (isRendering) {
-    return <Main style={{ background: '#e67e22' }}>Rendering...</Main>;
+    return (
+      <div className={Main} style={{ background: '#e67e22' }}>
+        Rendering...
+      </div>
+    );
   }
 
   if (render) {
     return (
-      <Main
+      <div
+        className={Main}
         style={{ background: '#2ecc71' }}
         onClick={() => {
           window.open(render.url, '_blank');
@@ -20,18 +28,19 @@ export const CreateButton: React.FC = () => {
         }}
       >
         Download
-      </Main>
+      </div>
     );
   }
 
   return (
-    <Main
+    <div
+      className={Main}
       style={{ background: '#2a85ff' }}
       onClick={async () => {
         setIsRendering(true);
 
         try {
-          const render = await videoCreator.finishVideo();
+          const render = await finishVideo();
           if (render.status === 'succeeded') {
             setRender(render);
           } else {
@@ -45,18 +54,6 @@ export const CreateButton: React.FC = () => {
       }}
     >
       Create Video
-    </Main>
+    </div>
   );
 };
-
-const Main = styled.div`
-  width: 130px;
-  margin: 10px;
-  height: 44px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #2a85ff;
-  border-radius: 5px;
-  cursor: pointer;
-`;
