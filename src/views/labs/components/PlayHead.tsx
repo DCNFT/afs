@@ -14,6 +14,7 @@ export const Playhead: React.FC = () => {
     activeCompositionId,
     preview,
     isScrubbing,
+    setIsScrubbing,
   } = VideoCreatorStore();
 
   //   const time = videoCreator.time;
@@ -32,9 +33,10 @@ export const Playhead: React.FC = () => {
   }
 
   const scrubToTime = (time: number) => {
+    setIsScrubbing(true);
     setTime(time);
   };
-
+  console.log('is isScrubbing = ', isScrubbing);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const throttledScrubToTime = useCallback(throttle(scrubToTime, 15), []);
 
@@ -58,8 +60,8 @@ export const Playhead: React.FC = () => {
           className="absolute z-10 top-0 h-full transform -translate-x-1/2"
           style={{ left: `${(time - compositionTime) * timelineScale}px` }}
         >
-          <div className="w-14 h-24 bg-red-600 rounded-md">head</div>
-          <div className="ml-6 w-2 h-full bg-red-600">hi</div>
+          <div className="w-14 h-24 bg-red-600 rounded-md"></div>
+          <div className="ml-6 w-2 h-full bg-red-600"></div>
         </div>
       )}
     </Draggable>
