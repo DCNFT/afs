@@ -1,3 +1,5 @@
+import VideoCreatorStore from '@/store/VideoCreatorStore';
+
 export const ActionButton = ({ disabled, onClick, children }: any) => {
   const { initializeVideoPlayer, preview, createElement } = VideoCreatorStore();
   return (

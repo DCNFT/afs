@@ -78,20 +78,20 @@ export const TimelineElement: React.FC<TimelineElementProps> = (props) => {
           </div>
         )}
       </Draggable>
-      {/* <ResizeHandle
-          element={props.element}
-          side="start"
-          time={props.element.localTime}
-          onChange={(time, duration) => setPlacement({ time, duration })}
-          onComplete={applyPlacement}
-        />
-        <ResizeHandle
-          element={props.element}
-          side="end"
-          time={props.element.localTime + props.element.duration}
-          onChange={(time, duration) => setPlacement({ time, duration })}
-          onComplete={applyPlacement}
-        /> */}
+      <ResizeHandle
+        element={props.element}
+        side="start"
+        time={props.element.localTime}
+        onChange={(time, duration) => setPlacement({ time, duration })}
+        onComplete={applyPlacement}
+      />
+      <ResizeHandle
+        element={props.element}
+        side="end"
+        time={props.element.localTime + props.element.duration}
+        onChange={(time, duration) => setPlacement({ time, duration })}
+        onComplete={applyPlacement}
+      />
     </Fragment>
   );
 };

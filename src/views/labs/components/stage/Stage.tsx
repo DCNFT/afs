@@ -1,13 +1,11 @@
 import React from 'react';
 
 import VideoCreatorStore from '@/store/VideoCreatorStore';
-const Main = 'relative flex-1';
-const TopLeftButtons = 'absolute top-5 left-5 flex flex-col';
-const TopRightButtons = 'absolute top-5 right-5 flex items-center';
-const BottomLeftButtons = 'absolute bottom-5 left-5 flex flex-col';
-const BottomRightButtons = 'absolute bottom-5 right-5 flex flex-col';
-
-const LoadingText = 'mr-20 text-gray-400';
+import TopLeftButtons from './Buttons/TopLeftButtons';
+import TopRightButtons from './Buttons/TopRightButtons';
+import BottomRightButtons from './Buttons/BottomRightButtons';
+import BottomLeftButtons from './Buttons/BottomLeftButtons';
+import { CompositionNavigation } from './CompositionNavigation';
 
 export const Stage: React.FC = () => {
   const { initializeVideoPlayer, preview, createElement } = VideoCreatorStore();
@@ -26,7 +24,7 @@ export const Stage: React.FC = () => {
       <TopRightButtons />
       <BottomRightButtons />
       <BottomLeftButtons />
-      {/* <CompositionNavigation /> */}
+      <CompositionNavigation />
     </div>
   );
 };
