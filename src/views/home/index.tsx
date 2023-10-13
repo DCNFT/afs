@@ -1,6 +1,14 @@
 'use client';
 import React from 'react';
-import { Card, Flex, Grid } from '@radix-ui/themes';
+import {
+  Box,
+  Card,
+  Flex,
+  Grid,
+  Heading,
+  Text,
+  TextField,
+} from '@radix-ui/themes';
 import Link from 'next/link';
 
 // - http://211.176.9.214:32020/createomate/edit
@@ -22,6 +30,15 @@ const Home = () => {
           </Card>
         ))}
       </Grid>
+      <Box p={'3'} className="border bg-slate-400">
+        <Flex direction="column" gap="3">
+          <Heading>Input Container</Heading>
+          <Flex direction="column" gap="3" style={{ maxWidth: 400 }}>
+            <Text>키워드를 입력하세요</Text>
+            <TextField.Input radius="large" placeholder="" />
+          </Flex>
+        </Flex>
+      </Box>
     </Flex>
   );
 };
