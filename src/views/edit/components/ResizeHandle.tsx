@@ -1,15 +1,11 @@
 import React from 'react';
-import { Draggable } from '@/utils/draggable';
+import { Draggable } from '@/utils/Draggable';
 
 interface ResizeHandleProps {
-  element: {
-    localTime: number;
-    duration: number;
-  };
   side: 'start' | 'end';
-  time: number;
-  onChange: (time: number, duration: number) => void;
+  onChange: (width: number) => void;
   onComplete: () => void;
+  width: number;
 }
 
 export const ResizeHandle: React.FC<ResizeHandleProps> = (props) => {
@@ -20,22 +16,8 @@ export const ResizeHandle: React.FC<ResizeHandleProps> = (props) => {
         return { startX: data.x };
       }}
       onDrag={(e, data, context) => {
-        let timeOffset = (data.x - context.startX) / timelineScale;
-
-        if (props.side === 'start') {
-          let time = props.element.localTime + timeOffset;
-          let duration = props.element.duration - timeOffset;
-          if (time < 0) {
-            duration += time;
-            time = 0;
-          }
-
-          props.onChange(time, duration);
-        } else {
-          const duration = Math.max(props.element.duration + timeOffset, 0.5);
-
-          props.onChange(props.element.localTime, duration);
-        }
+        console.log('data. ', data.x, 'context ', context);
+        props.onChange(data.x - context.startX);
       }}
       onStop={() => {
         props.onComplete();
@@ -43,11 +25,9 @@ export const ResizeHandle: React.FC<ResizeHandleProps> = (props) => {
     >
       {(ref) => (
         <div
-          className="absolute h-full w-3 cursor cursor-ew-resize"
+          className="absolute h-full w-3 cursor cursor-ew-resize border "
           ref={ref}
-          style={{
-            left: props.time * timelineScale - (props.side === 'end' ? 10 : 0),
-          }}
+          style={{ left: props.side === 'start' ? props.width : '296px' }}
         ></div>
       )}
     </Draggable>

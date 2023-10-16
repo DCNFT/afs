@@ -1,18 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box } from '@radix-ui/themes';
 import { ResizeHandle } from './components/ResizeHandle';
 
 const ResizeBox = () => {
-  const [element] = useState({ localTime: 0, duration: 100 });
-  const [placement, setPlacement] = useState({
-    time: element.localTime,
-    duration: element.duration,
-  });
-
-  const [time] = useState(100);
-
+  const [width, setWidth] = useState(0);
   const handleStart = (time: number, duration: number) => {};
   const handleEnd = (time: number, duration: number) => {};
   const onComplete = () => {};
@@ -20,25 +13,36 @@ const ResizeBox = () => {
     <div className="h-full border">
       <ResizeHandle
         side="start"
-        element={element}
-        onChange={(time, duration) => setPlacement({ time, duration })}
+        onChange={(width) => {
+          console.log(width);
+          setWidth(width);
+        }}
         onComplete={onComplete}
-        time={time}
+        width={width}
       />
       <ResizeHandle
         side="end"
-        element={element}
-        onChange={(time, duration) => setPlacement({ time, duration })}
+        onChange={(width) => {
+          console.log(width);
+        }}
         onComplete={onComplete}
-        time={time}
+        width={width}
       />
     </div>
   );
 };
+const BackPlate = () => {
+  return <div style={{ width: '324px', position: 'absolute' }}></div>;
+};
+
+const InnerPlate = () => {
+  return <div style={{ width: '296px', position: 'absolute' }}></div>;
+};
 const Edit = () => {
   return (
     <Box p={'5'}>
-      <div className="w-full h-24 relative bg-gray-500">
+      <div className="w-full h-24 relative" style={{ width: '296px' }}>
+        <BackPlate />
         <ResizeBox />
       </div>
     </Box>

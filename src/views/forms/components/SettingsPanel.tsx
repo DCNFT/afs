@@ -13,6 +13,7 @@ import { ensureElementVisibility } from '@/utils/ensureElementVisibility';
 interface SettingsPanelProps {
   preview: Preview;
   currentState?: PreviewState;
+  formId: string;
 }
 
 export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
@@ -34,9 +35,23 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
   }, [props.currentState]);
 
   console.log('textElements = ', textElements);
+
+  const ImageElements = useMemo(() => {
+    return props.currentState?.elements.filter(
+      (element) => element.source.type === 'image',
+    );
+  }, [props.currentState]);
+
+  console.log('ImageElements= ', ImageElements);
+  console.log('modificationsRef= ', modificationsRef);
+
   return (
     <div>
-      <CreateButton preview={props.preview} />
+      <CreateButton
+        preview={props.preview}
+        modificationsRef={modificationsRef.current}
+        formId={props?.formId}
+      />
 
       <div className={styles.group}>
         <div className={styles.groupTitle}>Intro</div>
@@ -107,8 +122,8 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
           }}
         /> */}
       </div>
-
-      {/* <div className={styles.group}>
+      {/* 
+      <div className={styles.group}>
         <div className={styles.groupTitle}>Outro</div>
         <textarea
           placeholder="Your Call To Action Here"

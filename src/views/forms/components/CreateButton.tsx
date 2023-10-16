@@ -4,9 +4,12 @@ import React, { useState } from 'react';
 import { Preview } from '@creatomate/preview';
 import { finishVideo } from '@/utils/finishVideo';
 import styles from '@/styles/Home.module.css';
+import { videoEdit } from '@/api/creatomate';
 
 interface CreateButtonProps {
   preview: Preview;
+  modificationsRef: Record<string, any>;
+  formId: string;
 }
 
 export const CreateButton: React.FC<CreateButtonProps> = (props) => {
@@ -45,11 +48,10 @@ export const CreateButton: React.FC<CreateButtonProps> = (props) => {
       style={{ display: 'block', marginLeft: 'auto' }}
       onClick={async () => {
         setIsRendering(true);
-
         try {
-          const render = await finishVideo(props.preview);
-          if (render.status === 'succeeded') {
-            setRender(render);
+          const render = await videoEdit(props.formId, props.modificationsRef);
+          if (render.result[0]?.status === 'succeeded') {
+            setRender(render.result[0]);
           } else {
             window.alert(`Rendering failed: ${render.errorMessage}`);
           }

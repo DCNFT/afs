@@ -3,17 +3,35 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useWindowWidth } from '@/hooks/useWindowWidth';
 import { Preview, PreviewState } from '@creatomate/preview';
-
 import { useParams } from 'next/navigation';
 import styles from '@/styles/Home.module.css';
 import { SettingsPanel } from './components/SettingsPanel';
 import { Inter } from 'next/font/google';
+import { useQuery } from '@tanstack/react-query';
+import { templateDetail, videoInfo } from '@/api/creatomate';
 
 const inter = Inter({ subsets: ['latin'] });
 
 const Forms = () => {
   const params = useParams<{ [key: string]: string | string[] }>();
-  const [formId, setFormId] = useState('');
+  const [formId, setFormId] = useState<string | null>(null);
+  const { data, error } = useQuery(
+    ['templateDetail', formId],
+    () => templateDetail(formId as string),
+    {
+      enabled: !!formId,
+    },
+  );
+
+  // const { data: videoInfoData, error: videoError } = useQuery(
+  //   ['videoInfo', formId],
+  //   () => videoInfo(formId as string),
+  //   {
+  //     enabled: !!formId,
+  //   },
+  // );
+
+  console.log('data =', data);
 
   useEffect(() => {
     if (!params.formId) return;
@@ -51,6 +69,7 @@ const Forms = () => {
 
     // Once the SDK is ready, load a template from our project
     preview.onReady = async () => {
+      if (!formId) return;
       //await preview.loadTemplate(process.env.NEXT_PUBLIC_TEMPLATE_ID!);
       await preview.loadTemplate(formId);
       setIsReady(true);
@@ -73,6 +92,7 @@ const Forms = () => {
     previewRef.current = preview;
   };
 
+  console.log('currentState= ', currentState);
   return (
     <main className={`${styles.main} ${inter.className}`}>
       <div className={styles.wrapper}>
@@ -102,6 +122,7 @@ const Forms = () => {
             <SettingsPanel
               preview={previewRef.current!}
               currentState={currentState}
+              formId={formId}
             />
           </div>
         )}
