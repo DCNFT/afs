@@ -122,7 +122,7 @@ const Forms = () => {
             <SettingsPanel
               preview={previewRef.current!}
               currentState={currentState}
-              formId={formId}
+              formId={formId as string}
             />
           </div>
         )}
