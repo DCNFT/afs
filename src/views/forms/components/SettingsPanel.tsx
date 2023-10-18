@@ -66,6 +66,8 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
                   textElement.source.name,
                   1.5,
                 );
+                console.log('(textElement.source.id= ', textElement.source.id);
+                await props.preview.setActiveElements(textElement.source.id);
               }}
               onChange={async (e) => {
                 await setPropertyValue(

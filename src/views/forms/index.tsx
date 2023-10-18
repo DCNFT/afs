@@ -89,6 +89,22 @@ const Forms = () => {
       setVideoAspectRatio(state.width / state.height);
     };
 
+    preview.onTimeChange = (time) => {
+      console.log(time);
+    };
+
+    preview.onActiveCompositionChange = (elementId) => {
+      console.log(elementId);
+    };
+
+    preview.onActiveElementsChange = (elementIds) => {
+      console.log(elementIds);
+    };
+
+    preview.onStateChange = (state) => {
+      console.log(state);
+    };
+
     previewRef.current = preview;
   };
 
