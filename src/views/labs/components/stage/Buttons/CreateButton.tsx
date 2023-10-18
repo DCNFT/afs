@@ -1,4 +1,4 @@
-import VideoCreatorStore from '@/store/VideoCreatorStore';
+import VideoCreatorStore from '@/store/useVideoCreatorStore';
 import React, { useState } from 'react';
 
 const Main =

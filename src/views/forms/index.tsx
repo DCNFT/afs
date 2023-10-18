@@ -2,125 +2,54 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useWindowWidth } from '@/hooks/useWindowWidth';
-import { Preview, PreviewState } from '@creatomate/preview';
 import { useParams } from 'next/navigation';
 import styles from '@/styles/Home.module.css';
 import { SettingsPanel } from './components/SettingsPanel';
 import { Inter } from 'next/font/google';
-import { useQuery } from '@tanstack/react-query';
-import { templateDetail, videoInfo } from '@/api/creatomate';
+// import { useQuery } from '@tanstack/react-query';
+// import { templateDetail } from '@/api/creatomate';
+import useVideoCreatorStore from '@/store/useVideoCreatorStore';
+import { Button } from '@radix-ui/themes';
 
 const inter = Inter({ subsets: ['latin'] });
 
 const Forms = () => {
   const params = useParams<{ [key: string]: string | string[] }>();
   const [formId, setFormId] = useState<string | null>(null);
-  const { data, error } = useQuery(
-    ['templateDetail', formId],
-    () => templateDetail(formId as string),
-    {
-      enabled: !!formId,
-    },
-  );
-
-  // const { data: videoInfoData, error: videoError } = useQuery(
-  //   ['videoInfo', formId],
-  //   () => videoInfo(formId as string),
+  // const { data, error } = useQuery(
+  //   ['templateDetail', formId],
+  //   () => templateDetail(formId as string),
   //   {
   //     enabled: !!formId,
   //   },
   // );
-
-  console.log('data =', data);
 
   useEffect(() => {
     if (!params.formId) return;
     setFormId(params?.formId as string);
   }, [params.formId]);
 
-  // React Hook to update the component when the window width changes
   const windowWidth = useWindowWidth();
+  const preview = useVideoCreatorStore((state) => state.preview);
+  const initializeVideoPlayer = useVideoCreatorStore(
+    (state) => state.initializeVideoPlayer,
+  );
+  const setMode = useVideoCreatorStore((state) => state.setMode);
+  const isLoading = useVideoCreatorStore((state) => state.isLoading);
+  const isReady = useVideoCreatorStore((state) => state.isReady);
+  const mode = useVideoCreatorStore((state) => state.mode);
+  const videoAspectRatio = useVideoCreatorStore(
+    (state) => state.videoAspectRatio,
+  );
 
-  // Video aspect ratio that can be calculated once the video is loaded
-  const [videoAspectRatio, setVideoAspectRatio] = useState<number>();
-
-  // Reference to the preview
-  const previewRef = useRef<Preview>();
-
-  // Current state of the preview
-  const [isReady, setIsReady] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [currentState, setCurrentState] = useState<PreviewState>();
-
-  // This sets up the video player in the provided HTML DIV element
-  const setUpPreview = (htmlElement: HTMLDivElement) => {
-    if (previewRef.current) {
-      previewRef.current.dispose();
-      previewRef.current = undefined;
-    }
-
-    // Initialize a preview
-    const preview = new Preview(
-      htmlElement,
-      'player',
-      //'public-j61f0p2ohvs8rhk3498rv5tz',
-      process.env.NEXT_PUBLIC_VIDEO_PLAYER_TOKEN!,
-    );
-
-    // Once the SDK is ready, load a template from our project
-    preview.onReady = async () => {
-      if (!formId) return;
-      //await preview.loadTemplate(process.env.NEXT_PUBLIC_TEMPLATE_ID!);
-      await preview.loadTemplate(formId);
-      setIsReady(true);
-    };
-
-    preview.onLoad = () => {
-      setIsLoading(true);
-    };
-
-    preview.onLoadComplete = () => {
-      setIsLoading(false);
-    };
-
-    // Listen for state changes of the preview
-    preview.onStateChange = (state) => {
-      setCurrentState(state);
-      setVideoAspectRatio(state.width / state.height);
-    };
-
-    preview.onTimeChange = (time) => {
-      console.log(time);
-    };
-
-    preview.onActiveCompositionChange = (elementId) => {
-      console.log(elementId);
-    };
-
-    preview.onActiveElementsChange = (elementIds) => {
-      console.log(elementIds);
-    };
-
-    preview.onStateChange = (state) => {
-      console.log(state);
-    };
-
-    previewRef.current = preview;
-  };
-
-  console.log('currentState= ', currentState);
   return (
     <main className={`${styles.main} ${inter.className}`}>
       <div className={styles.wrapper}>
         <div
           className={styles.container}
           ref={(htmlElement) => {
-            if (
-              htmlElement &&
-              htmlElement !== previewRef.current?.element &&
-              formId
-            ) {
-              setUpPreview(htmlElement);
+            if (htmlElement && htmlElement !== preview?.element && formId) {
+              initializeVideoPlayer(htmlElement);
             }
           }}
           style={{
@@ -135,11 +64,14 @@ const Forms = () => {
       <div className={styles.panel}>
         {isReady && (
           <div className={styles.panelContent} id="panel">
-            <SettingsPanel
-              preview={previewRef.current!}
-              currentState={currentState}
-              formId={formId as string}
-            />
+            {mode === 'interactive' ? (
+              <Button onClick={() => setMode('player')}>player</Button>
+            ) : (
+              <Button onClick={() => setMode('interactive')}>
+                interactive
+              </Button>
+            )}
+            <SettingsPanel formId={formId as string} />
           </div>
         )}
       </div>

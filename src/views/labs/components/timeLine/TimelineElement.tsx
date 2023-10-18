@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { ElementState } from '@creatomate/preview';
 import { Draggable } from '@/utils/Draggable';
 import { ResizeHandle } from './ResizeHandle';
-import VideoCreatorStore from '@/store/VideoCreatorStore';
+import VideoCreatorStore from '@/store/useVideoCreatorStore';
 
 interface TimelineElementProps {
   element: ElementState;

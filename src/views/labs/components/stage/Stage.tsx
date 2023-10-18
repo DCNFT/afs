@@ -1,6 +1,6 @@
 import React from 'react';
 
-import VideoCreatorStore from '@/store/VideoCreatorStore';
+import VideoCreatorStore from '@/store/useVideoCreatorStore';
 import TopLeftButtons from './Buttons/TopLeftButtons';
 import TopRightButtons from './Buttons/TopRightButtons';
 import BottomRightButtons from './Buttons/BottomRightButtons';

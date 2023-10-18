@@ -1,4 +1,4 @@
-import VideoCreatorStore from '@/store/VideoCreatorStore';
+import VideoCreatorStore from '@/store/useVideoCreatorStore';
 import { ActionButton } from './ActionButton';
 
 const BottomRightButtons = () => {

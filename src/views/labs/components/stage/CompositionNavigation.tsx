@@ -1,6 +1,6 @@
 import React from 'react';
 import { ElementState } from '@creatomate/preview';
-import VideoCreatorStore from '@/store/VideoCreatorStore';
+import VideoCreatorStore from '@/store/useVideoCreatorStore';
 
 const Main = 'absolute bottom-25 left-1/2 transform -translate-x-1/2 flex';
 

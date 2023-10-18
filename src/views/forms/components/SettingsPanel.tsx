@@ -9,10 +9,12 @@ import { setTextStyle } from '@/utils/setTextStyle';
 import { addSlide } from '@/utils/addSlide';
 import { setSlideTransition } from '@/utils/setSlideTransition';
 import { ensureElementVisibility } from '@/utils/ensureElementVisibility';
+import useVideoCreatorStore from '@/store/useVideoCreatorStore';
+import { useEnsureElementVisibility } from '@/hooks/useEnsureElementVisibility';
 
 interface SettingsPanelProps {
-  preview: Preview;
-  currentState?: PreviewState;
+  // preview: Preview;
+  // currentState?: PreviewState;
   formId: string;
 }
 
@@ -20,58 +22,57 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
   // In this variable, we store the modifications that are applied to the template
   // Refer to: https://creatomate.com/docs/api/rest-api/the-modifications-object
   const modificationsRef = useRef<Record<string, any>>({});
-
+  const currentState = useVideoCreatorStore((state) => state.state);
+  const preview = useVideoCreatorStore((state) => state.preview);
+  const setActiveElements = useVideoCreatorStore(
+    (state) => state.setActiveElements,
+  );
+  const ensureElementVisibility = useEnsureElementVisibility();
   // Get the slide elements in the template by name (starting with 'Slide-')
   const slideElements = useMemo(() => {
-    return props.currentState?.elements.filter((element) =>
+    return currentState?.elements.filter((element) =>
       element.source.name?.startsWith('Slide-'),
     );
-  }, [props.currentState]);
+  }, [currentState]);
 
   const textElements = useMemo(() => {
-    return props.currentState?.elements.filter(
+    return currentState?.elements.filter(
       (element) => element.source.type === 'text',
     );
-  }, [props.currentState]);
-
-  console.log('textElements = ', textElements);
+  }, [currentState]);
 
   const ImageElements = useMemo(() => {
-    return props.currentState?.elements.filter(
+    return currentState?.elements.filter(
       (element) => element.source.type === 'image',
     );
-  }, [props.currentState]);
+  }, [currentState]);
 
+  console.log('textElements = ', textElements);
   console.log('ImageElements= ', ImageElements);
   console.log('modificationsRef= ', modificationsRef);
 
   return (
     <div>
       <CreateButton
-        preview={props.preview}
+        preview={preview!}
         modificationsRef={modificationsRef.current}
         formId={props?.formId}
       />
 
       <div className={styles.group}>
-        <div className={styles.groupTitle}>Intro</div>
+        <div className={styles.groupTitle}>-</div>
         {textElements?.map((textElement, i) => {
           return (
             <textarea
               key={i}
               placeholder={textElement.source.text}
               onFocus={async () => {
-                await ensureElementVisibility(
-                  props.preview,
-                  textElement.source.name,
-                  1.5,
-                );
-                console.log('(textElement.source.id= ', textElement.source.id);
-                await props.preview.setActiveElements(textElement.source.id);
+                await ensureElementVisibility(textElement.source.name, 1.5);
+                await setActiveElements(textElement.source.id);
               }}
               onChange={async (e) => {
                 await setPropertyValue(
-                  props.preview,
+                  preview!,
                   textElement.source.name,
                   e.target.value,
                   modificationsRef.current,
@@ -148,7 +149,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
           (animation: any) => animation.transition,
         );
 
-        const nestedElements = props.preview.getElements(slideElement);
+        const nestedElements = preview?.getElements(slideElement)!;
         const textElement = nestedElements.find((element) =>
           element.source.name?.endsWith('-Text'),
         );
@@ -164,15 +165,11 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
                 <textarea
                   placeholder={textElement.source.text}
                   onFocus={async () => {
-                    await ensureElementVisibility(
-                      props.preview,
-                      textElement.source.name,
-                      1.5,
-                    );
+                    await ensureElementVisibility(textElement.source.name, 1.5);
                   }}
                   onChange={async (e) => {
                     await setPropertyValue(
-                      props.preview,
+                      preview!,
                       textElement.source.name,
                       e.target.value,
                       modificationsRef.current,
@@ -181,15 +178,11 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
                 />
                 <select
                   onFocus={async () => {
-                    await ensureElementVisibility(
-                      props.preview,
-                      textElement.source.name,
-                      1.5,
-                    );
+                    await ensureElementVisibility(textElement.source.name, 1.5);
                   }}
                   onChange={async (e) => {
                     await setTextStyle(
-                      props.preview,
+                      preview!,
                       textElement.source.name,
                       e.target.value,
                       modificationsRef.current,
@@ -203,14 +196,13 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
                   value={transitionAnimation?.type}
                   onFocus={async () => {
                     await ensureElementVisibility(
-                      props.preview,
                       slideElement.source.name,
                       0.5,
                     );
                   }}
                   onChange={async (e) => {
                     await setSlideTransition(
-                      props.preview,
+                      preview!,
                       slideElement.source.name,
                       e.target.value,
                     );
@@ -232,12 +224,11 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
                         style={{ background: `url('${url}')` }}
                         onClick={async () => {
                           await ensureElementVisibility(
-                            props.preview,
                             imageElement.source.name,
                             1.5,
                           );
                           await setPropertyValue(
-                            props.preview,
+                            preview!,
                             imageElement.source.name,
                             url,
                             modificationsRef.current,
@@ -252,10 +243,10 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
           </div>
         );
       })}
-      {slideElements && (
+      {slideElements?.length !== 0 && (
         <button
           onClick={async () => {
-            await addSlide(props.preview);
+            await addSlide(preview!);
 
             // Scroll to the bottom of the settings panel
             const panel = document.querySelector('#panel');

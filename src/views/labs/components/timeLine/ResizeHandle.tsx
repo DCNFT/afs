@@ -1,7 +1,7 @@
 import React from 'react';
 import { ElementState } from '@creatomate/preview';
 import { Draggable } from '@/utils/Draggable';
-import VideoCreatorStore from '@/store/VideoCreatorStore';
+import VideoCreatorStore from '@/store/useVideoCreatorStore';
 
 interface ResizeHandleProps {
   element: ElementState;

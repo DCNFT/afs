@@ -4,7 +4,7 @@ import React, { useCallback, useState } from 'react';
 import throttle from 'lodash/throttle';
 // import { videoCreator } from '../../stores/VideoCreatorStore';
 import { Draggable } from '@/utils/Draggable';
-import VideoCreatorStore from '@/store/VideoCreatorStore';
+import VideoCreatorStore from '@/store/useVideoCreatorStore';
 
 export const Playhead: React.FC = () => {
   const {
