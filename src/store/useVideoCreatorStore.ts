@@ -119,12 +119,12 @@ const useVideoCreatorStore = create<VideoCreatorState & VideoCreatorActions>(
       };
 
       previewStore.onActiveCompositionChange = (elementId) => {
+        console.log('onActiveCompositionChange= ', elementId);
         set({ activeCompositionId: elementId ?? undefined });
         get().updateTracks();
       };
 
       previewStore.onActiveElementsChange = (elementIds) => {
-        get();
         set({ activeElementIds: elementIds });
       };
 
@@ -138,25 +138,34 @@ const useVideoCreatorStore = create<VideoCreatorState & VideoCreatorActions>(
     updateTracks() {
       const activeCompositionElements = get().getActiveCompositionElements();
       console.log(
-        'updatTracks activeCompositionElements ,',
+        '[seo] updatTracks activeCompositionElements ,',
         activeCompositionElements,
       );
+      console.log(
+        '[seo] updatTracks groupBy ,',
+        groupBy(
+          activeCompositionElements as ElementState[],
+          (element) => element.track,
+        ),
+      );
+
       set({
         tracks: groupBy(
-          get().getActiveCompositionElements() as ElementState[],
+          activeCompositionElements as ElementState[],
           (element) => element.track,
         ),
       });
     },
+
     setVideoAspectRatio: (videoAspectRatio: number) => {
       set({
         videoAspectRatio,
       });
     },
+
     setMode: async (mode: 'player' | 'interactive') => {
-      if (mode === 'interactive') {
-        await get().preview?.pause();
-      }
+      if (mode === 'interactive') await get().preview?.pause();
+
       await get().preview?.setMode(mode);
       set({ mode });
     },
@@ -238,6 +247,7 @@ const useVideoCreatorStore = create<VideoCreatorState & VideoCreatorActions>(
             (element) => element.id === activeCompositionId,
             fullSource,
           );
+
           if (activeComposition) {
             // Update the source in-place
             Object.keys(activeComposition).forEach(

@@ -11,6 +11,7 @@ import { setSlideTransition } from '@/utils/setSlideTransition';
 import { ensureElementVisibility } from '@/utils/ensureElementVisibility';
 import useVideoCreatorStore from '@/store/useVideoCreatorStore';
 import { useEnsureElementVisibility } from '@/hooks/useEnsureElementVisibility';
+import { TextArea } from '@radix-ui/themes';
 
 interface SettingsPanelProps {
   // preview: Preview;
@@ -63,7 +64,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
         <div className={styles.groupTitle}>-</div>
         {textElements?.map((textElement, i) => {
           return (
-            <textarea
+            <TextArea
               key={i}
               placeholder={textElement.source.text}
               onFocus={async () => {
