@@ -15,11 +15,16 @@
     "@tanstack/react-query-devtools": "4.35.7",
     "axios": "1.5.1",
     "moment": "2.29.4",
+    "@types/lodash": "4.14.199",
+    "@types/uuid": "9.0.5",
+    "lodash": "4.17.21",
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18",
     "react-draggable": "4.4.6",
-    "tailwindcss-radix": "2.8.0"
+    "tailwindcss-radix": "2.8.0",
+    "uuid": "9.0.1",
+    "zustand": "4.4.3"
   },
   "devDependencies": {
     "@types/node": "^20",
