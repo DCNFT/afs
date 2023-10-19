@@ -13,6 +13,7 @@ import { DEFAULT_DATA } from './data';
 
 // Define the state interface
 interface VideoCreatorState {
+  formId: string | undefined;
   preview?: Preview;
   state?: PreviewState;
   tracks?: Map<number, ElementState[]>;
@@ -47,11 +48,13 @@ interface VideoCreatorActions {
   setIsScrubbing: (isScrubbing: boolean) => void;
   setMode: (mode: 'player' | 'interactive') => void;
   setVideoAspectRatio: (videoAspectRatio: number) => void;
+  setFormId: (formId: string) => void;
 }
 
 // Create the Zustand store
 const useVideoCreatorStore = create<VideoCreatorState & VideoCreatorActions>(
   (set, get) => ({
+    formId: undefined,
     preview: undefined,
     state: undefined,
     tracks: undefined,
@@ -81,12 +84,16 @@ const useVideoCreatorStore = create<VideoCreatorState & VideoCreatorActions>(
         'player',
         process.env.NEXT_PUBLIC_VIDEO_PLAYER_TOKEN!,
       );
+
       set({
         preview: previewStore,
       });
 
       previewStore.onReady = async () => {
-        await previewStore.setSource(get().getDefaultSource());
+        const formId = get().formId;
+        console.log('[seo] onReady formId =', formId);
+        await previewStore.loadTemplate(formId as string);
+        // await previewStore.setSource(get().getDefaultSource());
         set({
           isReady: true,
         });
@@ -358,6 +365,10 @@ const useVideoCreatorStore = create<VideoCreatorState & VideoCreatorActions>(
     getDefaultSource: () => {
       // Replace this with your own JSON source
       return DEFAULT_DATA;
+    },
+
+    setFormId: (formId: string) => {
+      set({ formId });
     },
   }),
 );

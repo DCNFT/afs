@@ -1,30 +1,15 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useWindowWidth } from '@/hooks/useWindowWidth';
 import { useParams } from 'next/navigation';
 import styles from '@/styles/Home.module.css';
-
-// import { useQuery } from '@tanstack/react-query';
-// import { templateDetail } from '@/api/creatomate';
 import useVideoCreatorStore from '@/store/useVideoCreatorStore';
-import { Button } from '@radix-ui/themes';
+
+import useGetFormId from '../hooks/useGetFormId';
 
 const Stage = () => {
-  const params = useParams<{ [key: string]: string | string[] }>();
-  const [formId, setFormId] = useState<string | null>(null);
-  // const { data, error } = useQuery(
-  //   ['templateDetail', formId],
-  //   () => templateDetail(formId as string),
-  //   {
-  //     enabled: !!formId,
-  //   },
-  // );
-
-  useEffect(() => {
-    if (!params.formId) return;
-    setFormId(params?.formId as string);
-  }, [params.formId]);
+  const formId = useGetFormId();
 
   const windowWidth = useWindowWidth();
   const preview = useVideoCreatorStore((state) => state.preview);
@@ -34,7 +19,7 @@ const Stage = () => {
   const videoAspectRatio = useVideoCreatorStore(
     (state) => state.videoAspectRatio,
   );
-
+  if (!formId) return;
   return (
     <div className={styles.wrapper}>
       <div

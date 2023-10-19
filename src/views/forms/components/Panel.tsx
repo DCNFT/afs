@@ -1,19 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'next/navigation';
+import React from 'react';
 import styles from '@/styles/Home.module.css';
 import useVideoCreatorStore from '@/store/useVideoCreatorStore';
 import { Button } from '@radix-ui/themes';
 import { SettingsPanel } from './SettingsPanel';
+import useGetFormId from '../hooks/useGetFormId';
 
 const Panel = () => {
-  const params = useParams<{ [key: string]: string | string[] }>();
-  const [formId, setFormId] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!params.formId) return;
-    setFormId(params?.formId as string);
-  }, [params.formId]);
-
+  const formId = useGetFormId();
   const isReady = useVideoCreatorStore((state) => state.isReady);
   const setMode = useVideoCreatorStore((state) => state.setMode);
   const mode = useVideoCreatorStore((state) => state.mode);
@@ -33,4 +26,5 @@ const Panel = () => {
     </div>
   );
 };
+
 export default Panel;
