@@ -9,6 +9,9 @@ import TextSettingPanel from './TextSettingPanel';
 // 컴포지션안에 들어갔을떄 해당 tranck 전부 가져올것
 const CompositionContainer = () => {
   const preview = useVideoCreatorStore((state) => state.preview);
+  const activeElementIds = useVideoCreatorStore(
+    (state) => state.activeElementIds,
+  );
   const getActiveCompositionSource = useVideoCreatorStore(
     (state) => state.getActiveCompositionSource,
   );
@@ -47,20 +50,28 @@ const CompositionContainer = () => {
         const videoElement = nestedElements.find(
           (element) => element.source.type === 'video',
         );
+        const active = activeElementIds.includes(compositionElement.source.id);
 
+        console.log('activeElementIds= ', activeElementIds);
+        console.log(
+          '(compositionElement.source.id= ',
+          compositionElement.source.id,
+        );
         console.log('textElements= ', textElement);
+        console.log('active= ', active);
 
         return (
           <div
             key={i}
-            className={
-              'group my-20 py-20 bg-f5f7f8 rounded-5 border rounded p-5'
-            }
+            className={`group my-20 py-20 bg-f5f7f8 rounded-5 p-5 ${
+              active ? 'border' : ''
+            }`}
           >
             <div className={styles.groupTitle}>Composition {i + 1}</div>
             <>
               {textElement && (
                 <TextSettingPanel
+                  active={active}
                   textElement={textElement}
                   transitionAnimation={transitionAnimation}
                   compositionElement={compositionElement}

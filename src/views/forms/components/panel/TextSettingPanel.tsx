@@ -3,17 +3,18 @@ import { setPropertyValue } from '@/utils/setPropertyValue';
 import useVideoCreatorStore from '@/store/useVideoCreatorStore';
 import { useEnsureElementVisibility } from '@/hooks/useEnsureElementVisibility';
 import { Select, TextArea } from '@radix-ui/themes';
-import useGetElements from '@/views/forms/hooks/useGetElements';
 import { setTextStyle } from '@/utils/setTextStyle';
 import { setSlideTransition } from '@/utils/setSlideTransition';
 import { ElementState } from '@creatomate/preview';
 
 type TextSettingPanelProps = {
-  textElement: any;
+  active: boolean;
+  textElement: ElementState;
   transitionAnimation: any;
   compositionElement: any;
 };
 const TextSettingPanel = ({
+  active,
   textElement,
   transitionAnimation,
   compositionElement,
@@ -24,8 +25,9 @@ const TextSettingPanel = ({
     (state) => state.setActiveElements,
   );
   const ensureElementVisibility = useEnsureElementVisibility();
+  console.log('active = ', active);
   return (
-    <>
+    <div className="">
       <TextArea
         placeholder={textElement.source.text}
         onFocus={async () => {
@@ -88,7 +90,7 @@ const TextSettingPanel = ({
           </Select.Content>
         </Select.Root>
       </div>
-    </>
+    </div>
   );
 };
 export default TextSettingPanel;

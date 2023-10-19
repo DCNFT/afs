@@ -6,7 +6,6 @@ import styles from '@/styles/Home.module.css';
 import { setPropertyValue } from '@/utils/setPropertyValue';
 import useVideoCreatorStore from '@/store/useVideoCreatorStore';
 import { useEnsureElementVisibility } from '@/hooks/useEnsureElementVisibility';
-import useGetElements from '@/views/forms/hooks/useGetElements';
 import { ElementState } from '@creatomate/preview';
 import { DEFAULT_IMAGE_URL_LIST } from '../../data';
 
