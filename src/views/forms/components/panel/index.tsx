@@ -2,8 +2,8 @@ import React from 'react';
 import styles from '@/styles/Home.module.css';
 import useVideoCreatorStore from '@/store/useVideoCreatorStore';
 import { Button } from '@radix-ui/themes';
-import { SettingsPanel } from './SettingsPanel';
-import useGetFormId from '../hooks/useGetFormId';
+import { SettingsPanel } from '@/views/forms/components/panel/SettingsPanel';
+import useGetFormId from '@/views/forms/hooks/useGetFormId';
 
 const Panel = () => {
   const formId = useGetFormId();

@@ -1,0 +1,83 @@
+import useVideoCreatorStore from '@/store/useVideoCreatorStore';
+import { Button } from '@radix-ui/themes';
+import { useMemo } from 'react';
+import styles from '@/styles/Home.module.css';
+import ImageSettingPanel from './ImageSettingPanel';
+import VideoSettingPanel from './VideoSettingPanel';
+import TextSettingPanel from './TextSettingPanel';
+
+// 컴포지션안에 들어갔을떄 해당 tranck 전부 가져올것
+const CompositionContainer = () => {
+  const preview = useVideoCreatorStore((state) => state.preview);
+  const getActiveCompositionSource = useVideoCreatorStore(
+    (state) => state.getActiveCompositionSource,
+  );
+  const currentState = useVideoCreatorStore((state) => state.state);
+
+  const handle = () => {
+    console.log(getActiveCompositionSource());
+    console.log('getElemnet =', preview?.getElements());
+    console.log('currentState = ', currentState);
+    console.log('getSource = ', preview?.getSource());
+  };
+
+  const compositionElements = useMemo(() => {
+    return preview
+      ?.getElements()
+      .filter((element) => element.source.type === 'composition');
+  }, [preview]);
+
+  return (
+    <div>
+      <Button onClick={handle}>getActiveCompositionSource</Button>
+      {compositionElements?.map((compositionElement, i) => {
+        const transitionAnimation = compositionElement.source.animations?.find(
+          (animation: any) => animation.transition,
+        );
+
+        const nestedElements = preview?.getElements(compositionElement)!;
+        console.log('nestedElements = ', nestedElements);
+
+        const textElement = nestedElements.find(
+          (element) => element.source.type === 'text',
+        );
+        const imageElement = nestedElements.find(
+          (element) => element.source.type === 'image',
+        );
+        const videoElement = nestedElements.find(
+          (element) => element.source.type === 'video',
+        );
+
+        console.log('textElements= ', textElement);
+
+        return (
+          <div
+            key={i}
+            className={
+              'group my-20 py-20 bg-f5f7f8 rounded-5 border rounded p-5'
+            }
+          >
+            <div className={styles.groupTitle}>Composition {i + 1}</div>
+            <>
+              {textElement && (
+                <TextSettingPanel
+                  textElement={textElement}
+                  transitionAnimation={transitionAnimation}
+                  compositionElement={compositionElement}
+                />
+              )}
+              {imageElement && (
+                <ImageSettingPanel imageElement={imageElement} />
+              )}
+              {videoElement && (
+                <VideoSettingPanel videoElement={videoElement} />
+              )}
+            </>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default CompositionContainer;

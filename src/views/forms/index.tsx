@@ -4,8 +4,8 @@ import React from 'react';
 import styles from '@/styles/Home.module.css';
 import { Inter } from 'next/font/google';
 import useVideoCreatorStore from '@/store/useVideoCreatorStore';
-import Stage from './components/Stage';
-import Panel from './components/Panel';
+import Stage from './components/stage';
+import Panel from './components/panel';
 
 const inter = Inter({ subsets: ['latin'] });
 

@@ -2,15 +2,13 @@
 
 import React from 'react';
 import { useWindowWidth } from '@/hooks/useWindowWidth';
-import { useParams } from 'next/navigation';
 import styles from '@/styles/Home.module.css';
 import useVideoCreatorStore from '@/store/useVideoCreatorStore';
-
-import useGetFormId from '../hooks/useGetFormId';
+import useGetFormId from '@/views/forms/hooks/useGetFormId';
+import { CompositionNavigation } from '@/views/forms/components/CompositionNavigation';
 
 const Stage = () => {
   const formId = useGetFormId();
-
   const windowWidth = useWindowWidth();
   const preview = useVideoCreatorStore((state) => state.preview);
   const initializeVideoPlayer = useVideoCreatorStore(
@@ -19,7 +17,7 @@ const Stage = () => {
   const videoAspectRatio = useVideoCreatorStore(
     (state) => state.videoAspectRatio,
   );
-  if (!formId) return;
+
   return (
     <div className={styles.wrapper}>
       <div
@@ -36,6 +34,7 @@ const Stage = () => {
               : undefined,
         }}
       />
+      <CompositionNavigation />
     </div>
   );
 };
