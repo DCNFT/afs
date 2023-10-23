@@ -33,27 +33,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = (props) => {
 
       <div className={styles.group}>
         <div className={styles.groupTitle}></div>
-        {/* {textElements?.map((textElement, i) => {
-          return (
-            <TextArea
-              key={i}
-              placeholder={textElement.source.text}
-              onFocus={async () => {
-                await ensureElementVisibility(textElement.source.name, 1.5);
-                await setActiveElements(textElement.source.id);
-              }}
-              onChange={async (e) => {
-                await setPropertyValue(
-                  preview!,
-                  textElement.source.name,
-                  e.target.value,
-                  modificationsRef.current,
-                );
-              }}
-            />
-          );
-        })} */}
-        <CompositionContainer />
+        <CompositionContainer modificationsRef={modificationsRef.current} />
       </div>
     </div>
   );

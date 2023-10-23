@@ -7,30 +7,33 @@ import { setPropertyValue } from '@/utils/setPropertyValue';
 import useVideoCreatorStore from '@/store/useVideoCreatorStore';
 import { useEnsureElementVisibility } from '@/hooks/useEnsureElementVisibility';
 import { ElementState } from '@creatomate/preview';
-import { DEFAULT_IMAGE_URL_LIST } from '../../data';
+import { DEFAULT_VIDEO_URL_LIST } from '../../data';
 
 type VideoSettingPanelProps = {
   videoElement: ElementState;
+  modificationsRef: Record<string, any>;
 };
-const VideoSettingPanel = ({ videoElement }: VideoSettingPanelProps) => {
-  const modificationsRef = useRef<Record<string, any>>({});
+const VideoSettingPanel = ({
+  videoElement,
+  modificationsRef,
+}: VideoSettingPanelProps) => {
   const preview = useVideoCreatorStore((state) => state.preview);
   const ensureElementVisibility = useEnsureElementVisibility();
 
   return (
     <div className={styles.imageOptions}>
-      {DEFAULT_IMAGE_URL_LIST?.map((url) => (
+      {DEFAULT_VIDEO_URL_LIST?.map((videoInformation) => (
         <div
-          key={url}
+          key={videoInformation?.videoUrl}
           className={styles.imageOption}
-          style={{ background: `url('${url}')` }}
+          style={{ background: `url('${videoInformation?.thumbnail}')` }}
           onClick={async () => {
-            await ensureElementVisibility(videoElement.source.name, 1.5);
+            await ensureElementVisibility(videoElement.source.id, 1.5, true);
             await setPropertyValue(
               preview!,
-              videoElement.source.name,
-              url,
-              modificationsRef.current,
+              videoElement.source.id,
+              videoInformation?.videoUrl,
+              modificationsRef,
             );
           }}
         />

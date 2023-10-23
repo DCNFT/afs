@@ -14,7 +14,6 @@ const ResizeBox = () => {
       <ResizeHandle
         side="start"
         onChange={(width) => {
-          console.log(width);
           setWidth(width);
         }}
         onComplete={onComplete}
@@ -22,9 +21,7 @@ const ResizeBox = () => {
       />
       <ResizeHandle
         side="end"
-        onChange={(width) => {
-          console.log(width);
-        }}
+        onChange={(width) => {}}
         onComplete={onComplete}
         width={width}
       />

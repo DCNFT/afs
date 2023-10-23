@@ -11,9 +11,12 @@ import { DEFAULT_IMAGE_URL_LIST } from '../../data';
 
 type ImageSettingPanelProps = {
   imageElement: ElementState;
+  modificationsRef: Record<string, any>;
 };
-const ImageSettingPanel = ({ imageElement }: ImageSettingPanelProps) => {
-  const modificationsRef = useRef<Record<string, any>>({});
+const ImageSettingPanel = ({
+  imageElement,
+  modificationsRef,
+}: ImageSettingPanelProps) => {
   const preview = useVideoCreatorStore((state) => state.preview);
   const ensureElementVisibility = useEnsureElementVisibility();
 
@@ -30,7 +33,7 @@ const ImageSettingPanel = ({ imageElement }: ImageSettingPanelProps) => {
               preview!,
               imageElement.source.name,
               url,
-              modificationsRef.current,
+              modificationsRef,
             );
           }}
         />

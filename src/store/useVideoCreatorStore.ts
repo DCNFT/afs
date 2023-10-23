@@ -91,7 +91,7 @@ const useVideoCreatorStore = create<VideoCreatorState & VideoCreatorActions>(
 
       previewStore.onReady = async () => {
         const formId = get().formId;
-        console.log('[seo] onReady formId =', formId);
+
         await previewStore.loadTemplate(formId as string);
         // await previewStore.setSource(get().getDefaultSource());
         set({
@@ -126,7 +126,7 @@ const useVideoCreatorStore = create<VideoCreatorState & VideoCreatorActions>(
       };
 
       previewStore.onActiveCompositionChange = (elementId) => {
-        console.log('onActiveCompositionChange= ', elementId);
+        // console.log('onActiveCompositionChange= ', elementId);
         set({ activeCompositionId: elementId ?? undefined });
         get().updateTracks();
       };
@@ -136,7 +136,6 @@ const useVideoCreatorStore = create<VideoCreatorState & VideoCreatorActions>(
       };
 
       previewStore.onStateChange = (stateParams) => {
-        console.log('[seo] stateParams =', stateParams);
         set((state) => ({ ...state, state: stateParams }));
         get().updateTracks();
       };
@@ -144,17 +143,17 @@ const useVideoCreatorStore = create<VideoCreatorState & VideoCreatorActions>(
 
     updateTracks() {
       const activeCompositionElements = get().getActiveCompositionElements();
-      console.log(
-        '[seo] updatTracks activeCompositionElements ,',
-        activeCompositionElements,
-      );
-      console.log(
-        '[seo] updatTracks groupBy ,',
-        groupBy(
-          activeCompositionElements as ElementState[],
-          (element) => element.track,
-        ),
-      );
+      // console.log(
+      //   '[seo] updatTracks activeCompositionElements ,',
+      //   activeCompositionElements,
+      // );
+      // console.log(
+      //   '[seo] updatTracks groupBy ,',
+      //   groupBy(
+      //     activeCompositionElements as ElementState[],
+      //     (element) => element.track,
+      //   ),
+      // );
 
       set({
         tracks: groupBy(

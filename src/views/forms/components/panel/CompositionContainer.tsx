@@ -6,8 +6,13 @@ import ImageSettingPanel from './ImageSettingPanel';
 import VideoSettingPanel from './VideoSettingPanel';
 import TextSettingPanel from './TextSettingPanel';
 
-// 컴포지션안에 들어갔을떄 해당 tranck 전부 가져올것
-const CompositionContainer = () => {
+// 컴포지션안에 들어갔을떄 해당 track 전부 가져올것
+type CompositionContainerProps = {
+  modificationsRef: Record<string, any>;
+};
+const CompositionContainer = ({
+  modificationsRef,
+}: CompositionContainerProps) => {
   const preview = useVideoCreatorStore((state) => state.preview);
   const activeElementIds = useVideoCreatorStore(
     (state) => state.activeElementIds,
@@ -39,7 +44,7 @@ const CompositionContainer = () => {
         );
 
         const nestedElements = preview?.getElements(compositionElement)!;
-        console.log('nestedElements = ', nestedElements);
+        // console.log('nestedElements = ', nestedElements);
 
         const textElement = nestedElements.find(
           (element) => element.source.type === 'text',
@@ -52,13 +57,13 @@ const CompositionContainer = () => {
         );
         const active = activeElementIds.includes(compositionElement.source.id);
 
-        console.log('activeElementIds= ', activeElementIds);
-        console.log(
-          '(compositionElement.source.id= ',
-          compositionElement.source.id,
-        );
-        console.log('textElements= ', textElement);
-        console.log('active= ', active);
+        // console.log('activeElementIds= ', activeElementIds);
+        // console.log(
+        //   '(compositionElement.source.id= ',
+        //   compositionElement.source.id,
+        // );
+        // console.log('textElements= ', textElement);
+        // console.log('active= ', active);
 
         return (
           <div
@@ -75,13 +80,20 @@ const CompositionContainer = () => {
                   textElement={textElement}
                   transitionAnimation={transitionAnimation}
                   compositionElement={compositionElement}
+                  modificationsRef={modificationsRef}
                 />
               )}
               {imageElement && (
-                <ImageSettingPanel imageElement={imageElement} />
+                <ImageSettingPanel
+                  imageElement={imageElement}
+                  modificationsRef={modificationsRef}
+                />
               )}
               {videoElement && (
-                <VideoSettingPanel videoElement={videoElement} />
+                <VideoSettingPanel
+                  videoElement={videoElement}
+                  modificationsRef={modificationsRef}
+                />
               )}
             </>
           </div>

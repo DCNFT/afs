@@ -8,7 +8,11 @@ import BottomLeftButtons from './Buttons/BottomLeftButtons';
 import { CompositionNavigation } from './CompositionNavigation';
 
 export const Stage: React.FC = () => {
-  const { initializeVideoPlayer, preview, createElement } = VideoCreatorStore();
+  const initializeVideoPlayer = VideoCreatorStore(
+    (state) => state.initializeVideoPlayer,
+  );
+  const preview = VideoCreatorStore((state) => state.preview);
+
   return (
     <div className="relative flex-1">
       <div

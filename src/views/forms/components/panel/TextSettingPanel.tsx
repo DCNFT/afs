@@ -12,20 +12,21 @@ type TextSettingPanelProps = {
   textElement: ElementState;
   transitionAnimation: any;
   compositionElement: any;
+  modificationsRef: any;
 };
 const TextSettingPanel = ({
   active,
   textElement,
   transitionAnimation,
   compositionElement,
+  modificationsRef,
 }: TextSettingPanelProps) => {
-  const modificationsRef = useRef<Record<string, any>>({});
   const preview = useVideoCreatorStore((state) => state.preview);
   const setActiveElements = useVideoCreatorStore(
     (state) => state.setActiveElements,
   );
   const ensureElementVisibility = useEnsureElementVisibility();
-  console.log('active = ', active);
+  // console.log('[seo] modificationsRef = ', modificationsRef);
   return (
     <div className="">
       <TextArea
@@ -39,7 +40,7 @@ const TextSettingPanel = ({
             preview!,
             textElement.source.name,
             e.target.value,
-            modificationsRef.current,
+            modificationsRef,
           );
         }}
       />
@@ -55,7 +56,7 @@ const TextSettingPanel = ({
                 preview!,
                 textElement.source.name,
                 e.target.value,
-                modificationsRef.current,
+                modificationsRef,
               );
             }}
           />

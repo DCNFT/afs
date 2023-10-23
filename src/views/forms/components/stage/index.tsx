@@ -8,6 +8,7 @@ import useGetFormId from '@/views/forms/hooks/useGetFormId';
 import { CompositionNavigation } from '@/views/forms/components/CompositionNavigation';
 
 const Stage = () => {
+  console.log('stage is setting');
   const formId = useGetFormId();
   const windowWidth = useWindowWidth();
   const preview = useVideoCreatorStore((state) => state.preview);

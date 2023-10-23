@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ['latin'] });
 const Forms = () => {
   const isLoading = useVideoCreatorStore((state) => state.isLoading);
   const tracks = useVideoCreatorStore((state) => state.tracks);
-  console.log('[seo] tracks = ', tracks);
+  // console.log('[seo] tracks = ', tracks);
 
   return (
     <main className={`${styles.main} ${inter.className}`}>

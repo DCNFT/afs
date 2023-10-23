@@ -7,13 +7,26 @@ export const useEnsureElementVisibility = () => {
   const setTime = useVideoCreatorStore((state) => state.setTime);
 
   const ensureElementVisibility = async (
-    elementName: string,
+    elementIdentifier: string,
     addTime: number,
+    isUseId = false,
   ) => {
-    // Find element by name
-    const element = preview
-      .getElements()
-      .find((element) => element.source.name === elementName);
+    const elements = preview.getElements();
+
+    let element = null;
+
+    if (isUseId) {
+      // Find element by id
+      element = elements.find(
+        (element) => element.source.id === elementIdentifier,
+      );
+    } else {
+      // Find element by name
+      element = elements.find(
+        (element) => element.source.name === elementIdentifier,
+      );
+    }
+
     if (element) {
       // Set playback time
       await setTime(element.globalTime + addTime);
