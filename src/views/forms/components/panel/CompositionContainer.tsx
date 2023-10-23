@@ -20,6 +20,10 @@ const CompositionContainer = ({
   const getActiveCompositionSource = useVideoCreatorStore(
     (state) => state.getActiveCompositionSource,
   );
+  const activeCompositionId = useVideoCreatorStore(
+    (state) => state.activeCompositionId,
+  );
+
   const currentState = useVideoCreatorStore((state) => state.state);
 
   const handle = () => {
@@ -55,21 +59,22 @@ const CompositionContainer = ({
         const videoElement = nestedElements.find(
           (element) => element.source.type === 'video',
         );
-        const active = activeElementIds.includes(compositionElement.source.id);
+        const active = activeCompositionId === compositionElement.source.id;
 
-        // console.log('activeElementIds= ', activeElementIds);
-        // console.log(
-        //   '(compositionElement.source.id= ',
-        //   compositionElement.source.id,
-        // );
-        // console.log('textElements= ', textElement);
-        // console.log('active= ', active);
+        console.log('[seo] activeElementIds= ', activeElementIds);
+        console.log(
+          '[seo] (compositionElement.source.id= ',
+          compositionElement.source.id,
+        );
+        console.log('[seo]activeCompositionId = ', activeCompositionId);
+        console.log('textElements= ', textElement);
+        console.log('[seo] active= ', active);
 
         return (
           <div
             key={i}
             className={`group my-20 py-20 bg-f5f7f8 rounded-5 p-5 ${
-              active ? 'border' : ''
+              active ? 'border-double border-4 border-sky-500' : ''
             }`}
           >
             <div className={styles.groupTitle}>Composition {i + 1}</div>
