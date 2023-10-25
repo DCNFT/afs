@@ -1,7 +1,7 @@
 import useVideoCreatorStore from '@/store/useVideoCreatorStore';
 import { Preview } from '@creatomate/preview';
 
-// Jumps to a time position where the provided element is visible
+//* Jumps to a time position where the provided element is visible
 export const useEnsureElementVisibility = () => {
   const preview = useVideoCreatorStore((state) => state.preview) as Preview;
   const setTime = useVideoCreatorStore((state) => state.setTime);

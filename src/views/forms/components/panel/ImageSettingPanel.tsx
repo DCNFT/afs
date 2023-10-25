@@ -8,6 +8,7 @@ import useVideoCreatorStore from '@/store/useVideoCreatorStore';
 import { useEnsureElementVisibility } from '@/hooks/useEnsureElementVisibility';
 import { ElementState } from '@creatomate/preview';
 import { DEFAULT_IMAGE_URL_LIST } from '../../data';
+import ControlButtons from './ControlButtons';
 
 type ImageSettingPanelProps = {
   imageElement: ElementState;
@@ -38,6 +39,9 @@ const ImageSettingPanel = ({
           }}
         />
       ))}
+      <div>
+        <ControlButtons element={imageElement} />
+      </div>
     </div>
   );
 };

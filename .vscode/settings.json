@@ -4,6 +4,7 @@
     "creatomate",
     "Playhead",
     "tanstack",
+    "toastify",
     "zustand"
   ]
 }
