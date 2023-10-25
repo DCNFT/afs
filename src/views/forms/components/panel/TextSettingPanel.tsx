@@ -26,7 +26,7 @@ const TextSettingPanel = ({
     (state) => state.setActiveElements,
   );
   const ensureElementVisibility = useEnsureElementVisibility();
-  // console.log('[seo] modificationsRef = ', modificationsRef);
+  console.log('[seo] textElement = ', textElement);
   return (
     <div className="">
       <TextArea

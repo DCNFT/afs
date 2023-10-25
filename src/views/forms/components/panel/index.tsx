@@ -15,11 +15,16 @@ const Panel = () => {
     <div className={styles.panel}>
       {isReady && (
         <div className={styles.panelContent} id="panel">
-          {mode === 'interactive' ? (
-            <Button onClick={() => setMode('player')}>player</Button>
-          ) : (
-            <Button onClick={() => setMode('interactive')}>interactive</Button>
-          )}
+          <div>
+            {mode === 'interactive' ? (
+              <Button onClick={() => setMode('player')}>player</Button>
+            ) : (
+              <Button onClick={() => setMode('interactive')}>
+                interactive
+              </Button>
+            )}
+          </div>
+
           <SettingsPanel formId={formId as string} />
         </div>
       )}

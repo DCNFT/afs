@@ -10,10 +10,15 @@ import TextSettingPanel from './TextSettingPanel';
 type CompositionContainerProps = {
   modificationsRef: Record<string, any>;
 };
+//element id 클릭시 컴포
+function getCompositionIdUseElementId(elementId: string) {}
 const CompositionContainer = ({
   modificationsRef,
 }: CompositionContainerProps) => {
   const preview = useVideoCreatorStore((state) => state.preview);
+  console.log('[seo] preview getSource = ', preview?.getSource());
+  console.log('[seo] preview getElements = ', preview?.getElements());
+
   const activeElementIds = useVideoCreatorStore(
     (state) => state.activeElementIds,
   );
@@ -48,9 +53,9 @@ const CompositionContainer = ({
         );
 
         const nestedElements = preview?.getElements(compositionElement)!;
-        // console.log('nestedElements = ', nestedElements);
+        console.log('[seo] nestedElements = ', nestedElements);
 
-        const textElement = nestedElements.find(
+        const textElements = nestedElements.filter(
           (element) => element.source.type === 'text',
         );
         const imageElement = nestedElements.find(
@@ -67,7 +72,7 @@ const CompositionContainer = ({
           compositionElement.source.id,
         );
         console.log('[seo]activeCompositionId = ', activeCompositionId);
-        console.log('textElements= ', textElement);
+        console.log('[seo] textElements= ', textElements);
         console.log('[seo] active= ', active);
 
         return (
@@ -79,15 +84,20 @@ const CompositionContainer = ({
           >
             <div className={styles.groupTitle}>Composition {i + 1}</div>
             <>
-              {textElement && (
-                <TextSettingPanel
-                  active={active}
-                  textElement={textElement}
-                  transitionAnimation={transitionAnimation}
-                  compositionElement={compositionElement}
-                  modificationsRef={modificationsRef}
-                />
-              )}
+              {textElements?.length !== 0 &&
+                textElements?.map((textElement, i) => {
+                  return (
+                    <TextSettingPanel
+                      key={textElement.source.id}
+                      active={active}
+                      textElement={textElement}
+                      transitionAnimation={transitionAnimation}
+                      compositionElement={compositionElement}
+                      modificationsRef={modificationsRef}
+                    />
+                  );
+                })}
+              <p>Image</p>
               {imageElement && (
                 <ImageSettingPanel
                   imageElement={imageElement}

@@ -14,6 +14,10 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      screens: {
+        '1mobile': '320px', // Define the 1mobile breakpoint at 320px
+        // Add more custom breakpoints as needed
+      },
     },
   },
   plugins: [],

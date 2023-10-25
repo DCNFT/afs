@@ -19,7 +19,7 @@ const ImageSettingPanel = ({
 }: ImageSettingPanelProps) => {
   const preview = useVideoCreatorStore((state) => state.preview);
   const ensureElementVisibility = useEnsureElementVisibility();
-
+  console.log('[seo]imageElement = ', imageElement);
   return (
     <div className={styles.imageOptions}>
       {DEFAULT_IMAGE_URL_LIST?.map((url) => (

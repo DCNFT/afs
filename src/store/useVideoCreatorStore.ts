@@ -40,7 +40,11 @@ interface VideoCreatorActions {
   getActiveCompositionSource: () => Record<string, any>;
   setActiveCompositionSource: (source: Record<string, any>) => Promise<void>;
   createElement: (elementSource: Record<string, any>) => Promise<void>;
-  deleteElement: (elementId: string) => Promise<void>;
+  deleteElement: (elementId: string, isComposition: boolean) => Promise<void>;
+  updateElement: (
+    elementId: string,
+    elementSource: Record<string, any>,
+  ) => Promise<void>;
   rearrangeTracks: (track: number, direction: 'up' | 'down') => Promise<void>;
   finishVideo: () => Promise<any>;
   getDefaultSource: () => Record<any, any>;
@@ -270,6 +274,26 @@ const useVideoCreatorStore = create<VideoCreatorState & VideoCreatorActions>(
       }
     },
 
+    updateElement: async (
+      elementId: string,
+      elementSource: Record<string, any>,
+    ) => {
+      const source = deepClone(get().getActiveCompositionSource());
+      source.elements = source.elements.map((element: Record<string, any>) => {
+        const updatedNestedArray = element.elements.map(
+          (nestedItem: Record<string, any>) => {
+            if (nestedItem.id === elementId) {
+              return { ...nestedItem, ...elementSource };
+            }
+            return nestedItem; // Keep other properties unchanged
+          },
+        );
+        return { ...element, elements: updatedNestedArray };
+      });
+
+      await get().setActiveCompositionSource(source);
+    },
+
     createElement: async (elementSource: Record<string, any>) => {
       const preview = get().preview;
       if (!preview || !preview.state) {
@@ -278,21 +302,21 @@ const useVideoCreatorStore = create<VideoCreatorState & VideoCreatorActions>(
 
       // Get the active composition's elements
       const elements = get().getActiveCompositionElements() as ElementState[];
-
+      console.log('[seo][createElement] createElement', elements);
       // Find a track number that's not already taken
       const newTrackNumber =
         Math.max(...elements.map((element) => element.track)) + 1;
-
+      console.log('[seo][createElement] newTrackNumber ', newTrackNumber);
       // Get the active composition's source
       const source = deepClone(get().getActiveCompositionSource());
-
+      console.log('[seo][createElement] source ', source);
       // Generate a new element ID
       const id = uuid();
 
       // Insert the element
       source.elements.push({
         id,
-        track: newTrackNumber,
+        track: 1,
         ...elementSource,
       });
 
@@ -303,7 +327,7 @@ const useVideoCreatorStore = create<VideoCreatorState & VideoCreatorActions>(
       await get().setActiveElements(id);
     },
 
-    deleteElement: async (elementId: string) => {
+    deleteElement: async (elementId: string, isComposition = false) => {
       const preview = get().preview;
       if (!preview || !preview.state) {
         return;
@@ -311,12 +335,27 @@ const useVideoCreatorStore = create<VideoCreatorState & VideoCreatorActions>(
 
       // Get the active composition's source
       const source = deepClone(get().getActiveCompositionSource());
+      console.log('[seo][deleteElement] deleteElement', source);
 
-      // Remove the element by its ID
-      source.elements = source.elements.filter(
-        (element: Record<string, any>) => element.id !== elementId,
-      );
-
+      //컴포지션 용
+      if (isComposition)
+        source.elements = source.elements.filter(
+          (element: Record<string, any>) => {
+            element.elements = element.elements.filter(
+              (nestedElement: Record<string, any>) => {
+                return nestedElement.id !== elementId;
+              },
+            );
+            // Make sure to return the modified element
+            return true; // or you can return element.elements.length > 0; if you want to remove elements with no nested elements
+          },
+        );
+      else {
+        // Remove the element by its ID
+        source.elements = source.elements.filter(
+          (element: Record<string, any>) => element.id !== elementId,
+        );
+      }
       // Apply the mutated source
       await get().setActiveCompositionSource(source);
     },
