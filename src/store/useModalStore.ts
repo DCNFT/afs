@@ -1,4 +1,4 @@
-import { ModalMap, ModalMeta } from 'app/ModalProvider';
+import { ModalMap, ModalMeta } from '@/ModalProvider';
 import { create } from 'zustand';
 
 interface UseModalStore {

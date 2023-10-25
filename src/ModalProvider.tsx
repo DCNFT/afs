@@ -1,5 +1,5 @@
 import { LazyComponent } from '@/components/modal/LazyComponent';
-import { useModal } from '@/hooks/queries/useModal';
+import { useModal } from '@/hooks/useModal';
 import React, { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -25,7 +25,7 @@ interface IModalProviderProps {
 export function ModalProvider(props: IModalProviderProps) {
   const { getOpenModalsList } = useModal();
   const modals = getOpenModalsList();
-  console.log('modals= ', modals);
+
   return (
     <>
       {modals.map((filename) => (

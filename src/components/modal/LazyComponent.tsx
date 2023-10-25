@@ -1,7 +1,7 @@
 // ./components/modal/LazyComponent.tsx
 
 import { Suspense, lazy, useCallback } from 'react';
-import { useModal } from '@hooks/queries/useModal';
+import { useModal } from '@/hooks/useModal';
 import { ErrorBoundary } from 'react-error-boundary';
 
 interface ILazyComponentProps {
@@ -19,7 +19,7 @@ export function LazyComponent({ filename }: ILazyComponentProps) {
     onClose();
   }, [onClose]);
 
-  const Component = lazy(() => import(`@components/modal/${filename}.tsx`));
+  const Component = lazy(() => import(`@/components/modal/${filename}.tsx`));
 
   return (
     <Suspense fallback={null}>

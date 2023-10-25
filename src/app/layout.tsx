@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.className} id="root">
         <Providers>
           <Theme>
             <main className="flex flex-col mx-auto h-screen">{children}</main>

@@ -2,10 +2,13 @@
 
 import { useCallback } from 'react';
 import useModalStore from '@/store/useModalStore';
-import { ModalMeta } from 'app/ModalProvider';
+import { ModalMeta } from '@/ModalProvider';
 
 export function useModal(modalFileName = '') {
-  const { modal, setModalOpen, setModalClose } = useModalStore();
+  const modal = useModalStore((state) => state.modal);
+  const setModalOpen = useModalStore((state) => state.setModalOpen);
+  const setModalClose = useModalStore((state) => state.setModalClose);
+
   /* eslint-disable react-hooks/exhaustive-deps */
   const onOpen = useCallback(
     (meta?: ModalMeta) => setModalOpen(modalFileName, meta),
