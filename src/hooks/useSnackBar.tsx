@@ -1,67 +1,55 @@
-import { toast } from 'react-toastify';
+import { ReactNode } from 'react';
+import { ToastOptions, toast } from 'react-toastify';
+const defaultToastOption: ToastOptions = {
+  position: 'top-right',
+  autoClose: 4000,
+  hideProgressBar: true,
+  closeOnClick: true,
+  draggable: true,
+  pauseOnHover: false,
+  closeButton: false,
+};
 
 // 모듈화, 추상화를 위해 별도의 커스텀 훅으로 만들었습니다.
 export default function useSnackBar() {
-  const enqueueDefaultBar = (message: string) => {
+  const enqueueDefaultBar = (
+    message: ReactNode,
+    options: ToastOptions = {},
+  ) => {
     toast(message, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: false,
-      progress: undefined,
-      theme: 'light',
+      ...defaultToastOption,
+      // icon: <Icon name="cart" />,
+      ...options,
     });
   };
 
-  const enqueueSuccessBar = (message: string) => {
+  const enqueueSuccessBar = (message: string, options: ToastOptions = {}) => {
     toast.success(message, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: false,
-      progress: undefined,
-      theme: 'light',
+      ...defaultToastOption,
+      // icon: <Icon name="cart" />,
+      ...options,
     });
   };
 
-  const enqueueErrorBar = (message: string) => {
+  const enqueueErrorBar = (message: string,    options: ToastOptions = {},) => {
     toast.error(message, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: false,
-      progress: undefined,
-      theme: 'light',
+      ...defaultToastOption,
+      // icon: <Icon name="cart" />,
+      ...options,
     });
   };
-  const enqueueWarningBar = (message: string) => {
+  const enqueueWarningBar = (message: string,    options: ToastOptions = {}, => {
     toast.warn(message, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: false,
-      progress: undefined,
-      theme: 'light',
+      ...defaultToastOption,
+      // icon: <Icon name="cart" />,
+      ...options,
     });
   };
-  const enqueueInfoBar = (message: string) => {
+  const enqueueInfoBar = (message: string,    options: ToastOptions = {},) => {
     toast.info(message, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: false,
-      progress: undefined,
-      theme: 'light',
+      ...defaultToastOption,
+      // icon: <Icon name="cart" />,
+      ...options,
     });
   };
 

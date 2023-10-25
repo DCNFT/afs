@@ -6,7 +6,7 @@ import { Theme } from '@radix-ui/themes';
 import 'react-toastify/dist/ReactToastify.css';
 import '@radix-ui/themes/styles.css';
 import { ToastContainer } from 'react-toastify';
-
+import 'styles/custom-toast.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
