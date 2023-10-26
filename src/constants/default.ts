@@ -1,0 +1,4 @@
+export const DEFAULT_TIMELINE_SCALE = 100;
+export const DEFAULT_RANGE_MIN = 0;
+export const DEFAULT_RANGE_MAX = 296;
+export const DEFAULT_RANGE_HANDLER_WIDTH = 8;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Draggable } from '@/utils/Draggable';
+import { DEFAULT_RANGE_HANDLER_WIDTH } from '@/constants/default';
 
 interface ResizeHandleProps {
   side: 'start' | 'end';
@@ -10,7 +11,6 @@ interface ResizeHandleProps {
 }
 
 export const ResizeHandle: React.FC<ResizeHandleProps> = (props) => {
-  const timelineScale = 100;
   return (
     <Draggable
       onStart={(e, data) => {
@@ -18,7 +18,6 @@ export const ResizeHandle: React.FC<ResizeHandleProps> = (props) => {
       }}
       onDrag={(e, data, context) => {
         console.log('data. ', data.x, 'context ', context);
-
         props.onChange(
           props.localRangeX + (data.x - context.startX),
           props.side,
@@ -30,7 +29,7 @@ export const ResizeHandle: React.FC<ResizeHandleProps> = (props) => {
     >
       {(ref) => (
         <div
-          className="absolute h-full w-3 cursor cursor-ew-resize border bg-red-200"
+          className={`absolute h-full w-[${DEFAULT_RANGE_HANDLER_WIDTH}px] cursor cursor-ew-resize border bg-red-200`}
           ref={ref}
           style={{ left: props.range }}
         ></div>
