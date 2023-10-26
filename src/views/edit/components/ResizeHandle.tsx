@@ -3,9 +3,10 @@ import { Draggable } from '@/utils/Draggable';
 
 interface ResizeHandleProps {
   side: 'start' | 'end';
-  onChange: (width: number) => void;
-  onComplete: () => void;
-  width: number;
+  localRangeX: number;
+  onChange: (range: number, side: 'start' | 'end') => void;
+  onComplete: (side: 'start' | 'end') => void;
+  range: number;
 }
 
 export const ResizeHandle: React.FC<ResizeHandleProps> = (props) => {
@@ -17,17 +18,21 @@ export const ResizeHandle: React.FC<ResizeHandleProps> = (props) => {
       }}
       onDrag={(e, data, context) => {
         console.log('data. ', data.x, 'context ', context);
-        props.onChange(data.x - context.startX);
+
+        props.onChange(
+          props.localRangeX + (data.x - context.startX),
+          props.side,
+        );
       }}
       onStop={() => {
-        props.onComplete();
+        props.onComplete(props.side);
       }}
     >
       {(ref) => (
         <div
-          className="absolute h-full w-3 cursor cursor-ew-resize border "
+          className="absolute h-full w-3 cursor cursor-ew-resize border bg-red-200"
           ref={ref}
-          style={{ left: props.side === 'start' ? props.width : '296px' }}
+          style={{ left: props.range }}
         ></div>
       )}
     </Draggable>

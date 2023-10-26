@@ -31,21 +31,21 @@ export default function useSnackBar() {
     });
   };
 
-  const enqueueErrorBar = (message: string,    options: ToastOptions = {},) => {
+  const enqueueErrorBar = (message: string, options: ToastOptions = {}) => {
     toast.error(message, {
       ...defaultToastOption,
       // icon: <Icon name="cart" />,
       ...options,
     });
   };
-  const enqueueWarningBar = (message: string,    options: ToastOptions = {}, => {
+  const enqueueWarningBar = (message: string, options: ToastOptions = {}) => {
     toast.warn(message, {
       ...defaultToastOption,
       // icon: <Icon name="cart" />,
       ...options,
     });
   };
-  const enqueueInfoBar = (message: string,    options: ToastOptions = {},) => {
+  const enqueueInfoBar = (message: string, options: ToastOptions = {}) => {
     toast.info(message, {
       ...defaultToastOption,
       // icon: <Icon name="cart" />,
@@ -94,26 +94,3 @@ export default function useSnackBar() {
     enqueueBarWithType,
   };
 }
-
-// 기본 snackbar의 UI를 위해 별도로 만들어 사용중입니다.
-// const DefaultSnackBar = ({
-//   id,
-//   status,
-//   message,
-// }: {
-//   id: string;
-//   status: string;
-//   message: string;
-// }) => {
-//   return (
-//     <FlexBox justify={'space-between'} align={'center'} gap={'0.5rem'}>
-//       {status !== 'Default' && <StatusText bold="bold">{status}</StatusText>}
-//       <FlexBox justify={'flex-start'}>
-//         <MessageText>{message}</MessageText>
-//       </FlexBox>
-//       <Button variant="icon" onClick={() => toast.dismiss(id)}>
-//         <CloseIcon />
-//       </Button>
-//     </FlexBox>
-//   );
-// };

@@ -22,27 +22,29 @@ const ImageSettingPanel = ({
   const ensureElementVisibility = useEnsureElementVisibility();
   console.log('[seo]imageElement = ', imageElement);
   return (
-    <div className={styles.imageOptions}>
-      {DEFAULT_IMAGE_URL_LIST?.map((url) => (
-        <div
-          key={url}
-          className={styles.imageOption}
-          style={{ background: `url('${url}')` }}
-          onClick={async () => {
-            await ensureElementVisibility(imageElement.source.name, 1.5);
-            await setPropertyValue(
-              preview!,
-              imageElement.source.name,
-              url,
-              modificationsRef,
-            );
-          }}
-        />
-      ))}
-      <div>
-        <ControlButtons element={imageElement} />
+    <>
+      <div className={styles.imageOptions}>
+        {DEFAULT_IMAGE_URL_LIST?.map((url) => (
+          <div
+            key={url}
+            className={styles.imageOption}
+            style={{ background: `url('${url}')` }}
+            onClick={async () => {
+              await ensureElementVisibility(imageElement.source.name, 1.5);
+              await setPropertyValue(
+                preview!,
+                imageElement.source.name,
+                url,
+                modificationsRef,
+              );
+            }}
+          />
+        ))}
+        <div>
+          <ControlButtons element={imageElement} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

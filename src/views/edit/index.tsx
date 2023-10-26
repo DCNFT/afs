@@ -1,48 +1,28 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Box } from '@radix-ui/themes';
-import { ResizeHandle } from './components/ResizeHandle';
+import ResizeBox from './components/ResizeBox';
 
-const ResizeBox = () => {
-  const [width, setWidth] = useState(0);
-  const handleStart = (time: number, duration: number) => {};
-  const handleEnd = (time: number, duration: number) => {};
-  const onComplete = () => {};
+const BackPlate = () => {
   return (
-    <div className="h-full border">
-      <ResizeHandle
-        side="start"
-        onChange={(width) => {
-          setWidth(width);
-        }}
-        onComplete={onComplete}
-        width={width}
-      />
-      <ResizeHandle
-        side="end"
-        onChange={(width) => {}}
-        onComplete={onComplete}
-        width={width}
-      />
-    </div>
+    <div
+      style={{ width: '324px', position: 'absolute' }}
+      className="bg-slate-400"
+    ></div>
   );
 };
-const BackPlate = () => {
-  return <div style={{ width: '324px', position: 'absolute' }}></div>;
-};
 
-const InnerPlate = () => {
+const HitArea = () => {
   return <div style={{ width: '296px', position: 'absolute' }}></div>;
 };
 const Edit = () => {
   return (
-    <Box p={'5'}>
+    <div className="flex justify-center w-full h-screen items-center">
       <div className="w-full h-24 relative" style={{ width: '296px' }}>
         <BackPlate />
+        <HitArea />
         <ResizeBox />
       </div>
-    </Box>
+    </div>
   );
 };
 
