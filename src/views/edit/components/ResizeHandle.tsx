@@ -17,7 +17,14 @@ export const ResizeHandle: React.FC<ResizeHandleProps> = (props) => {
         return { startX: data.x };
       }}
       onDrag={(e, data, context) => {
-        console.log('data. ', data.x, 'context ', context);
+        console.log(
+          '[ResizeHandle] data. ',
+          data.x,
+          'contex,',
+          context,
+          '    props.localRangeX + (data.x - context.startX)',
+          props.localRangeX + (data.x - context.startX),
+        );
         props.onChange(
           props.localRangeX + (data.x - context.startX),
           props.side,
@@ -29,7 +36,7 @@ export const ResizeHandle: React.FC<ResizeHandleProps> = (props) => {
     >
       {(ref) => (
         <div
-          className={`absolute h-full w-[${DEFAULT_RANGE_HANDLER_WIDTH}px] cursor cursor-ew-resize border bg-red-200`}
+          className={`absolute h-full w-[8px] cursor cursor-ew-resize border bg-red-200`}
           ref={ref}
           style={{ left: props.range }}
         ></div>

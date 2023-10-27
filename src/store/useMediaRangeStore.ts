@@ -1,3 +1,8 @@
+import {
+  DEFAULT_RANGE_MIN,
+  DEFAULT_RANGE_MAX,
+  DEFAULT_RANGE_HANDLER_WIDTH,
+} from '@/constants/default';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { devtools } from 'zustand/middleware';
@@ -7,18 +12,23 @@ type State = {
   startRange: number;
   endRange: number;
   timelineScale: number;
+  startSyncHitArea: boolean;
+  startSyncResizeHandle: boolean;
 };
 
 type Actions = {
   setStartRange: (startRange: number) => void;
   setEndRange: (endRange: number) => void;
-
+  setStartSyncHitArea: (sync: boolean) => void;
+  setStartSyncResizeHandle: (sync: boolean) => void;
   reset: () => void;
 };
 
 const initialState: State = {
-  startRange: 0,
-  endRange: 0,
+  startRange: DEFAULT_RANGE_MIN,
+  endRange: DEFAULT_RANGE_MAX - DEFAULT_RANGE_HANDLER_WIDTH,
+  startSyncHitArea: false,
+  startSyncResizeHandle: false,
   timelineScale: 100,
 };
 
@@ -36,6 +46,18 @@ const useMediaRangeStore = create<State & Actions>()(
         setEndRange(endRange: number) {
           set((state) => {
             state.endRange = endRange;
+          });
+        },
+
+        setStartSyncHitArea(sync: boolean) {
+          set((state) => {
+            state.startSyncHitArea = sync;
+          });
+        },
+
+        setStartSyncResizeHandle(sync: boolean) {
+          set((state) => {
+            state.startSyncResizeHandle = sync;
           });
         },
 
