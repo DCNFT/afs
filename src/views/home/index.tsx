@@ -11,7 +11,7 @@ import {
   TextField,
 } from '@radix-ui/themes';
 import Link from 'next/link';
-import { templateList } from '@/api/creatomate';
+import { templateList } from '@/api/internal/creatomate/http';
 import { useQuery } from '@tanstack/react-query';
 import moment from 'moment';
 

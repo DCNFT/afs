@@ -1,17 +1,14 @@
-//import axios from './apiClient';
-import axios from '@/api';
 import { TemplateListResponse } from './types';
+import { httpService } from '@/module/http';
 
 export async function templateList() {
   //   const data = {
-  const response = await axios.get<TemplateListResponse>(
-    '/creatomate/template/list',
-  );
+  const response = await httpService.get<any>('/creatomate/template/list');
   return response.data;
 }
 
 export async function templateDetail(templateId: string) {
-  const response = await axios.get<any>('/creatomate/template/detail', {
+  const response = await httpService.get<any>('/creatomate/template/detail', {
     params: {
       templateId,
     },
@@ -20,7 +17,7 @@ export async function templateDetail(templateId: string) {
 }
 
 export async function videoInfo(id: string) {
-  const response = await axios.get<any>('/creatomate/video/info', {
+  const response = await httpService.get<any>('/creatomate/video/info', {
     params: {
       id,
     },
@@ -35,6 +32,6 @@ export async function videoEdit(templateId: string, modificationsData: any) {
       ...modificationsData,
     },
   };
-  const response = await axios.post<any>('/creatomate/video/edit', data);
+  const response = await httpService.post<any>('/creatomate/video/edit', data);
   return response.data;
 }

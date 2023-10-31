@@ -1,51 +1,28 @@
-import React from 'react';
+'use client';
+
+import React, { useState, useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchImages } from '@/api/unsplash';
-import { Image } from '@/api/unsplash/types';
-import Masonry from 'react-masonry-component';
+import { fetchImages } from '@/api/external/unsplash/http';
+import { Image } from '@/api/external/unsplash/types';
+import { throttle } from 'lodash';
+import MasonryImage from './MasonryImage';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import { Button } from '@radix-ui/themes';
+import { useFetchUnsplashRandomImages } from '@/api/external/unsplash/query';
 
-const masonryOptions = {
-  transitionDuration: 0,
-};
-
-const imagesLoadedOptions = { background: '.my-bg-image-el' };
-
-// <MasonryGrid
-//   className="container"
-//   style={{ overflow: 'hidden' }}
-//   gap={5}
-//   defaultDirection={'end'}
-//   align={'justify'}
-// >
-//   {images?.map((image: Image) => (
-//     <div key={image.id} className="item">
-//       <img
-//         src={image.urls.small}
-//         alt={image.alt_description || 'Unsplash Image'}
-//         className="absolute w-full h-full object-cover"
-//       />
-//     </div>
-//   ))}
-// </MasonryGrid>
 const ImageGallery = () => {
-  const { data: images, error, isLoading } = useQuery(['images'], fetchImages); // Use the useImages function
+  const { data: images, error, isLoading } = useFetchUnsplashRandomImages();
+  const elementRef = useRef(null);
+  const intersected = useIntersectionObserver(elementRef);
 
   return (
-    <Masonry
-      className={'my-gallery-class'} // default ''
-      elementType={'ul'} // default 'div'
-      options={masonryOptions} // default {}
-      disableImagesLoaded={false} // default false
-      updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
-      imagesLoadedOptions={imagesLoadedOptions} // default {}
-    >
-      <li className="image-element-class">
-        <div>
-          <img src="path/to/image" />
-        </div>
-      </li>
-      // more elements
-    </Masonry>
+    <div className="masonry-container h-screen overflow-auto">
+      {images?.map((item: Image, index: number) => {
+        return <MasonryImage key={item?.id} item={item} />;
+      })}
+      <div className="masonry-item" ref={elementRef} />
+      {/* <Button onClick={() => resizeWindow()}>테스트 </Button> */}
+    </div>
   );
 };
 

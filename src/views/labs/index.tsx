@@ -1,15 +1,19 @@
-// import { Playhead } from './components/timeLine/PlayHead';
-// import { Stage } from './components/stage/Stage';
-// import TimeLine from './components/timeLine/TimeLine';
+'use client';
 
-import { Button } from '@radix-ui/themes';
 import ImageUploader from './components/ImageUploader';
 import ImageGallery from './components/ImageGallery';
+import { useEffect, useState } from 'react';
 
 const Labs = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <div className=" max-w-full h-full max-h-full w-[1440px] flex gap-5xl px-md py-xl desktop:px-[128px] tablet:px-[64px] mobile:px-md">
-      <ImageGallery />
+      {isClient ? <ImageGallery /> : <div className="h-screen w-[428px]"></div>}
       <div className="relative flex w-full items-center justify-center tablet:h-auto">
         <ImageUploader />
       </div>
