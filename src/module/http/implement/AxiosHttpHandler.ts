@@ -51,6 +51,9 @@ class AxiosHttpHandler implements HttpHandler {
     data?: D,
     config?: AxiosRequestConfigAdaptor,
   ): Promise<T> {
+    console.log('      ...this.getRequestConfig(url, config),= ', {
+      ...this.getRequestConfig(url, config),
+    });
     const response: AxiosResponse<T> = await this.instance.request<T>({
       method,
       url,
@@ -70,6 +73,7 @@ class AxiosHttpHandler implements HttpHandler {
     data: D,
     config?: AxiosRequestConfigAdaptor,
   ) {
+    console.log('url ', url);
     return this.request<T, D>('post', url, data, config);
   }
 

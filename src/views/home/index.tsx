@@ -1,4 +1,5 @@
 'use client';
+
 import React from 'react';
 import {
   Box,
@@ -25,12 +26,23 @@ const formId =
 
 const FORM_ID_ARRAY = [formId];
 const Home = () => {
-  const { data, error, isLoading } = useQuery(['templateList'], templateList);
+  // const { data, error, isLoading } = useQuery(['templateList'], templateList);
 
   return (
     <Flex justify={'center'} height={'100%'} align={'center'}>
       <Grid columns="3" gap="3" width="auto">
-        {data?.data?.map((templateInfo, i) => (
+        <Card key={formId}>
+          <Link href={'/labs'}>
+            <Heading>이미지 업스케일링, 애니메이션 </Heading>
+          </Link>
+        </Card>
+        <Card key={formId}>
+          <Link href={'/template'}>
+            <Heading>UI 페이지 FLOW </Heading>
+          </Link>
+        </Card>
+
+        {/* {data?.data?.map((templateInfo: any, i: number) => (
           <Card key={formId}>
             <Heading>{templateInfo.name}</Heading>
             <Link href={`forms/${templateInfo.id}`}>
@@ -45,7 +57,7 @@ const Home = () => {
                 updated_at :{' '}
                 {moment(templateInfo?.updated_at).format('YYYY-MM-DD')}
               </Text>
-              {templateInfo?.tags?.map((tag) => {
+              {templateInfo?.tags?.map((tag: string) => {
                 return (
                   <Box key={tag}>
                     <Text>{tag}</Text>
@@ -54,7 +66,7 @@ const Home = () => {
               })}
             </Flex>
           </Card>
-        ))}
+        ))} */}
       </Grid>
       {/* <Box p={'3'} className="border bg-slate-400">
         <Flex direction="column" gap="3">

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Preview } from '@creatomate/preview';
 import { finishVideo } from '@/utils/finishVideo';
 import styles from '@/styles/Home.module.css';
-import { videoEdit } from '@/api/creatomate';
+import { videoEdit } from '@/api/internal/creatomate/http';
 
 interface CreateButtonProps {
   preview: Preview;

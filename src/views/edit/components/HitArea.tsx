@@ -27,8 +27,8 @@ const HitArea = () => {
   console.log('[HitArea] startRange = ', startRange);
   console.log('[HitArea] endRange = ', endRange);
 
-  const localStartRangeX = useRef();
-  const localEndRangeX = useRef();
+  const localStartRangeX = useRef<any>();
+  const localEndRangeX = useRef<any>();
 
   useEffect(() => {
     if (!startSyncHitArea) return;

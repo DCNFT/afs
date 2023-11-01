@@ -1,4 +1,4 @@
-import type { RequestConfig } from "../type";
+import type { RequestConfig } from '../types';
 
 export default interface HttpHandler {
   get<T>(url: string, config?: RequestConfig): Promise<T>;

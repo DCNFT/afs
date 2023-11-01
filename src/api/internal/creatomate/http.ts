@@ -1,10 +1,9 @@
+import { SERVER_URL } from '@/api/domain';
 import { TemplateListResponse } from './types';
 import { httpService } from '@/module/http';
 
 export async function templateList() {
-  //   const data = {
-  const response = await httpService.get<any>('/creatomate/template/list');
-  return response.data;
+  return await httpService.get<any>(`${SERVER_URL}/creatomate/template/list`);
 }
 
 export async function templateDetail(templateId: string) {
