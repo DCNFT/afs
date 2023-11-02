@@ -1,13 +1,10 @@
 'use client';
 
+import useRouting from '@/hooks/useRouting';
 import { Button, Card, Inset, Strong, Text } from '@radix-ui/themes';
-import { useRouter } from 'next/navigation';
 
 const TemplateCard = () => {
-  const router = useRouter();
-  const handleRouting = () => {
-    router.push('/template/keyword');
-  };
+  const handleRouting = useRouting({ path: '/template/keyword' });
   return (
     <Card size="2" style={{ maxWidth: 240 }}>
       <Inset clip="padding-box" side="top" pb="current">

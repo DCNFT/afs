@@ -30,8 +30,9 @@ const keywordArray = [
 const SelectTemplate = () => {
   const router = useRouter();
   const handleRouting = () => {
-    router.push('/template/upload');
+    router.push('/template/keyword');
   };
+
   return (
     <div>
       <div className="p-4 bg-gray-100">

@@ -1,11 +1,9 @@
+import useRouting from '@/hooks/useRouting';
 import { Button, Select, TextField } from '@radix-ui/themes';
-import { useRouter } from 'next/navigation';
 
 const TemplateKeywordInputPage = () => {
-  const router = useRouter();
-  const handleRouting = () => {
-    router.push('/template/select');
-  };
+  const handleRouting = useRouting({ path: '/template/upload' });
+
   return (
     <div>
       <div className="p-4 bg-gray-100">
