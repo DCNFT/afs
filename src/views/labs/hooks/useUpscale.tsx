@@ -1,4 +1,5 @@
 import { upscale } from '@/api/internal/abs/http';
+import { DEFAULT_UPSCALE } from '@/constants/default';
 import useSnackBar from '@/hooks/useSnackBar';
 import { Button } from '@radix-ui/themes';
 import { useState } from 'react';
@@ -30,8 +31,14 @@ const useUpscale = ({ imageFile }: RetouchButtonProps) => {
       data.append('mcode', '1200');
       data.append('scode', '1210');
       data.append('image_file', imageFile.file);
-      data.append('target_width', imageFile.imageWidth.toString());
-      data.append('target_height', imageFile.imageHeight.toString());
+      data.append(
+        'target_width',
+        (imageFile.imageWidth * DEFAULT_UPSCALE).toString(),
+      );
+      data.append(
+        'target_height',
+        (imageFile.imageHeight * DEFAULT_UPSCALE).toString(),
+      );
       const response = await upscale({
         data,
       });

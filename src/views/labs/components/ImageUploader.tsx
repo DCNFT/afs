@@ -5,6 +5,7 @@ import useRetouch from '../hooks/useRetouch';
 import useUpscale from '../hooks/useUpscale';
 import useSnackBar from '@/hooks/useSnackBar';
 import DragDropContainer from './DragDropContainer';
+import useAnimation from '../hooks/useAnimation';
 
 const ImageUploader = () => {
   const selectedImage = useImageStore((state) => state.selectedImage);
@@ -22,6 +23,7 @@ const ImageUploader = () => {
     setRetouchData,
     setIsLoadingRetouch,
   } = useRetouch({ imageFile });
+
   const {
     isLoadingUpscale,
     upscaleData,
@@ -31,6 +33,17 @@ const ImageUploader = () => {
   } = useUpscale({
     imageFile,
   });
+
+  const {
+    isLoadingAnimation,
+    animationData,
+    handleAnimationRequest,
+    setAnimationData,
+    setIsLoadingAnimation,
+  } = useAnimation({
+    imageFile,
+  });
+
   const { enqueueErrorBar } = useSnackBar();
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
@@ -90,6 +103,8 @@ const ImageUploader = () => {
     setRetouchData(null);
     setIsLoadingUpscale(false);
     setUpscaleData(null);
+    setAnimationData(null);
+    setIsLoadingAnimation(false);
   };
 
   const test = () => {
@@ -108,8 +123,13 @@ const ImageUploader = () => {
     if (retouchData?.file_url) window.open(retouchData?.file_url, '_blank');
   };
 
+  const openNewWindowAnimation = () => {
+    // Open a link in a new window or tab
+    console.log('retouchData?.file_url= ', animationData?.file_url);
+    if (animationData?.file_url) window.open(animationData?.file_url, '_blank');
+  };
   return (
-    <div className="flex-col">
+    <div className="flex flex-col justify-center items-center">
       <DragDropContainer
         handleDrop={handleDrop}
         handleFileChange={handleFileChange}
@@ -122,44 +142,74 @@ const ImageUploader = () => {
         <Button onClick={handleUpscaleRequest} disabled={isLoadingUpscale}>
           {isLoadingUpscale ? '이미지 업스케일링 중' : '이미지 업 스케일링'}
         </Button>
+        <Button onClick={handleAnimationRequest} disabled={isLoadingAnimation}>
+          {isLoadingAnimation ? '이미지 애니메이션 중' : '이미지 애니메이션'}
+        </Button>
       </div>
 
-      {retouchData && (
-        <div className="mt-4 border p-4 rounded">
-          <p className=" text-lg font-bold text-center">AI 통합 버전</p>
-          <div className="flex justify-center max-w-[640px] max-h-[360px]">
-            <video width="640" height="360" controls>
-              <source src={retouchData?.file_url} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <div>
-            <div className="flex flex-col justify-center gap-4">
-              <Button onClick={openNewWindowRetouch}>통합 버전 다운로드</Button>
+      <div className="max-h-[600px] overflow-auto mt-4">
+        {retouchData && (
+          <div className="mt-4 border p-4 rounded">
+            <p className=" text-lg font-bold text-center">AI 통합 버전</p>
+            <div className="flex justify-center max-w-[640px] max-h-[360px]">
+              <video width="640" height="360" controls>
+                <source src={retouchData?.file_url} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div>
+              <div className="flex flex-col justify-center gap-4">
+                <Button onClick={openNewWindowRetouch}>
+                  통합 버전 다운로드
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-      {upscaleData && (
-        <div className="mt-4 border p-4 rounded">
-          <p className=" text-lg font-bold text-center"> 업스케일링 버전</p>
-          <div className="flex justify-center max-w-[640px] max-h-[360px]">
-            {upscaleData &&
-              Object?.keys(upscaleData)?.map((key) => {
-                return (
-                  <img key={`image-${key}`} src={upscaleData[key]} alt={key} />
-                );
-              })}
+        )}
+        {upscaleData && (
+          <div className="mt-4 border p-4 rounded">
+            <p className=" text-lg font-bold text-center"> 업스케일링 버전</p>
+            <div className="flex justify-center max-w-[640px] max-h-[360px]">
+              {upscaleData &&
+                Object?.keys(upscaleData)?.map((key) => {
+                  return (
+                    <img
+                      key={`image-${key}`}
+                      src={upscaleData[key]}
+                      alt={key}
+                    />
+                  );
+                })}
+            </div>
+            <div className="flex flex-col justify-center gap-4">
+              {upscaleData && (
+                <Button onClick={openNewWindow}>
+                  업 스케일링 버전 새창에서 보기
+                </Button>
+              )}
+            </div>
           </div>
-          <div className="flex flex-col justify-center gap-4">
-            {upscaleData && (
-              <Button onClick={openNewWindow}>
-                업 스케일링 버전 새창에서 보기
-              </Button>
-            )}
+        )}
+
+        {animationData && (
+          <div className="mt-4 border p-4 rounded">
+            <p className=" text-lg font-bold text-center">애니메이션 버전</p>
+            <div className="flex justify-center max-w-[640px] max-h-[360px]">
+              <video width="640" height="360" controls>
+                <source src={animationData?.file_url} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div>
+              <div className="flex flex-col justify-center gap-4">
+                <Button onClick={openNewWindowAnimation}>
+                  애니메이션 버전 다운로드
+                </Button>
+              </div>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

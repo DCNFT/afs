@@ -1,4 +1,4 @@
-import { retouch } from '@/api/internal/abs/http';
+import { animation } from '@/api/internal/abs/http';
 import useSnackBar from '@/hooks/useSnackBar';
 import { useState } from 'react';
 
@@ -22,8 +22,7 @@ const useAnimation = ({ imageFile }: UseRetouchProps) => {
 
   const handleAnimationRequest = async () => {
     if (!imageFile?.file) return;
-    if (!imageFile?.imageWidth) return;
-    if (!imageFile?.imageHeight) return;
+
     try {
       setIsLoadingAnimation(true);
       const data = new FormData();
@@ -32,11 +31,7 @@ const useAnimation = ({ imageFile }: UseRetouchProps) => {
       data.append('mcode', '1200');
       data.append('scode', '1210');
       data.append('image_file', imageFile.file);
-      data.append('target_width', imageFile.imageWidth.toString());
-      data.append('target_height', imageFile.imageHeight.toString());
-      data.append('has_scale', 'true');
-      data.append('has_animation', 'true');
-      const response = await retouch({
+      const response = await animation({
         data,
       });
 
