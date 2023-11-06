@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import SelectTemplate from '@/views/template/SelectTemplate';
+import TemplateSelect from '@/views/template/templateSelect';
 
 export default function SelectTemplatePage() {
-  return <SelectTemplate />;
+  return <TemplateSelect />;
 }

@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import Upload from '@/views/template/Upload';
+import TemplateMediaUpload from '@/views/template/templateMediaUpload';
 
 export default function UploadPage() {
-  return <Upload />;
+  return <TemplateMediaUpload />;
 }
