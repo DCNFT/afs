@@ -1,6 +1,8 @@
 import { Box, Button, Select, Tabs, Text, TextField } from '@radix-ui/themes';
 import { FaceIcon, ImageIcon, StarIcon } from '@radix-ui/react-icons';
 import { useRouter } from 'next/navigation';
+import useRouting from '@/hooks/useRouting';
+
 const Template = () => {
   return (
     <div className="w-full h-[200px] border rounded">
@@ -14,6 +16,7 @@ const Template = () => {
     </div>
   );
 };
+
 const keywordArray = [
   '음식점',
   '한식',
@@ -28,11 +31,7 @@ const keywordArray = [
   '검색창',
 ];
 const SelectTemplate = () => {
-  const router = useRouter();
-  const handleRouting = () => {
-    router.push('/template/keyword');
-  };
-
+  const handleRouting = useRouting({ path: '/template/keyword' });
   return (
     <div>
       <div className="p-4 bg-gray-100">
