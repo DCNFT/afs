@@ -1,11 +1,18 @@
 'use client';
 
 import useRouting from '@/hooks/useRouting';
-import { StarIcon, DotsVerticalIcon } from '@radix-ui/react-icons';
+import {
+  StarIcon,
+  DotsVerticalIcon,
+  TrashIcon,
+  Pencil1Icon,
+  FileIcon,
+} from '@radix-ui/react-icons';
 import { Button, Card, Inset } from '@radix-ui/themes';
 import usePopoverMenu from '@/hooks/usePopoverMenu';
 import { createPortal } from 'react-dom';
 import useIsClient from '@/hooks/useIsClient';
+import { Template } from '@/api/internal/creatomate/types';
 
 const CardHeader = () => {
   const handleRouting = useRouting({ path: '/template/keyword' });
@@ -32,7 +39,11 @@ const CardHeader = () => {
     </div>
   );
 };
-const TemplateCard = () => {
+
+type TemplateCardProps = {
+  templateInfo: Template;
+};
+const TemplateCard = ({ templateInfo }: TemplateCardProps) => {
   const {
     isOpen,
     targetRef,
@@ -51,7 +62,7 @@ const TemplateCard = () => {
       <div className="flex justify-between p-2">
         <div>
           <div>
-            <h1 className="font-bold text-xl pb-1">스테이크 하우스</h1>
+            <h1 className="font-bold text-xl pb-1">{templateInfo?.name}</h1>
             <p className="text-sm pb-1">[1111]2023.11.11</p>
           </div>
         </div>
@@ -73,10 +84,19 @@ const TemplateCard = () => {
                     style={styles.popper}
                     {...attributes.popper}
                   >
-                    <div className="flex-col bg-white p-4 shadow-xl rounded">
-                      <div className="p-1">hello</div>
-                      <div className="p-1">hello</div>
-                      <div className="p-1">hello</div>
+                    <div className="flex-col bg-white p-2 shadow-xl rounded">
+                      <div className="flex p-1 items-center gap-1">
+                        <Pencil1Icon />
+                        <p>이름변경</p>
+                      </div>
+                      <div className="flex p-1  items-center gap-1">
+                        <FileIcon />
+                        <p>복사</p>
+                      </div>
+                      <div className="flex p-1 items-center gap-1">
+                        <TrashIcon />
+                        <p>삭제</p>
+                      </div>
                     </div>
                   </div>
                 </>,

@@ -3,7 +3,14 @@ import { TemplateListResponse } from './types';
 import { httpService } from '@/module/http';
 
 export async function templateList() {
-  return await httpService.get<any>(`${SERVER_URL}/creatomate/template/list`);
+  return await httpService.get<TemplateListResponse>(
+    `https://api.creatomate.com/v1/templates`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
+      },
+    },
+  );
 }
 
 export async function templateDetail(templateId: string) {
