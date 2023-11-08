@@ -1,9 +1,9 @@
 import { SERVER_URL } from '@/api/domain';
-import { TemplateListResponse } from './types';
+import { Template, TemplateListResponse } from './types';
 import { httpService } from '@/module/http';
 
 export async function templateList() {
-  return await httpService.get<TemplateListResponse>(
+  return await httpService.get<Template[]>(
     `https://api.creatomate.com/v1/templates`,
     {
       headers: {

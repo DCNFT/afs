@@ -8,11 +8,12 @@ import {
   Pencil1Icon,
   FileIcon,
 } from '@radix-ui/react-icons';
-import { Button, Card, Inset } from '@radix-ui/themes';
+import { Button } from '@radix-ui/themes';
 import usePopoverMenu from '@/hooks/usePopoverMenu';
 import { createPortal } from 'react-dom';
 import useIsClient from '@/hooks/useIsClient';
 import { Template } from '@/api/internal/creatomate/types';
+import { formatDate } from '@/utils/date';
 
 const CardHeader = () => {
   const handleRouting = useRouting({ path: '/template/keyword' });
@@ -33,7 +34,6 @@ const CardHeader = () => {
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="flex gap-4">
           <Button onClick={handleRouting}>편집하기</Button>
-          {/* <Button>미리보기</Button> */}
         </div>
       </div>
     </div>
@@ -63,7 +63,9 @@ const TemplateCard = ({ templateInfo }: TemplateCardProps) => {
         <div>
           <div>
             <h1 className="font-bold text-xl pb-1">{templateInfo?.name}</h1>
-            <p className="text-sm pb-1">[1111]2023.11.11</p>
+            <p className="text-sm pb-1">
+              [1111]{formatDate(templateInfo.updated_at)}
+            </p>
           </div>
         </div>
         <div className="flex-col">

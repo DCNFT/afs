@@ -3,7 +3,9 @@
 import TemplateCard from './components/TemplateCard';
 import { templateList } from '@/api/internal/creatomate/http';
 import { useModal } from '@/hooks/useModal';
+import { Button } from '@radix-ui/themes';
 import { useQuery } from '@tanstack/react-query';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 const formId =
   process.env.NODE_ENV === 'production'
@@ -13,7 +15,7 @@ const formId =
 const template = () => {
   const { data, error, isLoading } = useQuery(['templateList'], templateList);
   //   console.log(data);
-  const { onOpen, getOpenModalsList } = useModal('previewModal');
+  const { onOpen, getOpenModalsList } = useModal('PreviewModal');
   return (
     <div className="flex flex-col p-5">
       <div className="mb-4 border p-5 rounded">
@@ -27,6 +29,16 @@ const template = () => {
                 </div>
 
                 <p className="font-bold">ai 도움받아 영상만들기</p>
+                <Button
+                  onClick={() =>
+                    onOpen({
+                      hello: 'world',
+                      formId,
+                    })
+                  }
+                >
+                  버튼 오픈
+                </Button>
               </div>
             </div>
           </div>
@@ -38,7 +50,7 @@ const template = () => {
           className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:g rid-cols-8 gap-4 "
           id="destination"
         >
-          {data?.map((templateInfo: any, key: number) => {
+          {data?.map((templateInfo) => {
             return (
               <TemplateCard
                 key={templateInfo?.id}
