@@ -40,6 +40,7 @@ export default function RootLayout({
             <main className="flex flex-col mx-auto h-screen">{children}</main>
           </Theme>
         </Providers>
+        <div id="portal-root" />
       </body>
     </html>
   );
