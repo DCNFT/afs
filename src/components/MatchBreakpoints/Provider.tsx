@@ -88,7 +88,7 @@ export const MatchBreakpointsProvider: React.FC<React.PropsWithChildren> = ({
   const [state, setState] = useState<BreakpointChecks>(() =>
     getBreakpointChecks(getState()),
   );
-  console.log('state = ', state);
+  // console.log('state = ', state);
 
   useIsomorphicEffect(() => {
     // Create listeners for each media query returning a function to unsubscribe

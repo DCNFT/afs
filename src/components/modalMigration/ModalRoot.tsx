@@ -1,5 +1,7 @@
 import { DismissableLayer } from '@radix-ui/react-dismissable-layer';
-import { AnimatePresence, LazyMotion, m } from 'framer-motion';
+import { AnimatePresence, LazyMotion, Variants, m } from 'framer-motion';
+import { motion } from 'framer-motion';
+
 import React, {
   createContext,
   useCallback,
@@ -9,7 +11,7 @@ import React, {
 } from 'react';
 import { isMobile } from 'react-device-detect';
 import { createPortal } from 'react-dom';
-// import { Overlay } from '../../components/Overlay';
+import Overlay from '@/components/modalMigration/modal/Overlay';
 import { useIsomorphicEffect } from '@/hooks/useIsomorphicEffect';
 import {
   animationHandler,
@@ -21,7 +23,7 @@ import {
 import getPortalRoot from '@/utils/getPortalRoot';
 import { Handler } from './types';
 import { useModalStore } from '@/store/useModalStore';
-import { Overlay } from '@radix-ui/react-dialog';
+import StyledModalWrapper from './modal/StyledModalWrapper';
 
 const DomMax = () => import('./motionDomMax').then((mod) => mod.default);
 const DomAnimation = () =>
@@ -34,23 +36,7 @@ export interface ModalProps {
   children?: React.ReactNode;
 }
 
-type StyledModalWrapperProps = {
-  children: React.ReactNode;
-  animate: string; // You might want to refine the type based on the specific animations you have
-};
-
-export const StyledModalWrapper = ({
-  children,
-  animate,
-}: StyledModalWrapperProps) => (
-  <div
-    className={`flex flex-col justify-center items-center fixed top-0 right-0 bottom-0 left-0 z-[${1}] will-change-opacity opacity-0 animate-${animate}`}
-  >
-    {children}
-  </div>
-);
-
-const ModalProvider: React.FC<React.PropsWithChildren> = ({
+const ModalRoot: React.FC<React.PropsWithChildren> = ({
   children,
   ...props
 }) => {
@@ -94,13 +80,13 @@ const ModalProvider: React.FC<React.PropsWithChildren> = ({
                   onEscapeKeyDown={handleOverlayDismiss}
                 >
                   <StyledModalWrapper
-                    // ref={animationRef}
-                    // onAnimationStart={() =>
-                    //   animationHandler(animationRef.current)
-                    // }
+                    ref={animationRef}
+                    onAnimationStart={() =>
+                      animationHandler(animationRef.current)
+                    }
                     {...animationMap}
-                    // variants={animationVariants}
-                    // transition={{ duration: 0.3 }}
+                    variants={animationVariants}
+                    transition={{ duration: 0.3 }}
                     {...props}
                   >
                     <Overlay onClick={handleOverlayDismiss} />
@@ -112,9 +98,8 @@ const ModalProvider: React.FC<React.PropsWithChildren> = ({
           </LazyMotion>,
           portal,
         )}
-      {children}
     </>
   );
 };
 
-export default ModalProvider;
+export default ModalRoot;

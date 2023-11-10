@@ -12,13 +12,13 @@ const Modal: React.FC<React.PropsWithChildren<any>> = ({
   onBack,
   children,
   hideCloseButton = false,
-  headerPadding = '12px 24px',
+  headerPadding = 'px-[12px] py-[24px]',
   bodyPadding = '24px',
   headerBackground = 'transparent',
   minWidth = '320px',
   headerRightSlot,
   bodyAlignItems,
-  headerBorderColor,
+  headerBorderColor = 'border-gray-400',
   bodyTop = '0px',
   ...props
 }) => {
@@ -32,13 +32,13 @@ const Modal: React.FC<React.PropsWithChildren<any>> = ({
       {...props}
     >
       <ModalHeader
-        background={''}
+        background={'bg-white'}
         p={headerPadding}
         headerBorderColor={headerBorderColor}
       >
         <ModalTitle>
           {onBack && <ModalBackButton onBack={onBack} />}
-          <Heading>{title}</Heading>
+          <p className="font-bold text-2xl">{title}</p>
         </ModalTitle>
         {headerRightSlot}
         {!hideCloseButton && <ModalCloseButton onDismiss={onDismiss} />}

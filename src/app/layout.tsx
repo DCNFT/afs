@@ -9,6 +9,7 @@ import '@radix-ui/themes/styles.css';
 import { ToastContainer } from 'react-toastify';
 import '@/styles/custom-toast.css';
 import '@/styles/index.css';
+import '@/styles/modal.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {

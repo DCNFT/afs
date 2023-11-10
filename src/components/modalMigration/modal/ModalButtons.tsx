@@ -6,7 +6,7 @@ export const ModalCloseButton: React.FC<
 > = ({ onDismiss }) => {
   return (
     <div onClick={onDismiss}>
-      <ExitIcon color="primary" />;
+      <ExitIcon color="primary" />
     </div>
   );
 };

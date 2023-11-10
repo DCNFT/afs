@@ -2,10 +2,12 @@ import useMatchBreakpoints from '@/components/MatchBreakpoints/useMatchBreakpoin
 import { useRef } from 'react';
 import ModalContainer from './ModalContainer';
 export const MODAL_SWIPE_TO_CLOSE_VELOCITY = 300;
+
 export const ModalWrapper = ({
   children,
   onDismiss,
   hideCloseButton,
+  minWidth,
   ...props
 }: any) => {
   const { isMobile } = useMatchBreakpoints();
@@ -29,7 +31,10 @@ export const ModalWrapper = ({
       ref={wrapperRef}
       style={{ overflow: 'visible' }}
     >
-      <div style={{ overflow: 'hidden', borderRadius: '32px' }} {...props}>
+      <div
+        style={{ overflow: 'hidden', borderRadius: '32px', minWidth: minWidth }}
+        {...props}
+      >
         {children}
       </div>
     </ModalContainer>
