@@ -8,7 +8,7 @@ import { useIsomorphicEffect } from '@/hooks/useIsomorphicEffect';
 import { animationHandler, animationVariants } from '@/utils/animationToolkit';
 import getPortalRoot from '@/utils/getPortalRoot';
 import { useModalStore } from '@/store/useModalStore';
-import StyledModalWrapper from './baseModal/StyledModalWrapper';
+import StyledModalWrapper from './StyledModalWrapper';
 
 const DomMax = () => import('./motionDomMax').then((mod) => mod.default);
 const DomAnimation = () =>
@@ -21,15 +21,13 @@ export interface ModalProps {
   children?: React.ReactNode;
 }
 
-const ModalRoot: React.FC<React.PropsWithChildren> = ({
+const ModalRoot: React.FC<React.PropsWithChildren & ModalProps> = ({
   children,
+  isOpen,
+  onDismiss,
+  closeOnOverlayClick,
   ...props
 }) => {
-  const isOpen = useModalStore((state) => state.isOpen);
-  const closeOnOverlayClick = useModalStore(
-    (state) => state.closeOnOverlayClick,
-  );
-  const dismissModal = useModalStore((state) => state.dismissModal);
   const animationRef = useRef<HTMLDivElement>(null);
 
   useIsomorphicEffect(() => {
@@ -47,10 +45,10 @@ const ModalRoot: React.FC<React.PropsWithChildren> = ({
       e.stopPropagation();
       e.preventDefault();
       if (closeOnOverlayClick) {
-        dismissModal?.();
+        onDismiss?.();
       }
     },
-    [closeOnOverlayClick, dismissModal],
+    [closeOnOverlayClick, onDismiss],
   );
 
   const portal = getPortalRoot();

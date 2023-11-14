@@ -1,4 +1,3 @@
-import { Heading } from '@radix-ui/themes';
 import ModalBody from './ModalBody';
 import ModalHeader from './ModalHeader';
 import ModalTitle from './ModalTitle';
@@ -22,7 +21,7 @@ const Modal: React.FC<React.PropsWithChildren<any>> = ({
   bodyTop = '0px',
   ...props
 }) => {
-  const onDismiss = useModalStore((state) => state.dismissModal);
+  const onDismiss = useModalStore((state) => state.onDismiss) || onDismiss_;
 
   return (
     <ModalWrapper

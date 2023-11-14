@@ -3,70 +3,21 @@ import { immer } from 'zustand/middleware/immer';
 import { devtools } from 'zustand/middleware';
 
 interface ModalState {
-  isOpen: boolean;
-  modalNode: React.ReactNode | null;
-  nodeId: string;
-  closeOnOverlayClick: boolean;
+  onDismiss?: () => void;
 }
-
 interface ModalActions {
-  presentModal: (
-    node: React.ReactNode,
-    nodeId: string,
-    closeOverlayClick?: boolean,
-  ) => void;
-  dismissModal: () => void;
-  setModalNode: (node: React.ReactNode) => void;
-  setIsOpen: (isOpen: boolean) => void;
-  setNodeId: (nodeId: string) => void;
-  setCloseOnOverlayClick: (closeOnOverlayClick: boolean) => void;
+  setOnDismiss: (onDismiss: () => void) => void;
 }
 
-const initialState: ModalState = {
-  isOpen: false,
-  modalNode: null,
-  nodeId: '',
-  closeOnOverlayClick: true,
-};
+const initialState: ModalState = {};
 
 export const useModalStore = create<ModalState & ModalActions>()(
   devtools(
     immer((set) => ({
       ...initialState,
-      setNodeId(nodeId: string) {
+      setOnDismiss(dismiss: () => void) {
         set((state) => {
-          state.nodeId = nodeId;
-        });
-      },
-      setCloseOnOverlayClick(closeOnOverlayClick) {
-        set((state) => {
-          state.closeOnOverlayClick = closeOnOverlayClick;
-        });
-      },
-      setIsOpen(isOpen: boolean) {
-        set((state) => {
-          state.isOpen = isOpen;
-        });
-      },
-      presentModal(node, nodeId, closeOverlayClick = true) {
-        set((state) => {
-          state.isOpen = true;
-          state.modalNode = node;
-          state.nodeId = nodeId;
-          state.closeOnOverlayClick = closeOverlayClick;
-        });
-      },
-      dismissModal() {
-        set((state) => {
-          state.isOpen = false;
-          state.modalNode = null;
-          state.nodeId = '';
-          state.closeOnOverlayClick = true;
-        });
-      },
-      setModalNode(node: React.ReactNode) {
-        set((state) => {
-          state.modalNode = node;
+          state.onDismiss = dismiss;
         });
       },
     })),
