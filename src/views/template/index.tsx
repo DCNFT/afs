@@ -40,7 +40,6 @@ const Template = () => {
                     onClick={handleModal}
                   ></div>
                 </div>
-
                 <DummyModal {...dummyModal} />
                 <p className="font-bold">ai 도움받아 영상만들기</p>
               </div>
