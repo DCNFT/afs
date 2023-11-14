@@ -21,13 +21,6 @@ const BodyLock = () => {
 };
 
 const Overlay: React.FC<OverlayProps> = ({ isUnmounting, ...props }) => {
-  //   useEffect(() => {
-  //     document.body.style.overflow = 'hidden';
-  //     return () => {
-  //       document.body.style.overflow = 'visible';
-  //     };
-  //   }, []);
-
   return (
     <>
       <BodyLock />

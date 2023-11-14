@@ -1,29 +1,14 @@
 import { DismissableLayer } from '@radix-ui/react-dismissable-layer';
-import { AnimatePresence, LazyMotion, Variants, m } from 'framer-motion';
-import { motion } from 'framer-motion';
-
-import React, {
-  createContext,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { AnimatePresence, LazyMotion } from 'framer-motion';
+import React, { useCallback, useRef } from 'react';
 import { isMobile } from 'react-device-detect';
 import { createPortal } from 'react-dom';
-import Overlay from '@/components/modalMigration/modal/Overlay';
+import Overlay from '@/components/modal/baseModal/Overlay';
 import { useIsomorphicEffect } from '@/hooks/useIsomorphicEffect';
-import {
-  animationHandler,
-  animationMap,
-  animationVariants,
-  appearAnimation,
-  disappearAnimation,
-} from '@/utils/animationToolkit';
+import { animationHandler, animationVariants } from '@/utils/animationToolkit';
 import getPortalRoot from '@/utils/getPortalRoot';
-import { Handler } from './types';
 import { useModalStore } from '@/store/useModalStore';
-import StyledModalWrapper from './modal/StyledModalWrapper';
+import StyledModalWrapper from './baseModal/StyledModalWrapper';
 
 const DomMax = () => import('./motionDomMax').then((mod) => mod.default);
 const DomAnimation = () =>
@@ -45,7 +30,6 @@ const ModalRoot: React.FC<React.PropsWithChildren> = ({
     (state) => state.closeOnOverlayClick,
   );
   const dismissModal = useModalStore((state) => state.dismissModal);
-
   const animationRef = useRef<HTMLDivElement>(null);
 
   useIsomorphicEffect(() => {
@@ -58,13 +42,14 @@ const ModalRoot: React.FC<React.PropsWithChildren> = ({
     return () => window.removeEventListener('resize', setViewportHeight);
   }, []);
 
-  const handleOverlayDismiss = (e: any) => {
+  const handleOverlayDismiss = useCallback((e: any) => {
     e.stopPropagation();
     e.preventDefault();
     if (closeOnOverlayClick) {
       dismissModal?.();
     }
-  };
+  }, []);
+
   const portal = getPortalRoot();
 
   return (
@@ -84,9 +69,8 @@ const ModalRoot: React.FC<React.PropsWithChildren> = ({
                     onAnimationStart={() =>
                       animationHandler(animationRef.current)
                     }
-                    {...animationMap}
                     variants={animationVariants}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.5 }}
                     {...props}
                   >
                     <Overlay onClick={handleOverlayDismiss} />

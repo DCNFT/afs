@@ -22,9 +22,9 @@ export const animationVariants: Variants = {
 };
 
 export const animationMap = {
-  initial: 'initial',
-  animate: 'animate',
-  exit: 'exit',
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
 };
 
 export const promotedGradient = 'animate-gradient';

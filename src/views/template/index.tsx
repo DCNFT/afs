@@ -6,9 +6,9 @@ import useModal from '@/hooks/useModal';
 import { useQuery } from '@tanstack/react-query';
 import PreviewModal from '@/components/modal/PreviewModal';
 import { Button } from '@radix-ui/themes';
-import ModalRoot from '@/components/modalMigration/ModalRoot';
+import ModalRoot from '@/components/modal/ModalRoot';
 import { useModalStore } from '@/store/useModalStore';
-import Modal from '@/components/modalMigration/modal/Modal';
+import Modal from '@/components/modal/baseModal/Modal';
 const formId =
   process.env.NODE_ENV === 'production'
     ? '11e5795f-c56c-4615-bc47-530c670529a0' //'39fbbe0f-0dce-4bcf-abe0-0dc44c178c81'
