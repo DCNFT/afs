@@ -7,13 +7,14 @@ import AdStyle from './AdStyle';
 import AdPurpose from './AdPurpose';
 import NextButton from './NextButton';
 import TemplateBanner from '../components/TemplateBanner';
+import { KEYWORD, UPLOAD, templateRoutes } from '@/constants/routes';
 
 const TemplateKeywordInputPage = () => {
   return (
     <div>
       <TemplateBanner
-        title="정보입력"
-        description="AI가 최적의 광고 구성을 하기 위해 참고할 정보를 알려주세요"
+        title={templateRoutes[KEYWORD]?.title}
+        description={templateRoutes[KEYWORD]?.description}
       />
       <div className="flex- flex-col p-5">
         <AdPurpose />
@@ -23,7 +24,7 @@ const TemplateKeywordInputPage = () => {
         <PromotionDetails />
         <Keywords />
         <AdStyle />
-        <NextButton path={'/template/upload'} />
+        <NextButton path={templateRoutes[UPLOAD]?.routePath} />
       </div>
     </div>
   );
