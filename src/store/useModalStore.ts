@@ -1,28 +1,74 @@
-import { ModalMap, ModalMeta } from '@/ModalProvider';
 import { create } from 'zustand';
+import { immer } from 'zustand/middleware/immer';
+import { devtools } from 'zustand/middleware';
 
-interface UseModalStore {
-  modal: ModalMap;
-  setModalOpen: (id: string, meta?: ModalMeta) => void;
-  setModalClose: (id: string, meta?: ModalMeta) => void;
+interface ModalState {
+  isOpen: boolean;
+  modalNode: React.ReactNode | null;
+  nodeId: string;
+  closeOnOverlayClick: boolean;
 }
 
-const useModalStore = create<UseModalStore>()((set) => ({
-  modal: {},
-  setModalOpen: (id, meta) =>
-    set((state) => ({
-      modal: {
-        ...state.modal,
-        [id]: { id, meta, open: true },
-      },
-    })),
-  setModalClose: (id, meta) =>
-    set((state) => ({
-      modal: {
-        ...state.modal,
-        [id]: { id, meta, open: false },
-      },
-    })),
-}));
+interface ModalActions {
+  presentModal: (
+    node: React.ReactNode,
+    nodeId: string,
+    closeOverlayClick?: boolean,
+  ) => void;
+  dismissModal: () => void;
+  setModalNode: (node: React.ReactNode) => void;
+  setIsOpen: (isOpen: boolean) => void;
+  setNodeId: (nodeId: string) => void;
+  setCloseOnOverlayClick: (closeOnOverlayClick: boolean) => void;
+}
 
-export default useModalStore;
+const initialState: ModalState = {
+  isOpen: false,
+  modalNode: null,
+  nodeId: '',
+  closeOnOverlayClick: true,
+};
+
+export const useModalStore = create<ModalState & ModalActions>()(
+  devtools(
+    immer((set) => ({
+      ...initialState,
+      setNodeId(nodeId: string) {
+        set((state) => {
+          state.nodeId = nodeId;
+        });
+      },
+      setCloseOnOverlayClick(closeOnOverlayClick) {
+        set((state) => {
+          state.closeOnOverlayClick = closeOnOverlayClick;
+        });
+      },
+      setIsOpen(isOpen: boolean) {
+        set((state) => {
+          state.isOpen = isOpen;
+        });
+      },
+      presentModal(node, nodeId, closeOverlayClick = true) {
+        set((state) => {
+          state.isOpen = true;
+          state.modalNode = node;
+          state.nodeId = nodeId;
+          state.closeOnOverlayClick = closeOverlayClick;
+        });
+      },
+      dismissModal() {
+        set((state) => {
+          state.isOpen = false;
+          state.modalNode = null;
+          state.nodeId = '';
+          state.closeOnOverlayClick = true;
+        });
+      },
+      setModalNode(node: React.ReactNode) {
+        set((state) => {
+          state.modalNode = node;
+        });
+      },
+    })),
+  ),
+);
