@@ -42,13 +42,16 @@ const ModalRoot: React.FC<React.PropsWithChildren> = ({
     return () => window.removeEventListener('resize', setViewportHeight);
   }, []);
 
-  const handleOverlayDismiss = useCallback((e: any) => {
-    e.stopPropagation();
-    e.preventDefault();
-    if (closeOnOverlayClick) {
-      dismissModal?.();
-    }
-  }, []);
+  const handleOverlayDismiss = useCallback(
+    (e: any) => {
+      e.stopPropagation();
+      e.preventDefault();
+      if (closeOnOverlayClick) {
+        dismissModal?.();
+      }
+    },
+    [closeOnOverlayClick, dismissModal],
+  );
 
   const portal = getPortalRoot();
 
