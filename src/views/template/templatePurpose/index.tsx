@@ -1,3 +1,4 @@
+import { SELECT, templateRoutes } from '@/constants/routes';
 import TemplateBanner from '../components/TemplateBanner';
 import AdPurpose from '../templateKeywordInputPage/AdPurpose';
 import AdStyle from '../templateKeywordInputPage/AdStyle';
@@ -8,14 +9,15 @@ const TemplatePurpose = () => {
   return (
     <>
       <TemplateBanner
-        title={'광고 목적'}
-        description={'광고의 목적과 선호하는 분위기를 알려주세요'}
+        title={templateRoutes[SELECT].title}
+        description={templateRoutes[SELECT].description}
       />
       <div className="flex flex-col p-5">
         <AdPurpose />
         <BusinessCategory />
         <AdStyle />
-        <NextButton path={'/template/upload'} />
+
+        <NextButton path={templateRoutes[SELECT].routePath} />
       </div>
     </>
   );

@@ -14,6 +14,7 @@ const useBaseQueryClient = (): QueryClientState => {
             refetchOnMount: false,
             refetchOnWindowFocus: false, // Disable automatic refetch on window focus
             staleTime: 1000 * 20,
+            suspense: true,
           },
           mutations: {
             useErrorBoundary: true,

@@ -11,6 +11,8 @@ import { useModalStore } from '@/store/useModalStore';
 import Modal from '@/components/modal/baseModal/Modal';
 import DummyModal from '@/components/modal/DummyModal';
 import useModal from '@/hooks/useModal';
+import { useRouter } from 'next/navigation';
+import { PURPOSE, SELECT, templateRoutes } from '@/constants/routes';
 
 const formId =
   process.env.NODE_ENV === 'production'
@@ -26,18 +28,26 @@ const Template = () => {
   const handleModal = () => {
     dummyModal.onOpen();
   };
+  const router = useRouter();
+  const handleMove = () => {
+    router.push(templateRoutes[PURPOSE].routePath);
+  };
+
   return (
     <div className="flex flex-col p-5">
       <div className="mb-4 border p-5 rounded">
         <p className="text-xl font-bold">새로운 광고 영상 만들기</p>
         <div className="w-full flex">
           <div className="border w-[250px] h-[150px]">
-            <div className="flex justify-center items-center  h-full">
+            <div
+              className="flex justify-center items-center h-full cursor-pointer"
+              onClick={handleMove}
+            >
               <div className="flex-col">
                 <div className="justify-center items-center">
                   <div
                     className="rounded-full w-[50px] bg-slate-950 h-[50px]"
-                    onClick={handleModal}
+                    // onClick={handleModal}
                   ></div>
                 </div>
                 <DummyModal {...dummyModal} />

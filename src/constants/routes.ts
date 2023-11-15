@@ -12,7 +12,7 @@ export const templateRoutes = {
   },
   select: {
     title: '템플릿 선택',
-    description: '원하는 템플릿을 선택해주세요.',
+    description: '우리 가게/브랜드 홍보에 잘 어울리는 템플릿을 선택해주세요',
     routePath: '/template/select',
   },
   keyword: {

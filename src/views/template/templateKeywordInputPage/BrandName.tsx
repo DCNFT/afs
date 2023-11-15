@@ -1,3 +1,4 @@
+import InputField from '@/components/InputField';
 import { Button, Select, TextField } from '@radix-ui/themes';
 
 function BrandName() {
@@ -6,9 +7,10 @@ function BrandName() {
       <p className="text-base font-bold">
         상호 또는 브랜드 이름을 알려주세요(필수)
       </p>
-      <TextField.Root>
+      <InputField />
+      {/* <TextField.Root>
         <TextField.Input placeholder="예시: 우리동네화로" />
-      </TextField.Root>
+      </TextField.Root> */}
     </div>
   );
 }

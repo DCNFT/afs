@@ -17,13 +17,13 @@ const TemplateKeywordInputPage = () => {
         description={templateRoutes[KEYWORD]?.description}
       />
       <div className="flex- flex-col p-5">
-        <AdPurpose />
-        <BusinessCategory />
+        {/* <AdPurpose />
+        <BusinessCategory /> */}
         <BrandName />
         <MainProduct />
         <PromotionDetails />
         <Keywords />
-        <AdStyle />
+        {/* <AdStyle /> */}
         <NextButton path={templateRoutes[UPLOAD]?.routePath} />
       </div>
     </div>

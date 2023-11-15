@@ -33,9 +33,9 @@ const Preview = ({ formId }: PreviewProps) => {
   );
   console.log('isLoading= ', isReady);
   return (
-    <div className={styles.wrapper}>
+    <div className="flex-col md:flex-row p-4">
       <div
-        className={styles.container}
+        className="w-full h-full max-h-[720px] max-w-[720px] mr-auto md:flex-1 md:p-20;"
         ref={(htmlElement) => {
           if (
             htmlElement &&
@@ -53,9 +53,8 @@ const Preview = ({ formId }: PreviewProps) => {
         }}
       />
       {!isReady && <Skeleton height={'200px'} width={'400px'} />}
-
-      <div className="flex gap-1">
-        <Button>장면1</Button>
+      <div className="flex gap-1 mt-2 justify-center items-center">
+        <Button className="bg-primary-light">장면1</Button>
         <Button>장면2</Button>
         <Button>장면3</Button>
         <Button>장면4</Button>

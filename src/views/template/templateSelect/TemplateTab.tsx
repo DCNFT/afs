@@ -1,5 +1,41 @@
 import { Box, Tabs } from '@radix-ui/themes';
-import Template from './Template';
+import TemplateBox from './TemplateBox';
+import { useTemplateList } from '@/api/internal/abs/query';
+import { Suspense, useState } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { FallbackProps } from 'react-error-boundary';
+import { Template } from '@/api/internal/creatomate/types';
+import Skeleton from 'react-loading-skeleton';
+interface TemplateAiRecommendFallbackProps extends FallbackProps {
+  error: Error;
+}
+
+const TemplateAiRecommendFallback: React.FC<
+  TemplateAiRecommendFallbackProps
+> = ({ error, resetErrorBoundary }) => (
+  <div>
+    <p> 에러: {error.message} </p>
+    <button onClick={() => resetErrorBoundary()}> 다시 시도 </button>
+  </div>
+);
+
+const TemplateAiRecommendLoading = () => (
+  <div className="flex flex-col">
+    <Skeleton height={200} width="100%" className="border rounded" />
+    <Skeleton width={100} />
+  </div>
+);
+
+const TemplateAiRecommend = () => {
+  const { data } = useTemplateList();
+  return (
+    <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      {data?.data?.list.map((template) => (
+        <TemplateBox key={template.id} template={template} />
+      ))}
+    </div>
+  );
+};
 
 const TemplateTab = () => {
   return (
@@ -13,16 +49,11 @@ const TemplateTab = () => {
         <Box px="4" pt="3" pb="2">
           <Tabs.Content value="all"></Tabs.Content>
           <Tabs.Content value="ai">
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-              <Template />
-              <Template />
-              <Template />
-              <Template />
-              <Template />
-              <Template />
-              <Template />
-              <Template />
-            </div>
+            <ErrorBoundary FallbackComponent={TemplateAiRecommendFallback}>
+              <Suspense fallback={<TemplateAiRecommendLoading />}>
+                <TemplateAiRecommend />
+              </Suspense>
+            </ErrorBoundary>
           </Tabs.Content>
           <Tabs.Content value="my"></Tabs.Content>
         </Box>

@@ -1,3 +1,4 @@
+import { useTemplateList } from '@/api/internal/abs/query';
 import TemplateBanner from '../components/TemplateBanner';
 import TemplateDetail from './TemplateDetail';
 import TemplateTab from './TemplateTab';
