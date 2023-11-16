@@ -8,17 +8,7 @@ const config: Config = {
     './src/views/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
-      screens: {
-        '1mobile': '320px', // Define the 1mobile breakpoint at 320px
-        // Add more custom breakpoints as needed
-      },
-    },
+    extend: {},
     // colors: {
     //   transparent: 'transparent',
     //   current: 'currentColor',

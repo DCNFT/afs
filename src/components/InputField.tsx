@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -21,42 +23,53 @@ const InputField: React.FC = () => {
     console.log(data);
   };
 
-  const content = watch('content');
+  //const content = watch('content');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // if (charCount > MAX_STRING) return;
-    setValue('content', e.target.value);
-    setCharCount(e.target.value.length);
+    const inputValue = e.target.value;
+    if (inputValue.length <= MAX_STRING) {
+      setValue('content', inputValue);
+      setCharCount(inputValue.length);
+    }
   };
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label>상호 또는 브랜드 이름을 알려주세요(필수)</label>
+          <label className="text-base font-bold">
+            상호 또는 브랜드 이름을 알려주세요(필수)
+          </label>
           <input
             id="content"
             {...register('content', {
               required: true,
+              maxLength: MAX_STRING,
             })}
             placeholder="내용을 입력하세요..."
-            // onChange={handleInputChange}
-            className="w-full py-1 pl-4 pr-4 border-grey-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            className="w-full py-1 pl-4 pr-4 border-1 border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            onChange={handleInputChange}
+            style={{ border: '1px solid rgb(209 213 219 / 1)' }}
           />
-          <div className="flex justify-end mt-2 text-sm text-gray-500">
+          <div className="flex justify-end text-sm text-gray-500">
             {charCount} / {MAX_STRING}
           </div>
         </div>
         <div>
-          <label> 브랜드 이름을 알려주세요(필수)</label>
+          <label className="text-base font-bold">
+            {' '}
+            브랜드 이름을 알려주세요(필수)
+          </label>
           <input
             id="brand"
             {...register('brand', {
               required: true,
+              maxLength: MAX_STRING,
             })}
             placeholder="내용을 입력하세요..."
             // onChange={handleInputChange}
-            className="w-full py-1 pl-4 pr-4 border-grey-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            className="w-full py-1 pl-4 pr-4 border-1 border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            style={{ border: '1px solid rgb(209 213 219 / 1)' }}
           />
           <div className="flex justify-end mt-2 text-sm text-gray-500">
             {charCount} / {MAX_STRING}
@@ -65,7 +78,7 @@ const InputField: React.FC = () => {
         <button>Submit</button>
       </form>
 
-      <DevTool control={control} />
+      {/* <DevTool control={control} /> */}
     </>
   );
 };
