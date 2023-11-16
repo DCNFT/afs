@@ -10,7 +10,7 @@ interface TemplateAiRecommendFallbackProps extends FallbackProps {
   error: Error;
 }
 
-const TemplateAiRecommendFallback: React.FC<
+export const TemplateAiRecommendFallback: React.FC<
   TemplateAiRecommendFallbackProps
 > = ({ error, resetErrorBoundary }) => (
   <div>

@@ -1,7 +1,17 @@
+'use client';
+
 import Icon from '@/components/Icon';
 import TemplateBanner from '../components/TemplateBanner';
 import PreviewPanel from './PreviewPanel';
 import Scene from './Scene';
+import useModal from '@/hooks/useModal';
+import PreviewModal from '@/components/modal/PreviewModal';
+import { Button } from '@radix-ui/themes';
+import useTemplateStore from '@/store/useTemplateStore';
+import { useTemplateInfo } from '@/api/internal/abs/query';
+import { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { TemplateAiRecommendFallback } from '../templateSelect/TemplateTab';
 
 type InformationBoxProps = {
   title: string;
@@ -22,7 +32,19 @@ const InformationBox = ({ title, description }: InformationBoxProps) => {
     </div>
   );
 };
+const SceneContainer = () => {
+  const selectedTemplate = useTemplateStore((state) => state.selectedTemplate);
+  const { data } = useTemplateInfo(selectedTemplate.id);
+  console.log('data= ', data);
+  return <div>wrapper</div>;
+};
 const Upload = () => {
+  const playerModal = useModal();
+
+  const handleMediaModal = () => {
+    playerModal.onOpen();
+  };
+
   return (
     <>
       <TemplateBanner
@@ -39,8 +61,13 @@ const Upload = () => {
               <Scene title={'[장면 4] 추천 미디어: 식사 장면, 장수: 2장'} />
             </div>
           </div>
+          <ErrorBoundary FallbackComponent={TemplateAiRecommendFallback}>
+            <Suspense fallback={<div>fall</div>}>
+              <SceneContainer />
+            </Suspense>
+          </ErrorBoundary>
           <div className="flex-1 ">
-            <PreviewPanel />
+            {/* <PreviewPanel />
             <div className="flex">
               <p>장면 1</p>
               <p>가게외부</p>
@@ -58,6 +85,8 @@ const Upload = () => {
             영상처럼 자동 변환해요 일반 이미지로 보여주고 싶으면
             ‘이미지’로 변경해주세요"
             />
+            <PreviewModal {...playerModal} />
+            <Button onClick={handleMediaModal}>15초 영상 만들기</Button> */}
           </div>
         </div>
       </div>

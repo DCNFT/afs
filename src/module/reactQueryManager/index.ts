@@ -85,7 +85,7 @@ export const useFetch = <T>(
 ) => {
   //const { url, params, config, customQueryKey } = props;
   const { url, params, config } = props;
-  console.log('useFetch ,useFetch');
+  console.log('useFetch ', props);
   return useQuery<T, Error, T, QueryKeyT>({
     //queryKey: customQueryKey ? [customQueryKey, params] : [url!, params],
     queryKey: [url!, params],
