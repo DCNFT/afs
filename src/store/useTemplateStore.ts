@@ -19,23 +19,23 @@ const initialState: State = {
 
 const useTemplateStore = create<State & Actions>()(
   devtools(
-    // persist(
-    immer((set) => ({
-      ...initialState,
-      reset: () => {
-        set(initialState);
+    persist(
+      immer((set) => ({
+        ...initialState,
+        reset: () => {
+          set(initialState);
+        },
+        setSelectedTemplate: (template: Template) => {
+          set((state) => {
+            state.selectedTemplate = template;
+          });
+        },
+      })),
+      {
+        name: 'template-storage',
+        storage: createJSONStorage(() => localStorage),
       },
-      setSelectedTemplate: (template: Template) => {
-        set((state) => {
-          state.selectedTemplate = template;
-        });
-      },
-    })),
-    {
-      name: 'template-storage',
-      storage: createJSONStorage(() => localStorage),
-    },
-    // ),
+    ),
   ),
 );
 

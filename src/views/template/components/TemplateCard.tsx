@@ -15,12 +15,15 @@ import useIsClient from '@/hooks/useIsClient';
 import { Template } from '@/api/internal/creatomate/types';
 import { formatDate } from '@/utils/date';
 
-const CardHeader = () => {
+type CardHeaderProps = {
+  templateInfo: Template;
+};
+const CardHeader = ({ templateInfo }: CardHeaderProps) => {
   const handleRouting = useRouting({ path: '/template/keyword' });
   return (
     <div className="relative h-[140px]">
       <img
-        src="https://images.unsplash.com/photo-1617050318658-a9a3175e34cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+        src={`https://creatomate.com/files/previews/${templateInfo?.id}`}
         alt="Bold typography"
         style={{
           position: 'absolute',
@@ -58,7 +61,7 @@ const TemplateCard = ({ templateInfo }: TemplateCardProps) => {
 
   return (
     <div style={{ maxWidth: 240 }} className="border" id="destination">
-      <CardHeader />
+      <CardHeader templateInfo={templateInfo} />
       <div className="flex justify-between p-2">
         <div>
           <div>
