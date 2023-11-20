@@ -3,21 +3,28 @@ import { useState } from 'react';
 import MediaInputContainer from './MediaInputContainer';
 import MediaDisplayInput from './MediaDisplayInput';
 import MediaTypeInput from './MediaTypeInput';
+import useTemplateStore from '@/store/useTemplateStore';
 
 type SceneEditContainerProps = {
   mediaItem: MediaElement;
 };
 
 const SceneEditContainer = ({ mediaItem }: SceneEditContainerProps) => {
-  const [media, setMedia] = useState<string | null>(null);
-  console.log(media);
-  const handleMediaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+  const [media, setMedia] = useState<any>(null);
+  const templateData = useTemplateStore((state) => state.templateData);
 
+  const handleMediaChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    mediaItemName: string | null,
+  ) => {
+    const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
+      console.log('mediaItem ', mediaItem, mediaItemName);
       reader.onloadend = () => {
         setMedia(reader.result as string);
+
+        console.log({ ...mediaItem, file: reader.result as string });
       };
       reader.readAsDataURL(file);
     }
@@ -30,7 +37,12 @@ const SceneEditContainer = ({ mediaItem }: SceneEditContainerProps) => {
 
   return (
     <div className="flex mb-4">
-      <MediaInputContainer />
+      <MediaInputContainer
+        media={media}
+        handleMediaChange={handleMediaChange}
+        handleAddMedia={handleAddMedia}
+        mediaItemName={mediaItem?.name}
+      />
       <div className="flex flex-col">
         <div className="flex flex-col ">
           <MediaDisplayInput mediaItem={mediaItem} />

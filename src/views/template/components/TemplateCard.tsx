@@ -110,9 +110,13 @@ const TemplateCard = ({ templateInfo }: TemplateCardProps) => {
           </div>
         </div>
       </div>
-      <div className="p-2">
-        <Button>편집중</Button>
-      </div>
+      {/*
+      
+      {
+        <div className="p-2">
+          <Button>편집중</Button>
+        </div>
+      } */}
     </div>
   );
 };

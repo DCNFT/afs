@@ -10,7 +10,7 @@ import TemplateMakeFallback from '@/views/template/templateMake/components/Templ
 const TemplateMake = () => {
   return (
     <div className="flex flex-col p-5">
-      <NewAdvertisingVideoContainer />ㄴ
+      <NewAdvertisingVideoContainer />
       <ErrorBoundary FallbackComponent={TemplateMakeFallback}>
         <Suspense fallback={<TemplateMakeLoading />}>
           <RecentMakeTemplateList />

@@ -2,7 +2,7 @@
 
 import NextButton from './NextButton';
 import TemplateBanner from '../components/TemplateBanner';
-import { KEYWORD, UPLOAD, templateRoutes } from '@/constants/routes';
+import { KEYWORD, SELECT, UPLOAD, templateRoutes } from '@/constants/routes';
 import { useForm } from 'react-hook-form';
 import KeywordInputWrapper from './KeywordInputWrapper';
 

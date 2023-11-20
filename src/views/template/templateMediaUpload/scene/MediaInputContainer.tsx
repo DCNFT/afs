@@ -1,14 +1,21 @@
 type MediaInputContainerProps = {
-  media?: string | null;
-  handleMediaChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  media: any;
+  handleMediaChange: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    mediaItemName: string | null,
+  ) => void;
+
   handleAddMedia?: () => void;
+  mediaItemName: string | null;
 };
 
-const MediaInputContainer: React.FC = ({
+const MediaInputContainer = ({
   media,
   handleMediaChange,
   handleAddMedia,
+  mediaItemName,
 }: MediaInputContainerProps) => {
+  console.log('mediaItemName ', mediaItemName);
   return (
     <div className="h-[150px] w-[300px] border bg-gray-200 relative">
       {media && media.startsWith('data:video/') ? (
@@ -36,7 +43,7 @@ const MediaInputContainer: React.FC = ({
       <input
         type="file"
         accept="image/*,video/*"
-        onChange={handleMediaChange}
+        onChange={(e) => handleMediaChange(e, mediaItemName)}
         style={{
           position: 'absolute',
           top: 0,
