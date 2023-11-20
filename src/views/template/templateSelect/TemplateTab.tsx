@@ -6,7 +6,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { FallbackProps } from 'react-error-boundary';
 import { Template } from '@/api/internal/creatomate/types';
 import Skeleton from 'react-loading-skeleton';
-interface TemplateAiRecommendFallbackProps extends FallbackProps {
+export interface TemplateAiRecommendFallbackProps extends FallbackProps {
   error: Error;
 }
 
@@ -30,7 +30,7 @@ const TemplateAiRecommend = () => {
   const { data } = useTemplateList();
   return (
     <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-      {data?.data?.list.map((template) => (
+      {data?.data?.list.map((template: Template) => (
         <TemplateBox key={template.id} template={template} />
       ))}
     </div>
