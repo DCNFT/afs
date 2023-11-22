@@ -8,7 +8,7 @@ type CommonInputProps = {
   id: string;
   label: string;
   placeholder: string;
-  name: string;
+  name: keyof FormValues;
   register: any; // React Hook Form의 register 함수의 타입
   maxLength: number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

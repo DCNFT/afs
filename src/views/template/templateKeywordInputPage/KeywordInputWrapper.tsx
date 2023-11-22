@@ -10,7 +10,7 @@ import {
 
 type KeywordInputWrapperProps = {
   id: keyof FormValues;
-  name: string;
+  name: keyof FormValues;
   label: string;
   placeholder: string;
   maxLength: number;
