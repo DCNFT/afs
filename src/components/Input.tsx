@@ -1,6 +1,8 @@
 // CommonInput.tsx
 import React from 'react';
 import { ErrorMessage } from '@hookform/error-message';
+import { FieldErrors } from 'react-hook-form';
+import { FormValues } from '@/views/template/templateKeywordInputPage/TemplateKeywordInputPage';
 
 type CommonInputProps = {
   id: string;
@@ -15,7 +17,7 @@ type CommonInputProps = {
     required?: boolean;
     maxLength?: number;
   };
-  handleSubmit: () => void;
+  errors: FieldErrors<FormValues>;
 };
 
 const CommonInput: React.FC<CommonInputProps> = ({
@@ -24,12 +26,13 @@ const CommonInput: React.FC<CommonInputProps> = ({
   placeholder,
   name,
   register,
-  handleSubmit,
   maxLength,
   onChange,
   value,
   validationRules,
+  errors,
 }) => {
+  console.log('errors= ', errors);
   return (
     <div>
       <label className="text-base font-bold">{label}</label>
@@ -45,6 +48,7 @@ const CommonInput: React.FC<CommonInputProps> = ({
       <div className="flex justify-end mt-2 text-sm text-gray-500">
         {value.length} / {maxLength}
       </div>
+      <ErrorMessage errors={errors} name={name} as="p" />
     </div>
   );
 };

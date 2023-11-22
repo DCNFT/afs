@@ -74,11 +74,11 @@ const TemplateKeywordInputPage = () => {
             maxLength={30}
             setValue={setValue}
             register={register}
-            handleSubmit={handleSubmit}
             validationRules={{
-              required: true,
+              required: '필수로 입력해주세요',
               maxLength: 30,
             }}
+            errors={errors}
           />
 
           <KeywordInputWrapper
@@ -89,11 +89,11 @@ const TemplateKeywordInputPage = () => {
             maxLength={30}
             setValue={setValue}
             register={register}
-            handleSubmit={handleSubmit}
             validationRules={{
-              required: true,
+              required: '필수로 입력해주세요',
               maxLength: 30,
             }}
+            errors={errors}
           />
 
           <KeywordInputWrapper
@@ -104,11 +104,11 @@ const TemplateKeywordInputPage = () => {
             maxLength={50}
             setValue={setValue}
             register={register}
-            handleSubmit={handleSubmit}
             validationRules={{
-              required: true,
+              required: '필수로 입력해주세요',
               maxLength: 50,
             }}
+            errors={errors}
           />
 
           <KeywordInputWrapper
@@ -119,11 +119,11 @@ const TemplateKeywordInputPage = () => {
             maxLength={30}
             setValue={setValue}
             register={register}
-            handleSubmit={handleSubmit}
             validationRules={{
               required: false,
               maxLength: 30,
             }}
+            errors={errors}
           />
           <Button className="bg-violet-500" type="submit">
             다음

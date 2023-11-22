@@ -2,6 +2,7 @@ import CommonInput from '@/components/Input';
 import { useState } from 'react';
 import { FormValues } from './TemplateKeywordInputPage';
 import {
+  FieldErrors,
   UseFormHandleSubmit,
   UseFormRegister,
   UseFormSetValue,
@@ -15,11 +16,11 @@ type KeywordInputWrapperProps = {
   maxLength: number;
   register: UseFormRegister<FormValues>;
   setValue: UseFormSetValue<FormValues>;
-  handleSubmit: UseFormHandleSubmit<FormValues, undefined>;
   validationRules: {
-    required?: boolean;
+    required?: any;
     maxLength?: number;
   };
+  errors: FieldErrors<FormValues>;
 };
 
 function KeywordInputWrapper({
@@ -30,8 +31,8 @@ function KeywordInputWrapper({
   register,
   maxLength,
   setValue,
-  handleSubmit,
   validationRules,
+  errors,
 }: KeywordInputWrapperProps) {
   const [input, setInput] = useState('');
 
@@ -50,12 +51,12 @@ function KeywordInputWrapper({
         label={label}
         name={name}
         register={register}
-        handleSubmit={handleSubmit}
         maxLength={maxLength}
         placeholder={placeholder}
         onChange={handleInputChange}
         value={input}
         validationRules={validationRules}
+        errors={errors}
       />
     </div>
   );
