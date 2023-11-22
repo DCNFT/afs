@@ -1,5 +1,5 @@
 import { retouch } from '@/api/internal/abs/http';
-import useSnackBar from '@/hooks/useSnackBar';
+import useSnackBar from '@/hooks/useToast';
 import { useState } from 'react';
 
 type UseRetouchProps = {

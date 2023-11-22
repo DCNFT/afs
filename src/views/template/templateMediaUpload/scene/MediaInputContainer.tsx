@@ -1,10 +1,11 @@
+import React from 'react';
+
 type MediaInputContainerProps = {
   media: any;
   handleMediaChange: (
     event: React.ChangeEvent<HTMLInputElement>,
     mediaItemName: string | null,
   ) => void;
-
   handleAddMedia?: () => void;
   mediaItemName: string | null;
 };
@@ -12,12 +13,11 @@ type MediaInputContainerProps = {
 const MediaInputContainer = ({
   media,
   handleMediaChange,
-  handleAddMedia,
   mediaItemName,
 }: MediaInputContainerProps) => {
   console.log('mediaItemName ', mediaItemName);
   return (
-    <div className="h-[150px] w-[300px] border bg-gray-200 relative">
+    <div className="h-[150px] w-[300px] border border-gray-300 relative">
       {media && media.startsWith('data:video/') ? (
         <video
           controls
@@ -54,22 +54,23 @@ const MediaInputContainer = ({
           cursor: 'pointer',
         }}
       />
-      <button
-        onClick={handleAddMedia}
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          zIndex: 1,
-        }}
-      >
-        Add Media
-        <span role="img" aria-label="camera" style={{ marginLeft: '8px' }}>
-          📷
-        </span>
-      </button>
+      {!media && (
+        <button
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 1,
+          }}
+        >
+          Add Media
+          <span role="img" aria-label="camera" style={{ marginLeft: '8px' }}>
+            📷
+          </span>
+        </button>
+      )}
     </div>
   );
 };
-export default MediaInputContainer;
+export default React.memo(MediaInputContainer);

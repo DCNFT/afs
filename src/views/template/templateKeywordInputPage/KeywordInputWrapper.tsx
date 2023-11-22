@@ -1,7 +1,11 @@
 import CommonInput from '@/components/Input';
 import { useState } from 'react';
 import { FormValues } from './TemplateKeywordInputPage';
-import { UseFormHandleSubmit, UseFormSetValue } from 'react-hook-form';
+import {
+  UseFormHandleSubmit,
+  UseFormRegister,
+  UseFormSetValue,
+} from 'react-hook-form';
 
 type KeywordInputWrapperProps = {
   id: keyof FormValues;
@@ -9,6 +13,7 @@ type KeywordInputWrapperProps = {
   label: string;
   placeholder: string;
   maxLength: number;
+  register: UseFormRegister<FormValues>;
   setValue: UseFormSetValue<FormValues>;
   handleSubmit: UseFormHandleSubmit<FormValues, undefined>;
   validationRules: {
@@ -22,6 +27,7 @@ function KeywordInputWrapper({
   name,
   label,
   placeholder,
+  register,
   maxLength,
   setValue,
   handleSubmit,
@@ -29,7 +35,7 @@ function KeywordInputWrapper({
 }: KeywordInputWrapperProps) {
   const [input, setInput] = useState('');
 
-  const handleMainProductChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     if (inputValue.length <= maxLength) {
       setValue(id, inputValue);
@@ -43,10 +49,11 @@ function KeywordInputWrapper({
         id={id}
         label={label}
         name={name}
-        register={handleSubmit}
+        register={register}
+        handleSubmit={handleSubmit}
         maxLength={maxLength}
         placeholder={placeholder}
-        onChange={handleMainProductChange}
+        onChange={handleInputChange}
         value={input}
         validationRules={validationRules}
       />

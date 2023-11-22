@@ -8,7 +8,7 @@ const Scene = ({ composition }: SceneProps) => {
   // console.log(composition.media.filter((item) => item.format === 'MEDIA'));
   return (
     <div className="flex mb-4">
-      <div className="flex flex-col" style={{ flex: '2 1 0%' }}>
+      <div className="flex flex-col min-w-max" style={{ flex: '2 1 0%' }}>
         <p className="text-base font-bold">{composition?.style}</p>
         {composition?.media
           ?.filter((item) => item.format === 'MEDIA')

@@ -1,4 +1,5 @@
 import { ApiResponse } from '@/api/defaultInterface';
+import { File } from 'buffer';
 
 export type RetouchRequestParams = {
   image_file?: FormData;
@@ -30,6 +31,8 @@ export type MediaElement = {
   reference_id: string | null;
   order: number | null;
   elements: Array<MediaElement> | null;
+  file?: string | File;
+  image_process?: string;
 };
 
 export type Composition = {
@@ -39,7 +42,10 @@ export type Composition = {
 };
 
 export type StoreInfo = {
-  name: string;
+  name: {
+    name: string;
+    value: string;
+  };
   type: string;
   description: string;
   keyword: string;

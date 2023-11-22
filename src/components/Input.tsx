@@ -1,5 +1,6 @@
 // CommonInput.tsx
 import React from 'react';
+import { ErrorMessage } from '@hookform/error-message';
 
 type CommonInputProps = {
   id: string;
@@ -14,6 +15,7 @@ type CommonInputProps = {
     required?: boolean;
     maxLength?: number;
   };
+  handleSubmit: () => void;
 };
 
 const CommonInput: React.FC<CommonInputProps> = ({
@@ -22,6 +24,7 @@ const CommonInput: React.FC<CommonInputProps> = ({
   placeholder,
   name,
   register,
+  handleSubmit,
   maxLength,
   onChange,
   value,

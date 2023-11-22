@@ -11,7 +11,7 @@ const defaultToastOption: ToastOptions = {
 };
 
 // 모듈화, 추상화를 위해 별도의 커스텀 훅으로 만들었습니다.
-export default function useSnackBar() {
+export default function useToast() {
   const enqueueDefaultBar = (
     message: ReactNode,
     options: ToastOptions = {},

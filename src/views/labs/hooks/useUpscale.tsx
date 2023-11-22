@@ -1,6 +1,6 @@
 import { upscale } from '@/api/internal/abs/http';
 import { DEFAULT_UPSCALE } from '@/constants/default';
-import useSnackBar from '@/hooks/useSnackBar';
+import useSnackBar from '@/hooks/useToast';
 import { Button } from '@radix-ui/themes';
 import { useState } from 'react';
 

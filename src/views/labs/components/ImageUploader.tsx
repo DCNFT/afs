@@ -3,7 +3,7 @@ import { Button } from '@radix-ui/themes';
 import useImageStore from '@/store/useImageStore';
 import useRetouch from '../hooks/useRetouch';
 import useUpscale from '../hooks/useUpscale';
-import useSnackBar from '@/hooks/useSnackBar';
+import useSnackBar from '@/hooks/useToast';
 import DragDropContainer from './DragDropContainer';
 import useAnimation from '../hooks/useAnimation';
 

@@ -5,40 +5,13 @@ import { use } from 'react';
 import useTemplateStore from '@/store/useTemplateStore';
 import { useTemplateInfo } from '@/api/internal/abs/query';
 import { Composition, MediaElement } from '@/api/internal/abs/types';
-
-type MediaCount = {
-  media: number;
-  text: number;
-  logo: number;
-  composition: number;
-};
-
-const countMediaFormats = (compositions: Composition[]): MediaCount => {
-  let mediaCount: MediaCount = { media: 0, text: 0, logo: 0, composition: 0 };
-  if (compositions?.length === 0) return mediaCount;
-  console.log('compositions= ', compositions);
-  compositions?.forEach((composition) => {
-    composition?.media.forEach((mediaElement: MediaElement) => {
-      if (mediaElement.format === 'MEDIA') {
-        mediaCount.media += 1;
-      } else if (mediaElement.format === 'TEXT') {
-        mediaCount.text += 1;
-      } else if (mediaElement.format === 'LOGO') {
-        mediaCount.logo += 1;
-      }
-    });
-  });
-  mediaCount.composition = compositions?.length;
-
-  return mediaCount;
-};
+import { MediaCount, countMediaFormats } from '@/utils/countMediaFormats';
 
 type CountMediaInfoContainer = {
   compositions: Composition[];
 };
 const CountMediaInfoContainer = ({ compositions }: CountMediaInfoContainer) => {
   const mediaCountResult: MediaCount = countMediaFormats(compositions);
-
   return (
     <p>
       장면 {mediaCountResult.composition}개 ∙ 미디어 {mediaCountResult.media}개
@@ -46,6 +19,7 @@ const CountMediaInfoContainer = ({ compositions }: CountMediaInfoContainer) => {
     </p>
   );
 };
+
 const TemplateDetail = () => {
   const selectedTemplate = useTemplateStore((state) => state.selectedTemplate);
   const { data } = useTemplateInfo(selectedTemplate.id);

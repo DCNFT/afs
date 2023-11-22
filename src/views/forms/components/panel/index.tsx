@@ -5,7 +5,7 @@ import { Button } from '@radix-ui/themes';
 import { SettingsPanel } from '@/views/forms/components/panel/SettingsPanel';
 import useGetFormId from '@/views/forms/hooks/useGetFormId';
 // import { useModal } from '@/hooks/useModal';
-import useSnackBar from '@/hooks/useSnackBar';
+import useSnackBar from '@/hooks/useToast';
 
 const Panel = () => {
   const formId = useGetFormId();

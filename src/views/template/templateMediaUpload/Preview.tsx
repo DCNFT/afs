@@ -54,11 +54,11 @@ const Preview = ({ formId }: PreviewProps) => {
       />
       {!isReady && <Skeleton height={'200px'} width={'400px'} />}
       <div className="flex gap-1 mt-2 justify-center items-center">
-        <Button className="bg-primary-light">장면1</Button>
+        {/* <Button className="bg-primary-light">장면1</Button>
         <Button>장면2</Button>
         <Button>장면3</Button>
         <Button>장면4</Button>
-        <Button>장면5</Button>
+        <Button>장면5</Button> */}
       </div>
     </div>
   );

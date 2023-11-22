@@ -6,17 +6,15 @@ import { useState } from 'react';
 
 type MediaDisplayProps = {
   mediaItem: MediaElement;
+  handleDescriptionChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  description: string;
 };
 
-const MediaDisplayInput = ({ mediaItem }: MediaDisplayProps) => {
-  const [description, setDescription] = useState(mediaItem?.description);
-
-  const handleDescriptionChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setDescription(event.target.value);
-  };
-
+const MediaDisplayInput = ({
+  mediaItem,
+  handleDescriptionChange,
+  description,
+}: MediaDisplayProps) => {
   return (
     <div className="flex gap-4 px-4">
       <div className="flex justify-center items-center">
@@ -26,8 +24,8 @@ const MediaDisplayInput = ({ mediaItem }: MediaDisplayProps) => {
         <TextField.Input
           onChange={handleDescriptionChange}
           radius="none"
-          placeholder="Search the docs…"
-          value={description as string}
+          placeholder="미디어 설명을 입력해주세요."
+          value={description}
         />
       </div>
     </div>

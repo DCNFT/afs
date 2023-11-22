@@ -4,9 +4,12 @@
     "creatomate",
     "Dismissable",
     "immer",
+    "mcode",
     "Playhead",
+    "scode",
     "tanstack",
     "toastify",
+    "upsert",
     "zustand"
   ]
 }
