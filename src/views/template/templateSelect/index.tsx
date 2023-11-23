@@ -33,11 +33,11 @@ const TemplateSelect = () => {
       <div className="flex flex-col p-5">
         <div className="flex">
           <TemplateTab />
-          <ErrorBoundary FallbackComponent={TemplateDetailFallback}>
+          {/* <ErrorBoundary FallbackComponent={TemplateDetailFallback}>
             <Suspense fallback={<TemplateDetailLoading />}>
               <TemplateDetail />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
         </div>
       </div>
     </div>
