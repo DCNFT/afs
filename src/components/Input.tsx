@@ -48,7 +48,12 @@ const CommonInput: React.FC<CommonInputProps> = ({
       <div className="flex justify-end mt-2 text-sm text-gray-500">
         {value.length} / {maxLength}
       </div>
-      <ErrorMessage errors={errors} name={name} as="p" />
+      <ErrorMessage
+        errors={errors}
+        name={name}
+        as="p"
+        className="text-red-600"
+      />
     </div>
   );
 };

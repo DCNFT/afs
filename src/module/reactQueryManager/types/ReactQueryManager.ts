@@ -13,6 +13,7 @@ interface QueryProps<T> {
   params?: RequestConfigType | object;
   config?: UseQueryOptions<T, Error, T, QueryKeyT>;
   customQueryKey?: string;
+  customCondition?: boolean;
 }
 
 interface GetInfinitePagesInterface<T> {

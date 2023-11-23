@@ -23,4 +23,5 @@ export const useTemplateInfo = (template_id: string) =>
       scode: '1120',
       template_id,
     },
+    customCondition: !!template_id,
   });

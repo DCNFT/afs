@@ -84,8 +84,15 @@ export const useFetch = <T>(
   props: QueryProps<T>,
 ) => {
   //const { url, params, config, customQueryKey } = props;
-  const { url, params, config } = props;
+  const { url, params, config, customCondition } = props;
   console.log('useFetch ', props);
+  const calculateEnabled = () => {
+    if (customCondition !== undefined) {
+      return !!url && customCondition;
+    }
+    // If customCondition is not provided, check only !!url
+    return !!url;
+  };
   return useQuery<T, Error, T, QueryKeyT>({
     //queryKey: customQueryKey ? [customQueryKey, params] : [url!, params],
     queryKey: [url!, params],
@@ -93,7 +100,7 @@ export const useFetch = <T>(
       const dataPromise = fetcher<T>(context);
       return minimumLoadingTime(dataPromise);
     },
-    enabled: !!url,
+    enabled: calculateEnabled(),
     ...config,
   });
 };
