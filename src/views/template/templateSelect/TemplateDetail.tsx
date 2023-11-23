@@ -22,8 +22,7 @@ const CountMediaInfoContainer = ({ compositions }: CountMediaInfoContainer) => {
 
 const TemplateDetail = () => {
   const selectedTemplate = useTemplateStore((state) => state.selectedTemplate);
-  const { data } = useTemplateInfo(selectedTemplate.id);
-  if (!data) return;
+  const { data } = useTemplateInfo(selectedTemplate?.id);
 
   return (
     <div className="flex-1">
