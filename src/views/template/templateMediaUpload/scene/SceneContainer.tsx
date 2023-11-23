@@ -6,17 +6,19 @@ import { useEffect } from 'react';
 const SceneContainer = () => {
   const selectedTemplate = useTemplateStore((state) => state.selectedTemplate);
   const setTemplateData = useTemplateStore((state) => state.setTemplateData);
-  const { data } = useTemplateInfo(selectedTemplate.id);
+  const templateInfoResponse = useTemplateInfo(selectedTemplate.id);
 
   useEffect(() => {
-    setTemplateData(data?.data);
-  }, [data?.data, setTemplateData]);
+    setTemplateData(templateInfoResponse?.data?.data);
+  }, [templateInfoResponse.data?.data, setTemplateData]);
 
   return (
     <div>
-      {data?.data?.info?.compositions.map((composition, key) => (
-        <Scene composition={composition} key={`composition-${key}`} />
-      ))}
+      {templateInfoResponse?.data?.data?.info?.compositions.map(
+        (composition, key) => (
+          <Scene composition={composition} key={`composition-${key}`} />
+        ),
+      )}
     </div>
   );
 };

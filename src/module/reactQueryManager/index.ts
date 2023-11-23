@@ -34,6 +34,7 @@ export const fetcher = <T>({
   pageParam,
 }: QueryFunctionContext<QueryKeyT>): Promise<T> => {
   const [url, params] = queryKey;
+  console.log('fetcher url= ', url);
   return api.get<T>(url, { params: { ...params, pageParam } });
 };
 
