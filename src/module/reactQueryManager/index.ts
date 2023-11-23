@@ -31,11 +31,10 @@ const minimumLoadingTime = async <T>(
 
 export const fetcher = <T>({
   queryKey,
-  pageParam,
 }: QueryFunctionContext<QueryKeyT>): Promise<T> => {
   const [url, params] = queryKey;
   console.log('fetcher url= ', url);
-  return api.get<T>(url, { params: { ...params, pageParam } });
+  return api.get<T>(url, { params: { ...params } });
 };
 
 export const useLoadMore = <T>(props: InfinitePagesProps<T>) => {

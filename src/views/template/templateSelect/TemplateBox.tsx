@@ -27,7 +27,7 @@ const TemplateBox: React.FC<TemplateBoxProps> = ({ template }) => {
         <Image
           src={`https://creatomate.com/files/previews/${template?.id}`}
           alt={template?.id}
-          layout="fill"
+          fill
         />
       </div>
       <div className="flex justify-between px-2">
