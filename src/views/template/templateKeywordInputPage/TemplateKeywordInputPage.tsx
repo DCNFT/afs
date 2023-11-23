@@ -50,7 +50,7 @@ const TemplateKeywordInputPage = () => {
     //   },
     // };
     setStoreInfo(storeInfo);
-    //handleRouting();
+    handleRouting();
   };
   const onInvalid = (errors: FieldErrors) => {
     console.log('실패');

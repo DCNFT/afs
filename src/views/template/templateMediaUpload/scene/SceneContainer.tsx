@@ -1,3 +1,5 @@
+'use client';
+
 import { useTemplateInfo } from '@/api/internal/abs/query';
 import useTemplateStore from '@/store/useTemplateStore';
 import Scene from '../scene/Scene';

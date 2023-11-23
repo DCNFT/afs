@@ -53,6 +53,7 @@ interface VideoCreatorActions {
   setMode: (mode: 'player' | 'interactive') => void;
   setVideoAspectRatio: (videoAspectRatio: number) => void;
   setFormId: (formId: string) => void;
+  setSource: (source: Record<string, any>) => Promise<void>;
 }
 
 // Create the Zustand store
@@ -407,6 +408,10 @@ const useVideoCreatorStore = create<VideoCreatorState & VideoCreatorActions>(
 
     setFormId: (formId: string) => {
       set({ formId });
+    },
+
+    setSource: async (source: Record<string, any>) => {
+      await get().preview?.setSource(source);
     },
   }),
 );

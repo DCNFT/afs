@@ -1,3 +1,5 @@
+'use client';
+
 import { SELECT, templateRoutes } from '@/constants/routes';
 import TemplateBanner from '../components/TemplateBanner';
 import AdPurpose from '../templateKeywordInputPage/AdPurpose';
@@ -16,7 +18,6 @@ const TemplatePurpose = () => {
         <AdPurpose />
         <BusinessCategory />
         <AdStyle />
-
         <NextButton path={templateRoutes[SELECT].routePath} />
       </div>
     </>

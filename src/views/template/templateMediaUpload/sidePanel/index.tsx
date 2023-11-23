@@ -8,13 +8,23 @@ import InformationContainer from './InformationContainer';
 import { addObjectToFormData } from '@/utils/addObjectToFormData';
 import useToast from '@/hooks/useToast';
 
-const SidePanel = () => {
+type SidePanelProps = {
+  handleMediaModal: () => void;
+};
+const SidePanel = ({ handleMediaModal }: SidePanelProps) => {
   const templateData = useTemplateStore((state) => state.templateData);
   const storeInfo = useTemplateStore((state) => state.storeInfo);
   const [isLoading, setIsLoading] = useState(false);
+  const setCreateVideoInformation = useTemplateStore(
+    (state) => state.setCreateVideoInformation,
+  );
+  const createVideoInformation = useTemplateStore(
+    (state) => state.createVideoInformation,
+  );
+
   const { enqueueSuccessBar, enqueueErrorBar } = useToast();
   const handleMakeVideo = async () => {
-    //validation
+    //validatiog
     //일단 여기서 조립으로
     try {
       setIsLoading(true);
@@ -33,10 +43,13 @@ const SidePanel = () => {
       );
       const response = await upsertVideo({ data: formData });
       console.log('response = ', response);
+      enqueueSuccessBar('video가 생성되었습니다!');
+      setCreateVideoInformation(response?.data);
       setIsLoading(false);
     } catch (e) {
       console.log(e);
       setIsLoading(false);
+      enqueueErrorBar('video 생성에 실패했습니다.');
     }
   };
 
@@ -53,8 +66,11 @@ const SidePanel = () => {
         onClick={handleMakeVideo}
         disabled={isLoading}
       >
-        {isLoading ? '제작 중' : '15초 영상 만들기'}
+        {isLoading ? '제작 중이에요.' : '15초 영상 만들기'}
       </Button>
+      {!isLoading && createVideoInformation?.video_url && (
+        <Button onClick={handleMediaModal}>영상보기</Button>
+      )}
     </div>
   );
 };

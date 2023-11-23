@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Button, Tabs } from '@radix-ui/themes';
 import NextButton from '../templateKeywordInputPage/NextButton';
 import { keywordArray } from '../data/default';

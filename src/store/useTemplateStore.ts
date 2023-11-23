@@ -14,10 +14,15 @@ type StoreData = {
   description: string;
   keyword: string;
 };
+export type CreateVideoInformation = {
+  video_name: string;
+  video_url: string;
+};
 type State = {
   selectedTemplate: Template;
   templateData: { info: TemplateInfo };
   storeInfo: StoreData;
+  createVideoInformation: CreateVideoInformation;
 };
 
 type Actions = {
@@ -26,6 +31,7 @@ type Actions = {
   // 액션: 템플릿 데이터 설정
   setTemplateData: (data: any) => void;
   setStoreInfo: (data: any) => void;
+  setCreateVideoInformation: (data: CreateVideoInformation) => void;
 };
 
 const initialState: State = {
@@ -39,6 +45,10 @@ const initialState: State = {
     type: '',
     description: '',
     keyword: '',
+  },
+  createVideoInformation: {
+    video_name: '',
+    video_url: '',
   },
 };
 
@@ -68,6 +78,11 @@ const useTemplateStore = create<State & Actions>()(
         setUpdateTemplateData: (store_info: any) => {
           set((state) => {
             state.templateData.info.store_info = store_info;
+          });
+        },
+        setCreateVideoInformation: (data: CreateVideoInformation) => {
+          set((state) => {
+            state.createVideoInformation = data;
           });
         },
       })),

@@ -1,22 +1,23 @@
 'use client';
 
 import TemplateBanner from '../components/TemplateBanner';
-//import useModal from '@/hooks/useModal';
+import useModal from '@/hooks/useModal';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { TemplateAiRecommendFallback } from '../templateSelect/TemplateTab';
 import SceneContainer from './scene/SceneContainer';
 import SidePanel from './sidePanel';
-//import useTemplateStore from '@/store/useTemplateStore';
+import useTemplateStore from '@/store/useTemplateStore';
+import PreviewModal from '@/components/modal/PreviewModal';
 
 const Upload = () => {
-  //  const playerModal = useModal();
-  // const templateData = useTemplateStore((state) => state.templateData);
-  // const handleMediaModal = () => {
-  //   playerModal.onOpen();
-  // };
+  const playerModal = useModal();
+  const templateData = useTemplateStore((state) => state.templateData);
+  const handleMediaModal = () => {
+    playerModal.onOpen();
+  };
 
-  // console.log('templateData= ', templateData);
+  console.log('templateData= ', templateData);
   return (
     <>
       <TemplateBanner
@@ -30,15 +31,16 @@ const Upload = () => {
             style={{ flex: '2 1 0%' }}
           >
             <div className="flex-col w-full">
-              {/* <ErrorBoundary FallbackComponent={TemplateAiRecommendFallback}>
+              <ErrorBoundary FallbackComponent={TemplateAiRecommendFallback}>
                 <Suspense fallback={<div>fall</div>}>
                   <SceneContainer />
                 </Suspense>
-              </ErrorBoundary> */}
+              </ErrorBoundary>
             </div>
           </div>
-          <SidePanel />
+          <SidePanel handleMediaModal={handleMediaModal} />
         </div>
+        <PreviewModal {...playerModal} />
       </div>
     </>
   );

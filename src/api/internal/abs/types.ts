@@ -39,6 +39,7 @@ export type Composition = {
   duration: number;
   style: string | null;
   media: Array<MediaElement>;
+  time: number;
 };
 
 export type StoreInfo = {

@@ -64,10 +64,10 @@ const MediaInputContainer = ({
             zIndex: 1,
           }}
         >
-          Add Media
-          <span role="img" aria-label="camera" style={{ marginLeft: '8px' }}>
+          <span role="img" aria-label="camera" style={{ marginRight: '8px' }}>
             📷
           </span>
+          미디어 추가
         </button>
       )}
     </div>
