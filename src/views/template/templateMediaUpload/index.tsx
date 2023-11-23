@@ -30,11 +30,11 @@ const Upload = () => {
             style={{ flex: '2 1 0%' }}
           >
             <div className="flex-col w-full">
-              <ErrorBoundary FallbackComponent={TemplateAiRecommendFallback}>
+              {/* <ErrorBoundary FallbackComponent={TemplateAiRecommendFallback}>
                 <Suspense fallback={<div>fall</div>}>
                   <SceneContainer />
                 </Suspense>
-              </ErrorBoundary>
+              </ErrorBoundary> */}
             </div>
           </div>
           <SidePanel />
