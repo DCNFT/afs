@@ -103,7 +103,6 @@ const SceneEditContainer = ({ mediaItem }: SceneEditContainerProps) => {
 
     handleMediaUpdate();
   }, [localMediaData, templateData, mediaItem, setTemplateData]);
-  console.log('localMediaData ', localMediaData);
   return (
     <div className="flex mb-4">
       <MediaInputContainer

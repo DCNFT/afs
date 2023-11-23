@@ -61,11 +61,6 @@ const Preview = ({ formId, source }: PreviewProps) => {
     setSource(source);
   }, [source, setSource]);
 
-  console.log(
-    'window.innerWidth / videoAspectRatio',
-    window.innerWidth / videoAspectRatio,
-  );
-  console.log('isLoading= ', isReady);
   return (
     <div className="flex-col md:flex-row p-4">
       <div

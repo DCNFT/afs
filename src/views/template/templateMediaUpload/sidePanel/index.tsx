@@ -54,23 +54,25 @@ const SidePanel = ({ handleMediaModal }: SidePanelProps) => {
   };
 
   return (
-    <div className="flex-1 pl-4">
+    <div className="flex-1 pl-4 border">
       <h3 className="font-bold">
         템플릿에 어울리는 미디어 콘셉트를 추천합니다!
       </h3>
       <MediaConceptContainer />
       <PreviewPanel />
       <InformationContainer />
-      <Button
-        className={'bg-violet-500'}
-        onClick={handleMakeVideo}
-        disabled={isLoading}
-      >
-        {isLoading ? '제작 중이에요.' : '15초 영상 만들기'}
-      </Button>
-      {!isLoading && createVideoInformation?.video_url && (
-        <Button onClick={handleMediaModal}>영상보기</Button>
-      )}
+      <div className="flex gap-3">
+        <Button
+          className={'bg-violet-500'}
+          onClick={handleMakeVideo}
+          disabled={isLoading}
+        >
+          {isLoading ? '제작 중이에요.' : '15초 영상 만들기'}
+        </Button>
+        {!isLoading && createVideoInformation?.video_url && (
+          <Button onClick={handleMediaModal}>영상보기</Button>
+        )}
+      </div>
     </div>
   );
 };

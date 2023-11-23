@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import styles from '@/styles/Home.module.css';
 import ModalRoot from './baseModal/ModalRoot';
 import Modal from './baseModal/Modal';
 import { ModalProps } from '@/components/modal/baseModal/ModalRoot';
