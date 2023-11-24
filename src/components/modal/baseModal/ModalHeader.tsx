@@ -13,9 +13,10 @@ const ModalHeader = ({
 }: ModalHeaderProps) => {
   return (
     <div
-      className={`border-b ${headerBorderColor} flex items-center ${p} md:items-center md:bg-transparent md:border-none md:p-0 text-black`}
+      className={`border-b ${headerBorderColor} flex items-center ${p} md:items-center md:bg-transparent md:border-none  text-black`}
     >
       {children}
+      <hr />
     </div>
   );
 };

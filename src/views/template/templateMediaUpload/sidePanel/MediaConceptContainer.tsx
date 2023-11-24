@@ -1,9 +1,11 @@
 import useTemplateStore from '@/store/useTemplateStore';
 import MediaConcept from './MediaConcept';
+import useIsClient from '@/hooks/useIsClient';
 
 const MediaConceptContainer = () => {
   const templateData = useTemplateStore((state) => state.templateData);
-
+  const isClient = useIsClient();
+  if (!isClient) return null;
   return (
     <div className="mt-2 ">
       {templateData?.info?.compositions?.map((composition, index) => {

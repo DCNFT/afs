@@ -10,7 +10,7 @@ function NextButton({ path, name = '다음' }: NextButtonProps) {
   const handleRouting = useRouting({ path });
 
   return (
-    <div className="flex flex-col mt-4">
+    <div className="flex flex-col mt-4 bg-violet-500">
       <Button onClick={handleRouting}>{name}</Button>
     </div>
   );

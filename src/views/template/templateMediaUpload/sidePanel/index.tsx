@@ -13,6 +13,9 @@ type SidePanelProps = {
 };
 const SidePanel = ({ handleMediaModal }: SidePanelProps) => {
   const templateData = useTemplateStore((state) => state.templateData);
+  const checkMediaSetList = useTemplateStore(
+    (state) => state.checkMediaSetList,
+  );
   const storeInfo = useTemplateStore((state) => state.storeInfo);
   const [isLoading, setIsLoading] = useState(false);
   const setCreateVideoInformation = useTemplateStore(
@@ -22,12 +25,21 @@ const SidePanel = ({ handleMediaModal }: SidePanelProps) => {
     (state) => state.createVideoInformation,
   );
 
-  const { enqueueSuccessBar, enqueueErrorBar } = useToast();
+  const { enqueueSuccessBar, enqueueErrorBar, enqueueInfoBar } = useToast();
   const handleMakeVideo = async () => {
     //validatiog
+    const isAllChecksTrue = checkMediaSetList.every(
+      (checkMedia) => checkMedia.isCheck,
+    );
+
+    if (!isAllChecksTrue) {
+      enqueueErrorBar('미디어를 모두 입력해주세요.!');
+      return;
+    }
     //일단 여기서 조립으로
     try {
       setIsLoading(true);
+      enqueueInfoBar('video가 제작중이에요');
       const formData = new FormData();
       // FormData 객체 생성
       formData.append('if_id', 'IF-1110-002');
@@ -54,11 +66,12 @@ const SidePanel = ({ handleMediaModal }: SidePanelProps) => {
   };
 
   return (
-    <div className="flex-1 pl-4 border">
+    <div className="flex-1 pl-4 border-l-2">
       <h3 className="font-bold">
         템플릿에 어울리는 미디어 콘셉트를 추천합니다!
       </h3>
       <MediaConceptContainer />
+
       <PreviewPanel />
       <InformationContainer />
       <div className="flex gap-3">

@@ -34,11 +34,11 @@ const CardHeader = ({ templateInfo }: CardHeaderProps) => {
           backgroundColor: 'var(--gray-5)',
         }}
       />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      {/* <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="flex gap-4">
           <Button onClick={handleRouting}>편집하기</Button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

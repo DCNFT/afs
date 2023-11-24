@@ -15,8 +15,8 @@ const MediaConcept = ({ composition, index }: MediaConceptProps) => {
       </div>
       <p className="">
         {`${
-          composition.media.filter(
-            (mediaElement) => mediaElement.format === 'MEDIA',
+          composition?.media?.filter(
+            (mediaElement) => mediaElement?.format === 'MEDIA',
           )?.length
         }장`}
       </p>

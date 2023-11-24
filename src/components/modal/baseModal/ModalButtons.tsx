@@ -1,12 +1,12 @@
 import { ExitIcon, ArrowLeftIcon } from '@radix-ui/react-icons';
 import { ModalProps } from '../types';
-
+import IconComponent from '@/components/Icon';
 export const ModalCloseButton: React.FC<
   React.PropsWithChildren<{ onDismiss: ModalProps['onDismiss'] }>
 > = ({ onDismiss }) => {
   return (
-    <div onClick={onDismiss}>
-      <ExitIcon color="primary" />
+    <div onClick={onDismiss} className="cursor-pointer">
+      <IconComponent name="Cross2Icon" size="1.2em" />
     </div>
   );
 };
@@ -16,7 +16,7 @@ export const ModalBackButton: React.FC<
 > = ({ onBack }) => {
   return (
     <div onClick={onBack}>
-      <ArrowLeftIcon color="primary" />
+      <IconComponent name="ArrowLeftIcon" size="1em" />
     </div>
   );
 };

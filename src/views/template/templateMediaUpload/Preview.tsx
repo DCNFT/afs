@@ -2,12 +2,9 @@
 
 import React, { useCallback, useEffect } from 'react';
 import { useWindowWidth } from '@/hooks/useWindowWidth';
-import styles from '@/styles/Home.module.css';
 import useVideoCreatorStore from '@/store/useVideoCreatorStore';
-import { ro } from 'date-fns/locale';
 import Skeleton from 'react-loading-skeleton';
 import { Button } from '@radix-ui/themes';
-import Template from '..';
 import useTemplateStore from '@/store/useTemplateStore';
 
 type PreviewProps = {
@@ -63,24 +60,27 @@ const Preview = ({ formId, source }: PreviewProps) => {
 
   return (
     <div className="flex-col md:flex-row p-4">
-      <div
-        className="w-full h-full max-h-[720px] max-w-[720px] mr-auto md:flex-1 md:p-20;"
-        ref={(htmlElement) => {
-          if (
-            htmlElement &&
-            htmlElement !== preview?.element &&
-            formId !== ''
-          ) {
-            initializeVideoPlayer(htmlElement);
-          }
-        }}
-        style={{
-          height:
-            videoAspectRatio && windowWidth && windowWidth < 768
-              ? window.innerWidth / videoAspectRatio
-              : undefined,
-        }}
-      />
+      {
+        <div
+          className={`w-full h-full max-h-[720px] max-w-[720px] mr-auto md:flex-1 md:p-20`}
+          ref={(htmlElement) => {
+            if (
+              htmlElement &&
+              htmlElement !== preview?.element &&
+              formId !== ''
+            ) {
+              initializeVideoPlayer(htmlElement);
+            }
+          }}
+          style={{
+            height:
+              videoAspectRatio && windowWidth && windowWidth < 768
+                ? window?.innerWidth / videoAspectRatio
+                : '400px',
+          }}
+        />
+      }
+
       {!isReady && <Skeleton height={'200px'} width={'400px'} />}
       {isReady && <SceneChangeButtonContainer />}
     </div>

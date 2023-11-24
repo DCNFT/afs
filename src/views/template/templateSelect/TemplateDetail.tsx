@@ -1,13 +1,13 @@
 'use client';
 
-import { Box, Button, Tabs } from '@radix-ui/themes';
+import { Button } from '@radix-ui/themes';
 import NextButton from '../templateKeywordInputPage/NextButton';
 import { keywordArray } from '../data/default';
-import { use } from 'react';
 import useTemplateStore from '@/store/useTemplateStore';
 import { useTemplateInfo } from '@/api/internal/abs/query';
 import { Composition, MediaElement } from '@/api/internal/abs/types';
 import { MediaCount, countMediaFormats } from '@/utils/countMediaFormats';
+import Image from 'next/image';
 
 type CountMediaInfoContainer = {
   compositions: Composition[];
@@ -16,8 +16,11 @@ const CountMediaInfoContainer = ({ compositions }: CountMediaInfoContainer) => {
   const mediaCountResult: MediaCount = countMediaFormats(compositions);
   return (
     <p>
-      장면 {mediaCountResult.composition}개 ∙ 미디어 {mediaCountResult.media}개
-      ∙ 텍스트 {mediaCountResult.text}개 ∙ 로고 {mediaCountResult.logo}개
+      장면 <span className="font-bold">{mediaCountResult.composition}개</span> ∙
+      미디어 <span className="font-bold">{mediaCountResult.media}개</span>∙
+      텍스트
+      <span className="font-bold">{mediaCountResult.text}개</span>∙ 로고
+      <span className="font-bold">{mediaCountResult.logo}개</span>
     </p>
   );
 };
@@ -27,17 +30,24 @@ const TemplateDetail = () => {
   const { data } = useTemplateInfo(selectedTemplate?.id);
 
   return (
-    <div className="flex-1">
+    <div className="flex-1 min-w-[400px]">
       <div className="flex flex-col p-4 border-left">
         <div>
           <h3 className="text-2xl font-bold">{`[${selectedTemplate.id}] ${selectedTemplate.name}`}</h3>
         </div>
+        <hr className="py-3" />
         <CountMediaInfoContainer
           compositions={data?.data?.info?.compositions as Composition[]}
         />
-        <div className="w-full h-[300px] p-4 border"></div>
-        <div className="w-full contents">
-          <p className="font-bold">텍스트</p>
+        <div className="w-full h-[300px] p-4 border relative">
+          <Image
+            src={`https://creatomate.com/files/previews/${selectedTemplate?.id}`}
+            alt={selectedTemplate.id}
+            fill
+          />
+        </div>
+        <div className="w-full contents mt-4">
+          <p className="font-bold">키워드</p>
           <div className="flex flex-wrap gap-4">
             {keywordArray?.map((keyword, index) => (
               <Button

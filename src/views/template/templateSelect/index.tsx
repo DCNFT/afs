@@ -9,9 +9,10 @@ import { Suspense } from 'react';
 
 const TemplateDetailLoading = () => {
   return (
-    <div className="flex flex-col">
-      <Skeleton height={200} width="100%" className="border rounded" />
+    <div className="flex flex-1 flex-col min-w-[400px]">
+      <Skeleton height={100} width="100%" className="border rounded" />
       <Skeleton width={100} />
+      <Skeleton height={300} width={500} className="border rounded" />
     </div>
   );
 };

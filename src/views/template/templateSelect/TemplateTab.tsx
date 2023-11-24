@@ -20,9 +20,16 @@ export const TemplateAiRecommendFallback: React.FC<
 );
 
 const TemplateAiRecommendLoading = () => (
-  <div className="flex flex-col">
-    <Skeleton height={200} width="100%" className="border rounded" />
-    <Skeleton width={100} />
+  <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+    {Array.from({ length: 10 }, (_, index) => (
+      <div
+        className="flex flex-col"
+        key={`ai-recommend-loading-skeleton-${index}`}
+      >
+        <Skeleton height={200} width="100%" className="border rounded" />
+        <Skeleton width={100} />
+      </div>
+    ))}
   </div>
 );
 

@@ -19,7 +19,7 @@ const TemplateBox: React.FC<TemplateBoxProps> = ({ template }) => {
   return (
     <div className="flex flex-col">
       <div
-        className={`w-full relative h-[200px] border rounded ${
+        className={`w-full relative h-[200px] border-4 rounded ${
           isSelected ? 'border-purple-500' : 'border-gray-300'
         } cursor-pointer`}
         onClick={() => setSelectedTemplate(template)}
@@ -31,7 +31,7 @@ const TemplateBox: React.FC<TemplateBoxProps> = ({ template }) => {
         />
       </div>
       <div className="flex justify-between px-2">
-        <p className={`font-base`}>{template?.name}</p>
+        <p className={`font-base font-semibold`}>{template?.name}</p>
         <div className="flex justify-center items-center">
           <StarIcon />
         </div>

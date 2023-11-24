@@ -10,7 +10,6 @@ export type MediaCount = {
 export const countMediaFormats = (compositions: Composition[]): MediaCount => {
   let mediaCount: MediaCount = { media: 0, text: 0, logo: 0, composition: 0 };
   if (compositions?.length === 0) return mediaCount;
-  console.log('compositions= ', compositions);
   compositions?.forEach((composition) => {
     composition?.media.forEach((mediaElement: MediaElement) => {
       if (mediaElement.format === 'MEDIA') {
@@ -22,7 +21,7 @@ export const countMediaFormats = (compositions: Composition[]): MediaCount => {
       }
     });
   });
-  mediaCount.composition = compositions?.length;
+  mediaCount.composition = compositions?.length ? compositions?.length : 0;
 
   return mediaCount;
 };

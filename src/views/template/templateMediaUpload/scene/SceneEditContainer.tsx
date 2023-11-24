@@ -10,14 +10,29 @@ type SceneEditContainerProps = {
 };
 
 const SceneEditContainer = ({ mediaItem }: SceneEditContainerProps) => {
-  const [media, setMedia] = useState<any>(null);
   const templateData = useTemplateStore((state) => state.templateData);
   const setTemplateData = useTemplateStore((state) => state.setTemplateData);
+  const [media, setMedia] = useState<any>(null);
   const [description, setDescription] = useState(mediaItem?.description);
   const [mediaType, setMediaType] = useState<string>('IMAGE');
   const [localMediaData, setLocalMediaData] = useState<MediaElement>(mediaItem);
   const isSetTemplate = useRef(false);
   const { enqueueErrorBar } = useToast();
+  const updateCheckMedia = useTemplateStore((state) => state.updateCheckMedia);
+  const checkMediaSetList = useTemplateStore(
+    (state) => state.checkMediaSetList,
+  );
+  console.log('[seo] checkMediaSetList ', checkMediaSetList);
+  //checkvalidating
+  useEffect(() => {
+    console.log('media ', media);
+    if (!mediaItem?.name) return;
+    // if (!isSetTemplate.current) return;
+    updateCheckMedia({
+      mediaName: mediaItem?.name,
+      isCheck: description !== '' && media !== null && mediaType !== '',
+    });
+  }, [description, media, mediaItem, mediaType, updateCheckMedia]);
 
   const handleDescriptionChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,7 +123,6 @@ const SceneEditContainer = ({ mediaItem }: SceneEditContainerProps) => {
       <MediaInputContainer
         media={media}
         handleMediaChange={handleMediaChange}
-        // handleAddMedia={handleAddMedia}
         mediaItemName={mediaItem?.name}
       />
       <div className="flex flex-col">

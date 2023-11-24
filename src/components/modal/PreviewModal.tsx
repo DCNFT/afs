@@ -15,20 +15,20 @@ const PreviewModal = ({ isOpen, onDismiss }: ModalProps) => {
 
   return (
     <ModalRoot isOpen={isOpen}>
-      <Modal>
+      <Modal onDismiss={onDismiss}>
         <div className="flex-col">
           <div>
             <ReactPlayer url={createVideoInformation?.video_url} controls />
           </div>
-          <div className="flex justify-evenly">
+          <div className="flex">
             <div className="flex-col ">
               <p className="font-bold text-black">
                 {createVideoInformation?.video_name}
               </p>
               <p className="font-bold text-black">id, format date</p>
-            </div>
-            <div>
-              <Button>편집하기</Button>
+              <div>
+                <Button>편집하기</Button>
+              </div>
             </div>
           </div>
         </div>
