@@ -31,6 +31,7 @@ interface VideoCreatorState {
 
 // Define the actions interface
 interface VideoCreatorActions {
+  reset: () => void;
   initializeVideoPlayer: (htmlElement: HTMLDivElement) => void;
   setTime: (time: number) => Promise<void>;
   setActiveElements: (...elementIds: string[]) => Promise<void>;
@@ -56,24 +57,29 @@ interface VideoCreatorActions {
   setSource: (source: Record<string, any>) => Promise<void>;
 }
 
+const initialState: VideoCreatorState = {
+  formId: undefined,
+  preview: undefined,
+  state: undefined,
+  tracks: undefined,
+  activeCompositionId: undefined,
+  activeElementIds: [],
+  isLoading: true,
+  isPlaying: false,
+  isReady: false,
+  time: 0,
+  timelineScale: 100,
+  isScrubbing: false,
+  videoAspectRatio: 0,
+  mode: 'player',
+};
 // Create the Zustand store
 const useVideoCreatorStore = create<VideoCreatorState & VideoCreatorActions>(
   (set, get) => ({
-    formId: undefined,
-    preview: undefined,
-    state: undefined,
-    tracks: undefined,
-    activeCompositionId: undefined,
-    activeElementIds: [],
-    isLoading: true,
-    isPlaying: false,
-    isReady: false,
-    time: 0,
-    timelineScale: 100,
-    isScrubbing: false,
-    actions: {},
-    videoAspectRatio: 0,
-    mode: 'player',
+    ...initialState,
+    reset: () => {
+      set(initialState);
+    },
     // Add your action implementations here
     initializeVideoPlayer: (htmlElement: HTMLDivElement) => {
       const preview = get().preview as Preview;

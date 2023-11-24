@@ -49,6 +49,8 @@ const Preview = ({ formId, source }: PreviewProps) => {
     (state) => state.videoAspectRatio,
   );
 
+  const reset = useVideoCreatorStore((state) => state.reset);
+
   useEffect(() => {
     setFormId(formId);
   }, [formId, setFormId]);
@@ -58,30 +60,40 @@ const Preview = ({ formId, source }: PreviewProps) => {
     setSource(source);
   }, [source, setSource]);
 
+  useEffect(() => {
+    return () => {
+      reset();
+    };
+  }, []);
   return (
     <div className="flex-col md:flex-row p-4">
-      {
+      <div
+        className={`w-full h-full max-h-[720px] max-w-[720px] mr-auto md:flex-1 md:p-20`}
+        ref={(htmlElement) => {
+          if (
+            htmlElement &&
+            htmlElement !== preview?.element &&
+            formId !== ''
+          ) {
+            initializeVideoPlayer(htmlElement);
+          }
+        }}
+        style={{
+          height:
+            videoAspectRatio && windowWidth && windowWidth < 768
+              ? window?.innerWidth / videoAspectRatio
+              : '400px',
+          display: isReady ? 'block' : 'none',
+        }}
+      />
+
+      {!isReady && (
         <div
           className={`w-full h-full max-h-[720px] max-w-[720px] mr-auto md:flex-1 md:p-20`}
-          ref={(htmlElement) => {
-            if (
-              htmlElement &&
-              htmlElement !== preview?.element &&
-              formId !== ''
-            ) {
-              initializeVideoPlayer(htmlElement);
-            }
-          }}
-          style={{
-            height:
-              videoAspectRatio && windowWidth && windowWidth < 768
-                ? window?.innerWidth / videoAspectRatio
-                : '400px',
-          }}
-        />
-      }
-
-      {!isReady && <Skeleton height={'200px'} width={'400px'} />}
+        >
+          <Skeleton height={'200px'} width={'400px'} />
+        </div>
+      )}
       {isReady && <SceneChangeButtonContainer />}
     </div>
   );

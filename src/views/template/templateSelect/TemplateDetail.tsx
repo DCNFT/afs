@@ -4,7 +4,7 @@ import { Button } from '@radix-ui/themes';
 import NextButton from '../templateKeywordInputPage/NextButton';
 import { keywordArray } from '../data/default';
 import useTemplateStore from '@/store/useTemplateStore';
-import { useTemplateInfo } from '@/api/internal/abs/query';
+import { useTemplateInfo, useTemplateList } from '@/api/internal/abs/query';
 import { Composition, MediaElement } from '@/api/internal/abs/types';
 import { MediaCount, countMediaFormats } from '@/utils/countMediaFormats';
 import Image from 'next/image';
@@ -33,7 +33,9 @@ const TemplateDetail = () => {
     <div className="flex-1 min-w-[400px]">
       <div className="flex flex-col p-4 border-left">
         <div>
-          <h3 className="text-2xl font-bold">{`[${selectedTemplate.id}] ${selectedTemplate.name}`}</h3>
+          <h3 className="text-2xl font-bold">
+            {`[${selectedTemplate?.id}] ${selectedTemplate?.name}`}
+          </h3>
         </div>
         <hr className="py-3" />
         <CountMediaInfoContainer
@@ -46,22 +48,26 @@ const TemplateDetail = () => {
             fill
           />
         </div>
-        <div className="w-full contents mt-4">
-          <p className="font-bold">키워드</p>
-          <div className="flex flex-wrap gap-4">
-            {keywordArray?.map((keyword, index) => (
-              <Button
-                key={keyword}
-                variant="soft"
-                radius="full"
-                style={{ maxWidth: '100px' }}
-              >
-                {keyword}
-              </Button>
-            ))}
+        {selectedTemplate?.tags?.length !== 0 && (
+          <div className="w-full py-4">
+            <p className="font-bold mb-2">키워드</p>
+            <div className="flex flex-wrap gap-4">
+              {selectedTemplate?.tags?.map((keyword, index) => (
+                <Button
+                  key={`${keyword}-${index}`}
+                  variant="soft"
+                  color="purple"
+                  radius="full"
+                  style={{ maxWidth: '100px' }}
+                >
+                  {keyword}
+                </Button>
+              ))}
+            </div>
           </div>
-        </div>
-        {selectedTemplate?.id && (
+        )}
+
+        {data?.data?.info?.compositions && (
           <NextButton path="/template/keyword" name="이 템플릿으로 만들기" />
         )}
       </div>
