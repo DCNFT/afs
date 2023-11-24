@@ -56,6 +56,11 @@ const SidePanel = ({ handleMediaModal }: SidePanelProps) => {
         formData,
       );
       const response = await upsertVideo({ data: formData });
+      if (response.result !== '0000') {
+        enqueueErrorBar('video 생성에 실패했습니다. error', response.reason);
+        setIsLoading(false);
+        return;
+      }
       console.log('response = ', response);
       enqueueSuccessBar('video가 생성되었습니다!');
       setCreateVideoInformation(response?.data);

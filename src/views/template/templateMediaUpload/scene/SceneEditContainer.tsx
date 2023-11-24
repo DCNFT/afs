@@ -62,25 +62,44 @@ const SceneEditContainer = ({ mediaItem }: SceneEditContainerProps) => {
       mediaItemName: string | null,
     ) => {
       const file = event.target.files?.[0];
-      console.log('[seo]file ', file, file instanceof File);
-      if (file && /\.(jpg|png)$/i.test(file.name)) {
-        const reader = new FileReader();
-        console.log('mediaItem ', mediaItem, mediaItemName);
-        reader.onloadend = () => {
-          isSetTemplate.current = false;
-          setMedia(reader.result as string);
-          setLocalMediaData({
-            ...mediaItem,
-            file: file as any,
-            image_process: mediaType,
-          });
-        };
-        reader.readAsDataURL(file);
-      } else {
-        // jpg 또는 png가 아닌 경우에 대한 처리
-        console.log('Invalid file format. Please select a jpg or png file.');
-        enqueueErrorBar('jpg 또는 png 파일이 아니에요.');
-        // 또는 에러 메시지를 사용자에게 보여줄 수도 있습니다.
+      // 파일 확장자를 소문자로 가져오기
+      if (file) {
+        const fileExtension = file.name.split('.').pop()?.toLowerCase();
+        console.log('fileExtension= ', fileExtension);
+        if (fileExtension && /\.(mp4|mov)$/i.test(file.name)) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            // 비디오 파일 처리 로직
+            isSetTemplate.current = false;
+            //setMedia(URL.createObjectURL(file));
+            setMedia(reader.result as string);
+            setLocalMediaData({
+              ...mediaItem,
+              file: file as any,
+              image_process: 'VIDEO', // 여기에 비디오 특유의 속성 설정도 가능
+            });
+          };
+          reader.readAsDataURL(file);
+        } else if (fileExtension && /\.(jpg|png)$/i.test(file.name)) {
+          const reader = new FileReader();
+          console.log('mediaItem ', mediaItem, mediaItemName);
+          reader.onloadend = () => {
+            isSetTemplate.current = false;
+            setMedia(reader.result as string);
+            setLocalMediaData({
+              ...mediaItem,
+              file: file as any,
+              image_process: mediaType,
+            });
+          };
+          reader.readAsDataURL(file);
+        } else {
+          // jpg 또는 png가 아닌 경우에 대한 처리
+          console.log('Invalid file format. Please select a jpg or png file.');
+          enqueueErrorBar(
+            '지원하지 않는 파일 형식입니다. jpg, png, mp4, mov 파일을 선택하세요.',
+          );
+        }
       }
     },
     [enqueueErrorBar, mediaItem, mediaType],

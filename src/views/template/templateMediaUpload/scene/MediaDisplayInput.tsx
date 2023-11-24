@@ -5,13 +5,12 @@ import { TextField } from '@radix-ui/themes';
 import { useState } from 'react';
 
 type MediaDisplayProps = {
-  mediaItem: MediaElement;
+  mediaItem?: MediaElement;
   handleDescriptionChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   description: string;
 };
 
 const MediaDisplayInput = ({
-  mediaItem,
   handleDescriptionChange,
   description,
 }: MediaDisplayProps) => {
