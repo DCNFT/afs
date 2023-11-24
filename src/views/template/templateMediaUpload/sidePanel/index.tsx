@@ -14,6 +14,7 @@ type SidePanelProps = {
 };
 const SidePanel = ({ handleMediaModal }: SidePanelProps) => {
   const templateData = useTemplateStore((state) => state.templateData);
+  console.log('templateData =', templateData);
   const checkMediaSetList = useTemplateStore(
     (state) => state.checkMediaSetList,
   );

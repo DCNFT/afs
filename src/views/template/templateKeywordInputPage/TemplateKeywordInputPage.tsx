@@ -59,7 +59,7 @@ const TemplateKeywordInputPage = () => {
   console.log('templateData ', templateData);
 
   return (
-    <div className="min-w-fit p-4">
+    <div className="min-w-fit">
       <TemplateBanner
         title={templateRoutes[KEYWORD]?.title}
         description={templateRoutes[KEYWORD]?.description}
@@ -125,6 +125,7 @@ const TemplateKeywordInputPage = () => {
             }}
             errors={errors}
           />
+
           <Button className="bg-violet-500" type="submit">
             다음
           </Button>

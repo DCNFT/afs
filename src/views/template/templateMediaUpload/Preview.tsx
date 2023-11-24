@@ -24,7 +24,7 @@ const SceneChangeButtonContainer = () => {
 
   return (
     <div className="flex gap-1 mt-2 justify-center items-center">
-      {templateData.info.compositions.map((composition, index) => {
+      {templateData?.info?.compositions.map((composition, index) => {
         return (
           <Button
             className="bg-violet-600"

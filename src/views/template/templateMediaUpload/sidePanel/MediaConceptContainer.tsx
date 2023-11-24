@@ -7,7 +7,7 @@ const MediaConceptContainer = () => {
   const isClient = useIsClient();
   if (!isClient) return null;
   return (
-    <div className="mt-2 ">
+    <div className="mt-2 border border-gray-300 p-4 rounded-xl">
       {templateData?.info?.compositions?.map((composition, index) => {
         return (
           <MediaConcept

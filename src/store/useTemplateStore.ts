@@ -44,7 +44,7 @@ type Actions = {
 const initialState: State = {
   selectedTemplate: {} as Template,
   templateData: { info: {} as TemplateInfo },
-  checkMediaSetList: [{} as checkMedia],
+  checkMediaSetList: [],
   storeInfo: {
     name: {
       name: '',
@@ -62,65 +62,65 @@ const initialState: State = {
 
 const useTemplateStore = create<State & Actions>()(
   devtools(
-    persist(
-      immer((set) => ({
-        ...initialState,
-        reset: () => {
-          set(initialState);
-        },
-        setSelectedTemplate: (template: Template) => {
-          set((state) => {
-            state.selectedTemplate = template;
-          });
-        },
-        setTemplateData: (data: any) => {
-          set((state) => {
-            state.templateData = data;
-          });
-        },
-        setStoreInfo: (data: StoreData) => {
-          set((state) => {
-            state.storeInfo = data;
-          });
-        },
-        setUpdateTemplateData: (store_info: any) => {
-          set((state) => {
-            state.templateData.info.store_info = store_info;
-          });
-        },
-        setCreateVideoInformation: (data: CreateVideoInformation) => {
-          set((state) => {
-            state.createVideoInformation = data;
-          });
-        },
-
-        updateCheckMedia: (media: checkMedia) =>
-          set((state) => {
-            const index = state.checkMediaSetList.findIndex(
-              (item) => item.mediaName === media.mediaName,
-            );
-            console.log('[seo] updateCheckMedia = ', index);
-            if (index === -1) {
-              // mediaName이 존재하지 않으면 추가
-              state.checkMediaSetList.push(media);
-            } else {
-              // mediaName이 이미 존재하면 업데이트
-              state.checkMediaSetList[index] = media;
-            }
-            // 중복된 mediaName 제거 (filter를 사용하여 중복 제거)
-            state.checkMediaSetList = state.checkMediaSetList.filter(
-              (item, i) =>
-                state.checkMediaSetList.findIndex(
-                  (x) => x.mediaName === item.mediaName,
-                ) === i,
-            );
-          }),
-      })),
-      {
-        name: 'template-storage',
-        storage: createJSONStorage(() => localStorage),
+    //persist(
+    immer((set) => ({
+      ...initialState,
+      reset: () => {
+        set(initialState);
       },
-    ),
+      setSelectedTemplate: (template: Template) => {
+        set((state) => {
+          state.selectedTemplate = template;
+        });
+      },
+      setTemplateData: (data: any) => {
+        set((state) => {
+          state.templateData = data;
+        });
+      },
+      setStoreInfo: (data: StoreData) => {
+        set((state) => {
+          state.storeInfo = data;
+        });
+      },
+      setUpdateTemplateData: (store_info: any) => {
+        set((state) => {
+          state.templateData.info.store_info = store_info;
+        });
+      },
+      setCreateVideoInformation: (data: CreateVideoInformation) => {
+        set((state) => {
+          state.createVideoInformation = data;
+        });
+      },
+
+      updateCheckMedia: (media: checkMedia) =>
+        set((state) => {
+          const index = state.checkMediaSetList.findIndex(
+            (item) => item.mediaName === media.mediaName,
+          );
+          console.log('[seo] updateCheckMedia = ', index);
+          if (index === -1) {
+            // mediaName이 존재하지 않으면 추가
+            state.checkMediaSetList.push(media);
+          } else {
+            // mediaName이 이미 존재하면 업데이트
+            state.checkMediaSetList[index] = media;
+          }
+          // 중복된 mediaName 제거 (filter를 사용하여 중복 제거)
+          state.checkMediaSetList = state.checkMediaSetList.filter(
+            (item, i) =>
+              state.checkMediaSetList.findIndex(
+                (x) => x.mediaName === item.mediaName,
+              ) === i,
+          );
+        }),
+    })),
+    // {
+    //   name: 'template-storage',
+    //   storage: createJSONStorage(() => localStorage),
+    // },
+    //),
   ),
 );
 

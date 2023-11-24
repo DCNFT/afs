@@ -2,7 +2,7 @@ import InformationBox from './InformationBox';
 
 const InformationContainer = () => {
   return (
-    <div className="flex-col my-4 bg-gray-200 p-4 rounded-sm gap-2">
+    <div className="flex-col my-4 bg-gray-100 p-4 rounded-sm gap-2">
       <InformationBox
         title="‘미디어 설명’ 이란?"
         description="추천 미디어와 다른 주제의 미디어를 등록하는 경우, ‘미디어
