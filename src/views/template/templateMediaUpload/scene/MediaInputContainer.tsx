@@ -1,3 +1,4 @@
+import Icon from '@/components/Icon';
 import React from 'react';
 
 type MediaInputContainerProps = {
@@ -64,10 +65,10 @@ const MediaInputContainer = ({
             zIndex: 1,
           }}
         >
-          <span role="img" aria-label="camera" style={{ marginRight: '8px' }}>
-            📷
-          </span>
-          미디어 추가
+          <div className="flex gap-2 justify-center items-center">
+            <Icon name="CameraIcon" size="4xl" />
+            <span>미디어 추가</span>
+          </div>
         </button>
       )}
     </div>

@@ -7,6 +7,7 @@ import PreviewPanel from '../PreviewPanel';
 import InformationContainer from './InformationContainer';
 import { addObjectToFormData } from '@/utils/addObjectToFormData';
 import useToast from '@/hooks/useToast';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 type SidePanelProps = {
   handleMediaModal: () => void;
@@ -66,7 +67,7 @@ const SidePanel = ({ handleMediaModal }: SidePanelProps) => {
   };
 
   return (
-    <div className="flex-1 pl-4 border-l-2">
+    <div className="flex-1 p-4 border-l-2">
       <h3 className="font-bold">
         템플릿에 어울리는 미디어 콘셉트를 추천합니다!
       </h3>
@@ -76,10 +77,11 @@ const SidePanel = ({ handleMediaModal }: SidePanelProps) => {
       <InformationContainer />
       <div className="flex gap-3">
         <Button
-          className={'bg-violet-500'}
+          className={`bg-violet-500 ${isLoading && 'text-white'}`}
           onClick={handleMakeVideo}
           disabled={isLoading}
         >
+          {isLoading && <LoadingSpinner />}
           {isLoading ? '제작 중이에요.' : '15초 영상 만들기'}
         </Button>
         {!isLoading && createVideoInformation?.video_url && (

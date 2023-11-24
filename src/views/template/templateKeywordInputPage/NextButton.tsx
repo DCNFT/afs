@@ -11,7 +11,9 @@ function NextButton({ path, name = '다음' }: NextButtonProps) {
 
   return (
     <div className="flex flex-col mt-4 bg-violet-500">
-      <Button onClick={handleRouting}>{name}</Button>
+      <Button className="bg-violet-500" onClick={handleRouting}>
+        {name}
+      </Button>
     </div>
   );
 }
