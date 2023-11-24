@@ -61,7 +61,9 @@ const TemplateDetail = () => {
             ))}
           </div>
         </div>
-        <NextButton path="/template/keyword" name="이 템플릿으로 만들기" />
+        {selectedTemplate?.id && (
+          <NextButton path="/template/keyword" name="이 템플릿으로 만들기" />
+        )}
       </div>
     </div>
   );
