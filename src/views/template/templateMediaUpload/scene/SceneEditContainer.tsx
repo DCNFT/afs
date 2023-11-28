@@ -125,7 +125,7 @@ const SceneEditContainer = ({ mediaItem }: SceneEditContainerProps) => {
       const template = {
         ...templateData,
         info: {
-          ...templateData.info, // info 속성을 복제
+          ...templateData?.info, // info 속성을 복제
           compositions: local, // compositions 속성을 local 배열로 대체
         },
       };
