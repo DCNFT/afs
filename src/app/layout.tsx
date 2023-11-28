@@ -38,7 +38,12 @@ export default function RootLayout({
         style={{ fontFamily: 'Noto Sans KR' }}
       >
         <Providers>
-          <Theme>
+          <Theme
+            accentColor="purple"
+            grayColor="sand"
+            radius="large"
+            scaling="95%"
+          >
             <ToastContainer />
             <main className="flex flex-col mx-auto h-screen">{children}</main>
           </Theme>
