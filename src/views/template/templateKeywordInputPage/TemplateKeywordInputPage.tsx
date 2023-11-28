@@ -126,7 +126,7 @@ const TemplateKeywordInputPage = () => {
             errors={errors}
           />
 
-          <Button className="bg-violet-500" type="submit">
+          <Button className="bg-violet-500 cursor-pointer" type="submit">
             다음
           </Button>
         </form>

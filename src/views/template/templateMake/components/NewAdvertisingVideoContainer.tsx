@@ -14,8 +14,14 @@ const NewAdvertisingVideoContainer = () => {
             onClick={handleRouting}
           >
             <div className="flex-col">
-              <div className="justify-center items-center">
-                <div className="rounded-full w-[50px] h-[50px] border border-gray-300"></div>
+              <div className="justify-center items-center w-full">
+                <div className="rounded-full w-[50px] h-[50px] border border-gray-300 m-auto">
+                  <img
+                    alt="thumbnail"
+                    src="/images/ai.png"
+                    style={{ height: '50px', width: '50px' }}
+                  />
+                </div>
               </div>
               <p className="font-bold">ai 도움받아 영상만들기</p>
             </div>
