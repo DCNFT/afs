@@ -22,10 +22,10 @@ const SceneEditContainer = ({ mediaItem }: SceneEditContainerProps) => {
   const checkMediaSetList = useTemplateStore(
     (state) => state.checkMediaSetList,
   );
-  console.log('[seo] checkMediaSetList ', checkMediaSetList);
+  //console.log('[seo] checkMediaSetList ', checkMediaSetList);
   //checkvalidating
   useEffect(() => {
-    console.log('media ', media);
+    //console.log('media ', media);
     if (!mediaItem?.name) return;
     // if (!isSetTemplate.current) return;
     updateCheckMedia({
@@ -65,7 +65,7 @@ const SceneEditContainer = ({ mediaItem }: SceneEditContainerProps) => {
       // 파일 확장자를 소문자로 가져오기
       if (file) {
         const fileExtension = file.name.split('.').pop()?.toLowerCase();
-        console.log('fileExtension= ', fileExtension);
+        //console.log('fileExtension= ', fileExtension);
         if (fileExtension && /\.(mp4|mov)$/i.test(file.name)) {
           const reader = new FileReader();
           reader.onloadend = () => {
@@ -82,7 +82,7 @@ const SceneEditContainer = ({ mediaItem }: SceneEditContainerProps) => {
           reader.readAsDataURL(file);
         } else if (fileExtension && /\.(jpg|png)$/i.test(file.name)) {
           const reader = new FileReader();
-          console.log('mediaItem ', mediaItem, mediaItemName);
+          //console.log('mediaItem ', mediaItem, mediaItemName);
           reader.onloadend = () => {
             isSetTemplate.current = false;
             setMedia(reader.result as string);
@@ -130,7 +130,7 @@ const SceneEditContainer = ({ mediaItem }: SceneEditContainerProps) => {
         },
       };
 
-      console.log('[seo] useEffect templateData ', template);
+      //console.log('[seo] useEffect templateData ', template);
       setTemplateData(template);
       isSetTemplate.current = true;
     };

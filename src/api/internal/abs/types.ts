@@ -33,6 +33,7 @@ export type MediaElement = {
   elements: Array<MediaElement> | null;
   file?: string | File;
   image_process?: string;
+  length?: number;
 };
 
 export type Composition = {
