@@ -14,13 +14,16 @@ type CountMediaInfoContainer = {
 };
 const CountMediaInfoContainer = ({ compositions }: CountMediaInfoContainer) => {
   const mediaCountResult: MediaCount = countMediaFormats(compositions);
+
   return (
     <p>
       장면 <span className="font-bold">{mediaCountResult.composition}개</span> ∙
       미디어 <span className="font-bold">{mediaCountResult.media}개</span>∙
       텍스트
-      <span className="font-bold">{mediaCountResult.text}개</span>∙ 로고
-      <span className="font-bold">{mediaCountResult.logo}개</span>
+      <span className="font-bold"> {mediaCountResult.text}개</span>∙ 로고
+      <span className="font-bold">
+        {mediaCountResult.logo === 0 ? ' 없음' : ' 있음 '}
+      </span>
     </p>
   );
 };
