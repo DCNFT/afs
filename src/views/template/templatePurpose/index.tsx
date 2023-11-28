@@ -14,7 +14,7 @@ const TemplatePurpose = () => {
         title={templateRoutes[SELECT].title}
         description={templateRoutes[SELECT].description}
       />
-      <div className="flex flex-col p-5">
+      <div className="flex flex-col p-5 gap-4">
         <AdPurpose />
         <BusinessCategory />
         <AdStyle />
