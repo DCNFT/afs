@@ -25,7 +25,7 @@ const PreviewModal = ({ isOpen, onDismiss }: ModalProps) => {
               <p className="font-bold text-black">
                 {createVideoInformation?.video_name}
               </p>
-              <p className="font-bold text-black">id, format date</p>
+              {/* <p className="font-bold text-black">id, format date</p> */}
               <div>
                 <Button>편집하기</Button>
               </div>
