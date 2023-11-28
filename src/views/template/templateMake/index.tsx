@@ -11,11 +11,11 @@ const TemplateMake = () => {
   return (
     <div className="flex flex-col p-5">
       <NewAdvertisingVideoContainer />
-      <ErrorBoundary FallbackComponent={TemplateMakeFallback}>
+      {/* <ErrorBoundary FallbackComponent={TemplateMakeFallback}>
         <Suspense fallback={<TemplateMakeLoading />}>
           <RecentMakeTemplateList />
         </Suspense>
-      </ErrorBoundary>
+      </ErrorBoundary> */}
     </div>
   );
 };
