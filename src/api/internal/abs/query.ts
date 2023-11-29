@@ -25,3 +25,41 @@ export const useTemplateInfo = (template_id: string) =>
     },
     customCondition: !!template_id,
   });
+
+export const useVideoInfo = (templateId: string, videoId: string) =>
+  useFetch<TemplateListApiResponse>({
+    url: `${SERVER_URL}/abs/v1/video/list`,
+    params: {
+      if_id: 'IF-1110-001',
+      version: '1.0',
+      mcode: '1100',
+      scode: '1110',
+      template_id: templateId,
+      video_id: videoId,
+    },
+  });
+
+export const useVideoUpsert = (templateId: string, videoId: string) =>
+  useFetch<TemplateListApiResponse>({
+    url: `${SERVER_URL}/abs/v1/video/list`,
+    params: {
+      if_id: 'IF-1110-003',
+      version: '1.0',
+      mcode: '1100',
+      scode: '1110',
+      template_id: templateId,
+      video_id: videoId,
+    },
+  });
+
+export const useVideoList = (userId: string) =>
+  useFetch<VideoListApiResponse>({
+    url: `${SERVER_URL}/abs/v1/video/list`,
+    params: {
+      if_id: 'IF-1110-003',
+      version: '1.0',
+      mcode: '1100',
+      scode: '1110',
+      user_id: userId || 'TEMP_USER_ID',
+    },
+  });

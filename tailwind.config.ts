@@ -7,6 +7,9 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/views/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  // purge: ['./public/**/*.html', './src/**/*.{js,jsx,ts,tsx,vue}'],
+  // mode: 'jit',
+
   theme: {
     extend: {},
     // colors: {

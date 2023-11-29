@@ -80,7 +80,7 @@ const SceneEditContainer = ({ mediaItem }: SceneEditContainerProps) => {
             });
           };
           reader.readAsDataURL(file);
-        } else if (fileExtension && /\.(jpg|png)$/i.test(file.name)) {
+        } else if (fileExtension && /\.(jpg|jpeg|png)$/i.test(file.name)) {
           const reader = new FileReader();
           //console.log('mediaItem ', mediaItem, mediaItemName);
           reader.onloadend = () => {

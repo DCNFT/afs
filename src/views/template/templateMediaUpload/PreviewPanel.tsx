@@ -18,7 +18,10 @@ const PreviewPanel = (props: PreviewPanelProps) => {
       {/* <Button onClick={ handleSource }>source</Button> */}
       {/* <div className="w-full h-[200px] bg-gray-300"></div> */}
       <Preview
-        formId={templateData?.info?.template_id}
+        formId={
+          templateData?.info?.template_id ||
+          '145e06ba-9f75-446d-9f62-3db38a6dcbb4'
+        }
         // source={isSource ? DEFAULT_DATA : undefined}
       />
     </div>

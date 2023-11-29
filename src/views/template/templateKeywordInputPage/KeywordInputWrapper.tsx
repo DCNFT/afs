@@ -1,12 +1,7 @@
 import CommonInput from '@/components/Input';
 import { useState } from 'react';
 import { FormValues } from './TemplateKeywordInputPage';
-import {
-  FieldErrors,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormSetValue,
-} from 'react-hook-form';
+import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 type KeywordInputWrapperProps = {
   id: keyof FormValues;
@@ -46,6 +41,7 @@ function KeywordInputWrapper({
 
   return (
     <div className="flex flex-col mb-2">
+      r
       <CommonInput
         id={id}
         label={label}

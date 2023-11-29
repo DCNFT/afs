@@ -8,22 +8,22 @@ import {
   Pencil1Icon,
   FileIcon,
 } from '@radix-ui/react-icons';
-import { Button } from '@radix-ui/themes';
 import usePopoverMenu from '@/hooks/usePopoverMenu';
 import { createPortal } from 'react-dom';
 import useIsClient from '@/hooks/useIsClient';
 import { Template } from '@/api/internal/creatomate/types';
 import { formatDate } from '@/utils/date';
+import { Video } from '@/api/internal/abs/types';
 
 type CardHeaderProps = {
-  templateInfo: Template;
+  videoInfo: Video;
 };
-const CardHeader = ({ templateInfo }: CardHeaderProps) => {
+const CardHeader = ({ videoInfo }: CardHeaderProps) => {
   const handleRouting = useRouting({ path: '/template/keyword' });
   return (
     <div className="relative h-[140px]">
       <img
-        src={`https://creatomate.com/files/previews/${templateInfo?.id}`}
+        src={`https://creatomate.com/files/previews/${videoInfo?.id}`}
         alt="Bold typography"
         style={{
           position: 'absolute',
@@ -43,10 +43,10 @@ const CardHeader = ({ templateInfo }: CardHeaderProps) => {
   );
 };
 
-type TemplateCardProps = {
-  templateInfo: Template;
+type VideoCardProps = {
+  videoInfo: Video;
 };
-const TemplateCard = ({ templateInfo }: TemplateCardProps) => {
+const VideoCard = ({ videoInfo }: VideoCardProps) => {
   const {
     isOpen,
     targetRef,
@@ -61,13 +61,14 @@ const TemplateCard = ({ templateInfo }: TemplateCardProps) => {
 
   return (
     <div style={{ maxWidth: 240 }} className="border" id="destination">
-      <CardHeader templateInfo={templateInfo} />
+      <CardHeader videoInfo={videoInfo} />
       <div className="flex justify-between p-2">
         <div>
           <div>
-            <h1 className="font-bold text-xl pb-1">{templateInfo?.name}</h1>
+            <h1 className="font-bold text-xl pb-1">{videoInfo?.video_name}</h1>
             <p className="text-sm pb-1">
-              [1111]{formatDate(templateInfo.updated_at)}
+              [videoInfo?.id]
+              {/* {formatDate(videoInfo?.update_date?.toISOString())} */}
             </p>
           </div>
         </div>
@@ -121,4 +122,4 @@ const TemplateCard = ({ templateInfo }: TemplateCardProps) => {
   );
 };
 
-export default TemplateCard;
+export default VideoCard;

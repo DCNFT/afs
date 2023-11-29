@@ -10,6 +10,13 @@ export type RetouchRequestParams = {
   data?: FormData;
 };
 
+export interface Video {
+  template_id: string;
+  video_id: string;
+  video_name: string;
+  update_date: Date;
+  status: string;
+}
 interface Template {
   id: string;
   name: string;
@@ -21,6 +28,8 @@ interface Template {
 // Template 타입을 사용한 ApiResponse 예시
 export type TemplateListApiResponse = ApiResponse<{ list: Template[] }>;
 export type TemplateInfoResponse = ApiResponse<{ info: TemplateInfo }>;
+export type VideoListApiResponse = ApiResponse<{ list: Video[] }>;
+
 export type MediaElement = {
   format: string;
   type: string;

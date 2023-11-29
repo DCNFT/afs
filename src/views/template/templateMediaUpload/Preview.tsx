@@ -94,7 +94,7 @@ const Preview = ({ formId, source }: PreviewProps) => {
           <Skeleton height={'200px'} width={'400px'} />
         </div>
       )}
-      {isReady && <SceneChangeButtonContainer />}
+      {/* {isReady && <SceneChangeButtonContainer />} */}
     </div>
   );
 };
