@@ -10,11 +10,13 @@ const dumpData = [
 ];
 
 const AiRecommendedTextList = () => {
-  <div className="flex flex-col">
-    {dumpData.map((data) => {
-      return <div className="w-full p-4 rounded-lg">{data}</div>;
-    })}
-  </div>;
+  return (
+    <div className="flex flex-col">
+      {dumpData.map((data) => {
+        return <div className="w-full p-4 rounded-lg">{data}</div>;
+      })}
+    </div>
+  );
 };
 const TemplateEditSidePanelLeft = () => {
   //const [expanded, setExpanded] = useState(false);
