@@ -2,6 +2,20 @@ import useSidePanelStore from '@/store/useSidePanelStore';
 import useVideoCreatorStore from '@/store/useVideoCreatorStore';
 import { useEffect } from 'react';
 
+const dumpData = [
+  '가족 연인 모두 만족시키는 맛',
+  '100% 한우',
+  '테스트',
+  '정갈한 ',
+];
+
+const AiRecommendedTextList = () => {
+  <div className="flex flex-col">
+    {dumpData.map((data) => {
+      return <div className="w-full p-4 rounded-lg">{data}</div>;
+    })}
+  </div>;
+};
 const TemplateEditSidePanelLeft = () => {
   //const [expanded, setExpanded] = useState(false);
   const isLeftPanelExpanded = useSidePanelStore(
@@ -32,8 +46,9 @@ const TemplateEditSidePanelLeft = () => {
     >
       {/* Content of the side panel */}
       <div className="p-4">
-        <h1 className="text-xl font-bold">Side Panel</h1>
-        {/* Add more content as needed */}
+        <h1 className="text-xl font-bold">텍스트 편집</h1>
+
+        <AiRecommendedTextList />
       </div>
 
       {/* Button to toggle the panel */}
